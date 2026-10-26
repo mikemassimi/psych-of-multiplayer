@@ -535,6 +535,7 @@
   .theory-block.idea { border-left-color: #8b5cf6; }
   .theory-block.risk { border-left-color: #dc2626; }
   .theory-block.lever { border-left-color: #2563eb; }
+  .theory-block.research { border-left-color: #d97706; }
 
   .block-label {
     font-size: 0.7rem;
@@ -547,6 +548,7 @@
   .theory-block.idea .block-label { color: #8b5cf6; }
   .theory-block.risk .block-label { color: #dc2626; }
   .theory-block.lever .block-label { color: #2563eb; }
+  .theory-block.research .block-label { color: #d97706; }
 
   .theory-block p {
     color: var(--text-secondary);
@@ -717,7 +719,6 @@
   <div class="nav-inner">
     <div class="nav-title">Psychology of Multiplayer</div>
     <ul class="nav-links">
-      <li><a href="#premise">Premise</a></li>
       <li><a href="#cat-teamwork">Teamwork</a></li>
       <li><a href="#cat-effort">Effort</a></li>
       <li><a href="#cat-structure">Structure</a></li>
@@ -732,8 +733,7 @@
 <!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
   <ul class="sidebar-list">
-    <li><a href="#premise" class="sidebar-item general" data-section="premise"><span class="sb-dot general"></span>Premise</a></li>
-    <li><a href="#frameworks" class="sidebar-item general" data-section="frameworks"><span class="sb-dot general"></span>13 Frameworks</a></li>
+    <li><a href="#frameworks" class="sidebar-item general" data-section="frameworks"><span class="sb-dot general"></span>15 Frameworks</a></li>
     <li class="sidebar-divider"></li>
     <li><a href="#cat-teamwork" class="sidebar-item teamwork"><span class="sb-dot teamwork"></span>Teamwork Frameworks</a></li>
     <li><a href="#cat-effort" class="sidebar-item effort"><span class="sb-dot effort"></span>Effort & Responsibility</a></li>
@@ -775,26 +775,12 @@
   </div>
 </section>
 
-<!-- PREMISE: CASA -->
-<section id="premise">
-  <span class="section-label">The foundational assumption</span>
-  <h2>Computers Are Social Actors (CASA)</h2>
-  <div class="theory-attribution"><a href="https://scholar.google.com/scholar?q=Reeves+Nass+The+Media+Equation+1996" target="_blank" rel="noopener">Reeves & Nass, 1996</a></div>
-  <p class="section-lead">Humans reflexively apply social rules &mdash; politeness, reciprocity, in-group favoritism &mdash; to computers, even when they know the computer isn't a person.</p>
-  <div class="theory-blocks">
-    <div class="theory-block idea">
-      <div class="block-label">Why everything else follows</div>
-      <p>If CASA is right, channel members will apply real group dynamics to agents &mdash; loafing toward them, forming identity boundaries around them, faultlining against them &mdash; rather than treating them as neutral tools. Every theory that follows is worth designing for precisely because of this.</p>
-    </div>
-  </div>
-</section>
-
-<div class="divider"><span>13 Frameworks &middot; 5 Categories</span></div>
+<div class="divider"><span>15 Frameworks &middot; 5 Categories</span></div>
 
 <!-- FRAMEWORK INDEX -->
 <section id="frameworks">
   <span class="section-label">Overview</span>
-  <h2>13 frameworks, one design problem</h2>
+  <h2>15 frameworks, one design problem</h2>
   <p class="section-lead">Organized by what each framework explains about the group &mdash; from teamwork dynamics to the emotional climate.</p>
 
   <div class="framework-index">
@@ -804,41 +790,43 @@
       <div class="cat-chips">
         <a href="#t1" class="framework-chip teamwork"><span class="num">01</span><div><div class="label">Process Gains & Losses</div><div class="hook">The master equation</div></div></a>
         <a href="#t2" class="framework-chip teamwork"><span class="num">02</span><div><div class="label">Human-Autonomy Teaming</div><div class="hook">Tool or teammate?</div></div></a>
+        <a href="#t3" class="framework-chip teamwork"><span class="num">03</span><div><div class="label">Trust Calibration</div><div class="hook">Overtrust, undertrust, repair</div></div></a>
+        <a href="#t4" class="framework-chip teamwork"><span class="num">04</span><div><div class="label">Collective Intelligence</div><div class="hook">What makes groups smart</div></div></a>
       </div>
     </div>
 
     <div class="cat-group">
       <div class="cat-label effort">Effort & Responsibility</div>
       <div class="cat-chips">
-        <a href="#t3" class="framework-chip effort"><span class="num">03</span><div><div class="label">Social Loafing</div><div class="hook">"The bot will handle it"</div></div></a>
-        <a href="#t4" class="framework-chip effort"><span class="num">04</span><div><div class="label">Bystander Effect</div><div class="hook">Diffusion of responsibility</div></div></a>
+        <a href="#t5" class="framework-chip effort"><span class="num">05</span><div><div class="label">Social Loafing</div><div class="hook">"The bot will handle it"</div></div></a>
+        <a href="#t6" class="framework-chip effort"><span class="num">06</span><div><div class="label">Bystander Effect</div><div class="hook">Diffusion of responsibility</div></div></a>
       </div>
     </div>
 
     <div class="cat-group">
       <div class="cat-label structure">Group Structure</div>
       <div class="cat-chips">
-        <a href="#t5" class="framework-chip structure"><span class="num">05</span><div><div class="label">Faultline Theory</div><div class="hook">A new identity line</div></div></a>
-        <a href="#t6" class="framework-chip structure"><span class="num">06</span><div><div class="label">Transactive Memory</div><div class="hook">"Ask the bot for that"</div></div></a>
-        <a href="#t7" class="framework-chip structure"><span class="num">07</span><div><div class="label">Social Learning Theory</div><div class="hook">Agents as behavioral models</div></div></a>
+        <a href="#t7" class="framework-chip structure"><span class="num">07</span><div><div class="label">Faultline Theory</div><div class="hook">A new identity line</div></div></a>
+        <a href="#t8" class="framework-chip structure"><span class="num">08</span><div><div class="label">Transactive Memory</div><div class="hook">"Ask the bot for that"</div></div></a>
+        <a href="#t9" class="framework-chip structure"><span class="num">09</span><div><div class="label">Social Learning Theory</div><div class="hook">Agents as behavioral models</div></div></a>
       </div>
     </div>
 
     <div class="cat-group">
       <div class="cat-label cognition">Cognition & Awareness</div>
       <div class="cat-chips">
-        <a href="#t8" class="framework-chip cognition"><span class="num">08</span><div><div class="label">Cognitive Load</div><div class="hook">Cost or relief?</div></div></a>
-        <a href="#t9" class="framework-chip cognition"><span class="num">09</span><div><div class="label">Social Translucence</div><div class="hook">Visibility & accountability</div></div></a>
-        <a href="#t10" class="framework-chip cognition"><span class="num">10</span><div><div class="label">Distributed Cognition</div><div class="hook">Thinking as a system</div></div></a>
+        <a href="#t10" class="framework-chip cognition"><span class="num">10</span><div><div class="label">Information Overload</div><div class="hook">Cost or relief?</div></div></a>
+        <a href="#t11" class="framework-chip cognition"><span class="num">11</span><div><div class="label">Visibility & Accountability</div><div class="hook">The translucent middle</div></div></a>
+        <a href="#t12" class="framework-chip cognition"><span class="num">12</span><div><div class="label">Distributed Cognition</div><div class="hook">Thinking as a system</div></div></a>
+        <a href="#t13" class="framework-chip cognition"><span class="num">13</span><div><div class="label">Common Ground</div><div class="hook">Building shared understanding</div></div></a>
       </div>
     </div>
 
     <div class="cat-group">
       <div class="cat-label emotion">Emotion & Safety</div>
       <div class="cat-chips">
-        <a href="#t11" class="framework-chip emotion"><span class="num">11</span><div><div class="label">Psychological Safety</div><div class="hook">The highest-stakes theory</div></div></a>
-        <a href="#t12" class="framework-chip emotion"><span class="num">12</span><div><div class="label">Emotional Contagion</div><div class="hook">Tone as climate lever</div></div></a>
-        <a href="#t13" class="framework-chip emotion"><span class="num">13</span><div><div class="label">MIRA</div><div class="hook">Relational adaptation</div></div></a>
+        <a href="#t14" class="framework-chip emotion"><span class="num">14</span><div><div class="label">Psychological Safety</div><div class="hook">The highest-stakes theory</div></div></a>
+        <a href="#t15" class="framework-chip emotion"><span class="num">15</span><div><div class="label">Emotional Contagion</div><div class="hook">Tone as climate lever</div></div></a>
       </div>
     </div>
 
@@ -853,7 +841,7 @@
 <div class="category-header teamwork" id="cat-teamwork">
   <div class="category-header-inner">
     <h3>Teamwork Frameworks</h3>
-    <p class="cat-desc">The cost-benefit math and the threshold that activates everything else.</p>
+    <p class="cat-desc">The cost-benefit math, the trust contract, and the threshold that activates everything else.</p>
   </div>
 </div>
 
@@ -873,8 +861,8 @@
       <div class="block-label">The multiplayer risk</div>
       <p>Every agent added to a channel lands on <strong>both</strong> sides of this equation &mdash; potential gain (offloaded work, faster answers) and potential loss (one more entity to track, more messages to parse, more coordination overhead).</p>
     </div>
-    <div class="theory-block lever">
-      <div class="block-label">Design lever</div>
+    <div class="theory-block research">
+      <div class="block-label">Research question</div>
       <p>The question of which side wins is answerable empirically, not by intuition. Instrument channels to measure whether agents are net-positive on actual group output, not just individual task completion.</p>
     </div>
   </div>
@@ -889,15 +877,59 @@
   <div class="theory-blocks">
     <div class="theory-block idea">
       <div class="block-label">The idea</div>
-      <p>There's a meaningful psychological difference between AI as a tool you <strong>use</strong> and AI as a partner you <strong>team with</strong>. That shift changes trust, communication style, and expectations.</p>
+      <p>There's a meaningful psychological difference between AI as a tool you <strong>use</strong> and AI as a partner you <strong>team with</strong>. That shift changes trust, communication style, and expectations. This is the single most important distinction in the entire analysis.</p>
     </div>
     <div class="theory-block risk">
-      <div class="block-label">The threshold question</div>
-      <p>At what point does a Slack agent stop being perceived as a tool-in-the-channel and start being perceived as a teammate-in-the-channel? Crossing that threshold turns on <strong>all</strong> the group theories that follow &mdash; loafing, faultlines, identity &mdash; that only apply to teammates, not tools.</p>
+      <div class="block-label">The threshold that activates everything</div>
+      <p>At what point does a Slack agent stop being perceived as a tool-in-the-channel and start being perceived as a teammate-in-the-channel? This question is the <strong>spine of the entire analysis</strong>. Crossing that threshold turns on every group theory that follows &mdash; loafing, faultlines, trust calibration, transactive memory, emotional contagion &mdash; none of which apply to tools, all of which apply to teammates. Where a given agent sits on this continuum determines which risks are live and which levers matter.</p>
     </div>
     <div class="theory-block lever">
       <div class="block-label">Design lever</div>
-      <p>Where do we want to be on the tool&ndash;teammate continuum, and for which agents? This may not be one answer &mdash; different agents at different points.</p>
+      <p>Decide <strong>per agent</strong> where it should sit on the tool&ndash;teammate continuum, and design its signals accordingly. A scheduling bot should read as a tool; a project copilot might need to read as a teammate. The answer isn't one point &mdash; it's a portfolio of deliberate positions, each with different downstream consequences.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t3">
+  <div class="theory-header">
+    <span class="theory-num teamwork">03</span>
+    <h2>Trust Calibration</h2>
+  </div>
+  <div class="theory-attribution"><a href="https://doi.org/10.1177/0018720804045547" target="_blank" rel="noopener">Lee & See, 2004</a> · <a href="https://doi.org/10.2307/258792" target="_blank" rel="noopener">Mayer, Davis & Schoorman, 1995</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>Trust in automation is not binary &mdash; it's a <strong>calibration</strong> problem. Overtrust leads to complacency and missed errors; undertrust leads to disuse and wasted capability. Good trust is trust that matches actual reliability. In teams, trust depends on perceived ability, benevolence, and integrity &mdash; and humans apply these same dimensions to machines.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">The multiplayer risk</div>
+      <p>In a channel with multiple agents, trust calibration becomes exponentially harder. Each agent has different reliability in different contexts, but humans tend to generalize: one agent's failure erodes trust in <strong>all</strong> agents. Worse, trust is contagious across teams &mdash; if one team visibly distrusts their agent, neighboring teams adopt that distrust even without direct experience.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design lever</div>
+      <p>Give humans calibration signals: confidence indicators, track records, and clear scope boundaries per agent. Make it easy to trust appropriately rather than forcing a binary trust/don't-trust decision. Design for recovery &mdash; a single visible failure shouldn't permanently poison the well.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t4">
+  <div class="theory-header">
+    <span class="theory-num teamwork">04</span>
+    <h2>Collective Intelligence</h2>
+  </div>
+  <div class="theory-attribution"><a href="https://doi.org/10.1126/science.1193147" target="_blank" rel="noopener">Woolley, Chabris, Pentland, Hashmi & Malone, 2010</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>Groups have a measurable collective intelligence factor that predicts performance across tasks. Crucially, it's <strong>not</strong> driven by the smartest member &mdash; it's driven by social sensitivity, equality of conversational turn-taking, and the proportion of women in the group (as a proxy for social perceptiveness).</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">The multiplayer risk</div>
+      <p>Agents that dominate turns degrade the very thing that makes groups smart. An agent that answers every question first, fills every silence, or takes disproportionate conversational space may raise individual task completion while <strong>lowering</strong> collective intelligence &mdash; the group gets less smart even as its throughput rises.</p>
+    </div>
+    <div class="theory-block research">
+      <div class="block-label">Research question</div>
+      <p>Measure whether adding agents to a channel changes turn-taking equality and social sensitivity among the humans. Use Woolley's c-factor as an outcome metric: does the group get collectively smarter or dumber?</p>
     </div>
   </div>
 </div>
@@ -918,9 +950,9 @@
 </div>
 
 <div class="category-theories">
-<div class="theory" id="t3">
+<div class="theory" id="t5">
   <div class="theory-header">
-    <span class="theory-num effort">03</span>
+    <span class="theory-num effort">05</span>
     <h2>Social Loafing</h2>
   </div>
   <div class="theory-attribution"><a href="https://doi.org/10.1037/0022-3514.37.6.822" target="_blank" rel="noopener">Latané, Williams & Harkins, 1979</a></div>
@@ -940,9 +972,9 @@
   </div>
 </div>
 
-<div class="theory" id="t4">
+<div class="theory" id="t6">
   <div class="theory-header">
-    <span class="theory-num effort">04</span>
+    <span class="theory-num effort">06</span>
     <h2>The Bystander Effect</h2>
   </div>
   <div class="theory-attribution"><a href="https://openlibrary.org/works/OL6601434W" target="_blank" rel="noopener">Latané & Darley, 1970</a></div>
@@ -978,9 +1010,9 @@
 </div>
 
 <div class="category-theories">
-<div class="theory" id="t5">
+<div class="theory" id="t7">
   <div class="theory-header">
-    <span class="theory-num structure">05</span>
+    <span class="theory-num structure">07</span>
     <h2>Faultline Theory</h2>
   </div>
   <div class="theory-attribution"><a href="https://doi.org/10.2307/259377" target="_blank" rel="noopener">Lau & Murnighan, 1998</a></div>
@@ -993,16 +1025,16 @@
       <div class="block-label">The multiplayer risk</div>
       <p>The most directly testable theory with agents as a new variable. Does "human vs. agent" become a faultline that <strong>cuts across</strong> existing subgroup lines &mdash; giving people a shared "us" (humans) framing that's actually cohesion-building? Or does it add a new fracture?</p>
     </div>
-    <div class="theory-block lever">
-      <div class="block-label">Design lever</div>
-      <p>Test whether agent presence changes existing human subgroup dynamics. The answer determines whether agents should blend in or be visibly distinct.</p>
+    <div class="theory-block research">
+      <div class="block-label">Research question</div>
+      <p>Test whether agent presence changes existing human subgroup dynamics. Does "human vs. agent" create a cohesion-building shared identity, or a new fracture? The answer determines whether agents should blend in or be visibly distinct.</p>
     </div>
   </div>
 </div>
 
-<div class="theory" id="t6">
+<div class="theory" id="t8">
   <div class="theory-header">
-    <span class="theory-num structure">06</span>
+    <span class="theory-num structure">08</span>
     <h2>Transactive Memory</h2>
   </div>
   <div class="theory-attribution"><a href="https://dtg.sites.fas.harvard.edu/DANWEGNER/pub/Wegner%20Transactive%20Memory.pdf" target="_blank" rel="noopener">Wegner, 1987</a></div>
@@ -1024,9 +1056,9 @@
 </div>
 
 
-<div class="theory" id="t7">
+<div class="theory" id="t9">
   <div class="theory-header">
-    <span class="theory-num structure">07</span>
+    <span class="theory-num structure">09</span>
     <h2>Social Learning Theory</h2>
   </div>
   <div class="theory-attribution"><a href="https://scholar.google.com/scholar?q=Bandura+%22Social+Learning+Theory%22+1977" target="_blank" rel="noopener">Bandura, 1977</a></div>
@@ -1062,31 +1094,31 @@
 </div>
 
 <div class="category-theories">
-<div class="theory" id="t8">
+<div class="theory" id="t10">
   <div class="theory-header">
-    <span class="theory-num cognition">08</span>
-    <h2>Cognitive Load</h2>
+    <span class="theory-num cognition">10</span>
+    <h2>Information Overload</h2>
   </div>
-  <div class="theory-attribution"><a href="https://doi.org/10.1207/s15516709cog1202_4" target="_blank" rel="noopener">Sweller, 1988</a></div>
+  <div class="theory-attribution"><a href="https://doi.org/10.1177/2515245920986862" target="_blank" rel="noopener">Cowan, 2001</a> · <a href="https://doi.org/10.1177/0266242604047827" target="_blank" rel="noopener">Eppler & Mengis, 2004</a></div>
   <div class="theory-blocks">
     <div class="theory-block idea">
       <div class="block-label">The idea</div>
-      <p>Working memory is limited. Every additional stream of information competes for the same resource. A channel with several agents posting alongside several humans is a cognitive-load problem before it's anything else.</p>
+      <p>Working memory holds roughly four chunks at once. When information supply exceeds processing capacity, decision quality drops &mdash; not gradually, but sharply. This is true for individuals and for groups: as parallel information streams multiply, each member must filter, prioritize, and track more context to stay coordinated.</p>
     </div>
     <div class="theory-block risk">
       <div class="block-label">The multiplayer risk</div>
-      <p>If agents don't reduce the number of things a human has to track, they add load even when each individual response is useful. N helpful agents producing N independent streams is still N streams.</p>
+      <p>If agents don't reduce the number of things a human has to track, they add streams even when each individual response is useful. N helpful agents producing N independent outputs is still N streams competing for the same limited working memory. The channel gets more informative and harder to use at the same time.</p>
     </div>
     <div class="theory-block lever">
       <div class="block-label">Design lever</div>
-      <p>Batch and summarize agent output rather than adding N more independent streams. Agents should absorb complexity, not broadcast it.</p>
+      <p>Batch and summarize agent output rather than adding N more independent streams. Agents should absorb complexity, not broadcast it. The design target is fewer, richer signals &mdash; not more helpful noise.</p>
     </div>
   </div>
 </div>
 
-<div class="theory" id="t9">
+<div class="theory" id="t11">
   <div class="theory-header">
-    <span class="theory-num cognition">09</span>
+    <span class="theory-num cognition">11</span>
     <h2>Visibility & Accountability</h2>
   </div>
   <div class="theory-attribution"><a href="https://doi.org/10.1145/344949.345004" target="_blank" rel="noopener">Erickson & Kellogg, 2000</a> · <a href="https://doi.org/10.1023/a:1021271517844" target="_blank" rel="noopener">Gutwin & Greenberg, 2002</a></div>
@@ -1106,9 +1138,9 @@
   </div>
 </div>
 
-<div class="theory" id="t10">
+<div class="theory" id="t12">
   <div class="theory-header">
-    <span class="theory-num cognition">10</span>
+    <span class="theory-num cognition">12</span>
     <h2>Distributed Cognition</h2>
   </div>
   <div class="theory-attribution"><a href="https://scholar.google.com/scholar?q=Hutchins+%22Cognition+in+the+Wild%22+1995" target="_blank" rel="noopener">Hutchins, 1995</a></div>
@@ -1124,6 +1156,28 @@
     <div class="theory-block lever">
       <div class="block-label">Design lever</div>
       <p>Design agents as legible nodes in the team's distributed cognition: make their inputs, reasoning traces, and confidence visible enough that the team can integrate agent output the way they integrate a shared document &mdash; as a resource they can inspect, question, and build on.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t13">
+  <div class="theory-header">
+    <span class="theory-num cognition">13</span>
+    <h2>Common Ground</h2>
+  </div>
+  <div class="theory-attribution"><a href="https://doi.org/10.1037/10096-006" target="_blank" rel="noopener">Clark & Brennan, 1991</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>Collaborators build shared understanding incrementally, through small acknowledgments and repairs &mdash; "grounding acts" &mdash; not by one party broadcasting information. More parties in a conversation makes grounding harder because there are more perspectives to reconcile.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">The multiplayer risk</div>
+      <p>Every agent in a channel is another "speaker" whose understanding has to be grounded with the humans present. An agent that doesn't track what's already been established in the thread will repeat itself or miss context &mdash; which reads as socially clumsy, not just technically wrong. Grounding failures compound: if the agent misunderstands, humans spend effort correcting it, adding overhead that offsets the agent's value.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design lever</div>
+      <p>Agents that demonstrate grounding: acknowledge what's been said, build on established context, and signal when they're uncertain about shared understanding. "Based on what @Priya said earlier..." is a grounding act. Parroting the whole thread back is not.</p>
     </div>
   </div>
 </div>
@@ -1144,9 +1198,9 @@
 </div>
 
 <div class="category-theories">
-<div class="theory" id="t11">
+<div class="theory" id="t14">
   <div class="theory-header">
-    <span class="theory-num emotion">11</span>
+    <span class="theory-num emotion">14</span>
     <h2>Psychological Safety</h2>
   </div>
   <div class="theory-attribution"><a href="https://doi.org/10.2307/2666999" target="_blank" rel="noopener">Edmondson, 1999</a></div>
@@ -1166,9 +1220,9 @@
   </div>
 </div>
 
-<div class="theory" id="t12">
+<div class="theory" id="t15">
   <div class="theory-header">
-    <span class="theory-num emotion">12</span>
+    <span class="theory-num emotion">15</span>
     <h2>Emotional Contagion</h2>
   </div>
   <div class="theory-attribution"><a href="https://doi.org/10.1111/1467-8721.ep10770953" target="_blank" rel="noopener">Hatfield, Cacioppo & Rapson, 1993</a></div>
@@ -1187,29 +1241,6 @@
     </div>
   </div>
 </div>
-
-<div class="theory" id="t13">
-  <div class="theory-header">
-    <span class="theory-num emotion">13</span>
-    <h2>MIRA &mdash; Machine-Integrated Relational Adaptation</h2>
-  </div>
-  <div class="theory-attribution"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12960742/" target="_blank" rel="noopener">Boyd & Markowitz, 2026</a></div>
-  <div class="theory-blocks">
-    <div class="theory-block idea">
-      <div class="block-label">The idea</div>
-      <p>AI becomes psychologically meaningful through four mechanisms: linguistic reciprocity (tone matching), psychological proximity (simulated closeness), interpersonal trust (inferred from fluency), and relational substitution vs. enhancement (displaces or scaffolds human bonds).</p>
-    </div>
-    <div class="theory-block risk">
-      <div class="block-label">The multiplayer risk</div>
-      <p>MIRA is a dyadic model (one person, one AI) &mdash; but its "relational mediator" role is the piece worth stealing: AI changing how humans relate to <strong>each other</strong>. That's our whole thesis, just not yet extended to N humans + N agents.</p>
-    </div>
-    <div class="theory-block lever">
-      <div class="block-label">Design lever</div>
-      <p>Design agents as relational mediators &mdash; shaping human-to-human connection &mdash; not just relational partners competing for individual attention.</p>
-    </div>
-  </div>
-</div>
-
 
 </div><!-- /category-theories -->
 </div><!-- /category-section emotion -->
@@ -1299,7 +1330,7 @@
   // Progress bar + sidebar visibility + active section
   const progress = document.getElementById('progress');
   const sidebarItems = document.querySelectorAll('.sidebar-item');
-  const allSections = ['premise', 'frameworks', 'cat-teamwork', 'cat-effort', 'cat-structure', 'cat-cognition', 'cat-emotion', 'principles'];
+  const allSections = ['frameworks', 'cat-teamwork', 'cat-effort', 'cat-structure', 'cat-cognition', 'cat-emotion', 'principles'];
 
   window.addEventListener('scroll', () => {
     const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
