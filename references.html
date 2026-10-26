@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>References — Psychology of Multiplayer</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #f5f5f7;
+    --surface-hover: #ededf0;
+    --border: #e0e0e4;
+    --text: #1a1a1e;
+    --text-secondary: #5c5c66;
+    --accent: #6d28d9;
+    --accent-light: #7c3aed;
+
+    --cat-teamwork: #7c3aed;
+    --cat-effort: #d97706;
+    --cat-structure: #0891b2;
+    --cat-cognition: #059669;
+    --cat-emotion: #db2777;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .nav-back {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .nav-back:hover { text-decoration: underline; }
+
+  .nav-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 4rem 2rem 6rem;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  h1 {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .lead {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+    max-width: 700px;
+  }
+
+  h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+  }
+
+  h2 .cat-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    background: rgba(0,0,0,0.05);
+    margin-left: 0.75rem;
+    position: relative;
+    top: -2px;
+  }
+
+  h2 .cat-tag.teamwork { color: var(--cat-teamwork); }
+  h2 .cat-tag.effort { color: var(--cat-effort); }
+  h2 .cat-tag.structure { color: var(--cat-structure); }
+  h2 .cat-tag.cognition { color: var(--cat-cognition); }
+  h2 .cat-tag.emotion { color: var(--cat-emotion); }
+
+  .ref-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .ref-list li {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    transition: all 0.2s;
+  }
+
+  .ref-list li:hover {
+    background: var(--surface-hover);
+    border-color: var(--accent);
+  }
+
+  .ref-list .authors {
+    font-weight: 600;
+  }
+
+  .ref-list .title {
+    font-style: italic;
+  }
+
+  .ref-list .venue {
+    color: var(--text-secondary);
+  }
+
+  .ref-list a {
+    color: var(--accent-light);
+    text-decoration: none;
+  }
+
+  .ref-list a:hover {
+    text-decoration: underline;
+  }
+
+  .ref-list .note {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 0.35rem;
+    padding-left: 0.5rem;
+    border-left: 2px solid var(--border);
+  }
+
+  .section-divider {
+    margin: 3.5rem 0 1rem;
+    border: none;
+    border-top: 1px solid var(--border);
+  }
+
+  footer {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 4rem 2rem 6rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .footer-author {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  footer p {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+  }
+
+  footer a {
+    color: var(--accent-light);
+    text-decoration: none;
+  }
+
+  footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-back">&larr; Back</a>
+    <div class="nav-title">References</div>
+  </div>
+</nav>
+
+<main>
+  <span class="section-label">Citations & related work</span>
+  <h1>References</h1>
+  <p class="lead">Primary sources cited in the 13 frameworks, plus supporting work that informed the analysis.</p>
+
+  <!-- FOUNDATIONAL -->
+  <h2>Foundational premise <span class="cat-tag teamwork">CASA</span></h2>
+  <ul class="ref-list">
+    <li>
+      <span class="authors">Reeves, B., &amp; Nass, C.</span> (1996).
+      <span class="title">The Media Equation: How People Treat Computers, Television, and New Media Like Real People and Places.</span>
+      <span class="venue">Cambridge University Press.</span>
+      <a href="https://scholar.google.com/scholar?q=Reeves+Nass+The+Media+Equation+1996" target="_blank" rel="noopener">Google Scholar</a>
+    </li>
+  </ul>
+
+  <!-- TEAMWORK FRAMEWORKS -->
+  <h2>01 &mdash; Process Gains &amp; Losses <span class="cat-tag teamwork">Teamwork</span></h2>
+  <ul class="ref-list">
+    <li>
+      <span class="authors">Steiner, I. D.</span> (1972).
+      <span class="title">Group Process and Productivity.</span>
+      <span class="venue">Academic Press.</span>
+      <a href="https://openlibrary.org/works/OL16277283W" target="_blank" rel="noopener">Open Library</a>
+    </li>
+    <li>
+      <span class="authors">Littlepage, G. E.</span> (1991).
+      Empirical test of Steiner's model against group size and task type.
+      <span class="venue">Personality and Social Psychology Bulletin.</span>
+      <a href="https://doi.org/10.1177/0146167291174014" target="_blank" rel="noopener">DOI</a>
+    </li>
+    <li>
+      <span class="authors">André, P., Kraut, R. E., &amp; Kittur, A.</span> (2014).
+      Simultaneous vs. sequential work structures and coordination losses in distributed teams.
+      <span class="venue">CHI.</span>
+      <a href="https://doi.org/10.1145/2556288.2557158" target="_blank" rel="noopener">DOI</a>
+    </li>
+    <li>
+      <span class="authors">Kraut, R. E.</span> (2003).
+      <span class="title">Applying social psychological theory to the problems of group work.</span>
+      <span class="venue">In HCI Models, Theories, and Frameworks.</span>
+      <a href="https://scholar.google.com/scholar?q=Kraut+2003+%22Applying+social+psychological+theory+to+the+problems+of+group+work%22" target="_blank" rel="noopener">Google Scholar</a>
+      <span class="note">The methodological template for importing group theory into product design.</span>
+    </li>
+  </ul>
+
+  <h2>02 &mdash; Human-Autonomy Teaming <span class="cat-tag teamwork">Teamwork</span></h2>
+  <ul class="ref-list">
+    <li>
+      <span class="authors">Lyons, J. B., Sycara, K., Lewis, M., &amp; Capiola, A.</span> (2021).
+      <span class="title">Human&ndash;Autonomy Teaming: Definitions, Debates, and Directions.</span>
+      <span class="venue">Frontiers in Psychology.</span>
+      <a href="https://doi.org/10.3389/fpsyg.2021.589585" target="_blank" rel="noopener">DOI</a>
+    </li>
+  </ul>
+
+  <!-- EFFORT & RESPONSIBILITY -->
+  <h2>03 &mdash; Social Loafing <span class="cat-tag effort">Effort</span></h2>
+  <ul class="ref-list">
+    <li>
+      <span class="authors">Latané, B., Williams, K., &amp; Harkins, S.</span> (1979).
+      <span class="title">Many hands make light the work: The causes and consequences of social loafing.</span>
+      <span class="venue">Journal of Personality and Social Psychology.</span>
+      <a href="https://doi.org/10.1037/0022-3514.37.6.822" target="_blank" rel="noopener">DOI</a>
+    </li>
+    <li>
+      <span class="authors">Suleiman, J., &amp; Watson, R. T.</span> (2008).
+      <span class="title">Social loafing in technology-supported teams.</span>
+      <span class="venue">Computer Supported Cooperative Work.</span>
+      <a href="https://doi.org/10.1007/s10606-008-9075-6" target="_blank" rel="noopener">DOI</a>
+      <span class="note">Loafing increases in remote/tech-mediated teams via reduced visibility &mdash; the human-only baseline.</span>
+    </li>
+    <li>
+      <span class="authors">Stieglitz, S., Mirbabaie, M., Möllmann, N. R. J., &amp; Rzyski, J.</span> (2021).
+      <span class="title">Collaborating with Virtual Assistants in Organizations.</span>
+      <span class="venue">Information Systems Frontiers.</span>
+      <a href="https://doi.org/10.1007/s10796-021-10201-0" target="_blank" rel="noopener">DOI</a>
+      <span class="note">Direct evidence that employees cede responsibility and loaf when paired with a virtual assistant.</span>
+    </li>
+  </ul>
+
+  <h2>04 &mdash; The Bystander Effect <span class="cat-tag effort">Effort</span></h2>
+  <ul class="ref-list">
+    <li>
+      <span class="authors">Latané, B., &amp; Darley, J. M.</span> (1970).
+      <span class="title">The Unresponsive Bystander: Why Doesn't He Help?</span>
+      <span class="venue">Appleton-Century-Crofts.</span>
+      <a href="https://openlibrary.org/works/OL6601434W" target="_blank" rel="noopener">Open Library</a>
+    </li>
+    <li>
+      <span class="authors">Feng, N., Hu, Z., Wu, Y., &amp; Choi, B.</span> (2023).
+      <span class="title">Avoiding the diffusion of responsibility in social networking groups.</span>
+      <span class="venue">Journal of the Association for Information Systems.</span>
+      <a href="https://doi.org/10.17705/1jais.00781" target="_blank" rel="noopener">DOI</a>
+    </li>
+    <li>
+      <span class="authors">Shehata, D., &amp; Li, M.</span> (2026).
+      <span class="title">The Bystander Effect in Multi-Agent Reasoning.</span>
+      <span class="venue">arXiv.</span>
+      <a href="https://arxiv.org/abs/2605.10698" target="_blank" rel="noopener">arXiv</a>
+      <span class="note">The bystander effect also occurs among agents themselves.</span>
+    </li>
+  </ul>
+
+  <!-- GROUP STRUCTURE -->
+  <h2>05 &mdash; Faultline Theory <span class="cat-tag structure">Structure</span></h2>
+  <ul class="ref-list">
+    <li>
+      <span class="authors">Lau, D. C., &amp; Murnighan, J. K.</span> (1998).
+      <span class="title">Demographic diversity and faultlines: The compositional dynamics of organizational groups.</span>
+      <span class="venue">Academy of Management Review.</span>
+      <a href="https://doi.org/10.2307/259377" target="_blank" rel="noopener">DOI</a>
+    </li>
+    <li>
+      <span class="authors">Bezrukova, K., Griffith, T. L., Spell, C., et al.</span> (2023).
+      <span class="title">Artificial intelligence and groups: Effects of attitudes and discretion on collaboration.</span>
+      <span class="venue">Group &amp; Organization Management.</span>
+      <a href="https://doi.org/10.1177/10596011231160574" target="_blank" rel="noopener">DOI</a>
+      <span class="note">Faultlines within a human-AI team directly examined.</span>
+    </li>
+    <li>
+      <span class="authors">You, S., &amp; Robert, L. P.</span> (2023).
+      <span class="title">Subgroup formation in human&ndash;robot teams.</span>
+      <span class="venue">JASIST.</span>
+      <a href="https://doi.org/10.1002/asi.24626" target="_blank" rel="noopener">DOI</a>
+    </li>
+  </ul>
+
+  <h2>06 &mdash; Transactive Memory <span class="cat-tag structure">Structure</span></h2>
+  <ul class="ref-list">
+    <li>
+      <span class="authors">Wegner, D. M.</span> (1987).
+      <span class="title">Transactive memory: A contemporary analysis of the group mind.</span>
+      <span class="venue">In B. Mullen &amp; G. R. Goethals (Eds.), Theories of Group Behavior.</span>
+      <a href="https://dtg.sites.fas.harvard.edu/DANWEGNER/pub/Wegner%20Transactive%20Memory.pdf" target="_blank" rel="noopener">PDF</a>
+    </li>
+    <li>
+      <span class="authors">Massimi, M., et al.</span> (2024).
+      <span class="title">It's a Hot Spaghetti Mess: Knowledge management in Slack.</span>
+      <span class="venue">Slack internal research.</span>
+      <a href="https://docs.google.com/presentation/d/1CeEOYm40hNpSCE1kKM2QL6BYjHg4pv6-8ThIMm8B7OQ/edit" target="_blank" rel="noopener">Slides</a>
+      <span class="note">Slack is a way to get ahold of people who have answers, not a knowledge repository. Users find &ldquo;knowledge magnets&rdquo; who reheat cold information through conversation.</span>
+    </li>
+    <li>
+      <span class="authors">Bienefeld, N., Kolbe, M., Camen, G., Huser, D., et al.</span> (2023).
+      Transactive memory and speaking up in human-AI teams.
+      <span class="venue">Frontiers in Psychology.</span>
+      <a href="https://doi.org/10.3389/fpsyg.2023.1208019" target="_blank" rel="noopener">DOI</a>
+      <span class="note">Field study of 180 ICU personnel, not a lab study.</span>
+    </li>
+    <li>
+      <span class="authors">Duan, W., Zhou, S., Scalia, M. J., et al.</span> (2026).
+      <span class="title">&ldquo;If They Don&rsquo;t Even Trust Their AI Teammate, Why Should We?&rdquo;</span>
+      <span class="venue">Proc. ACM Hum.-Comput. Interact.</span>
+      <a href="https://dl.acm.org/doi/10.1145/3788055" target="_blank" rel="noopener">DOI</a>
+      <span class="note">Trust contagion spreading across human subgroups.</span>
+    </li>
+  </ul>
+
+  <h2>07 &mdash; Social Learning Theory <span class="cat-tag structure">Structure</span></h2>
+  <ul class="ref-list">
+    <li>
+      <span class="authors">Bandura, A.</span> (1977).
+      <span class="title">Social Learning Theory.</span>
+      <span class="venue">Prentice-Hall.</span>
+      <a href="https://scholar.google.com/scholar?q=Bandura+%22Social+Learning+Theory%22+1977" target="_blank" rel="noopener">Google Scholar</a>
+    </li>
+    <li>
+      <span class="authors">Sadeq-Keyes, R., et al.</span> (2024).
+      <span class="title">Team-based Habit Building.</span>
+      <span class="venue">Slack internal research.</span>
+      <a href="https://docs.google.com/presentation/d/1vqPmX8GEkK5zc5axc-XWFa9vxt0zpI_Aae-VD-UB-rI/edit" target="_blank" rel="noopener">Slides</a>
+      <span class="note">New users learn Slack by observing and mimicking teammates. Teams with no existing behaviors face a cold-start problem.</span>
+    </li>
+  </ul>
+
+  <!-- COGNITION & AWARENESS -->
+  <h2>08 &mdash; Cognitive Load <span class="cat-tag cognition">Cognition</span></h2>
+  <ul class="ref-list">
+    <li>
+      <span class="authors">Sweller, J.</span> (1988).
+      <span class="title">Cognitive load during problem solving: Effects on learning.</span>
+      <span class="venue">Cognitive Science.</span>
+      <a href="https://doi.org/10.1207/s15516709cog1202_4" target="_blank" rel="noopener">DOI</a>
+    </li>
+  </ul>
+
+  <h2>09 &mdash; Visibility &amp; Accountability <span class="cat-tag cognition">Cognition</span></h2>
+  <ul class="ref-list">
+    <li>
+      <span class="authors">Erickson, T., &amp; Kellogg, W. A.</span> (2000).
+      <span class="title">Social translucence: An approach to designing systems that support social processes.</span>
+      <span class="venue">ACM Transactions on Computer-Human Interaction.</span>
+      <a href="https://doi.org/10.1145/344949.345004" target="_blank" rel="noopener">DOI</a>
+    </li>
+    <li>
+      <span class="authors">Erickson, T., Smith, D. N., Kellogg, W. A., et al.</span> (1999).
+      <span class="title">Socially translucent systems: Social proxies, persistent conversation, and the design of &ldquo;Babble.&rdquo;</span>
+      <span class="venue">CHI.</span>
+      <a href="https://doi.org/10.1145/302979.302997" target="_blank" rel="noopener">DOI</a>
+      <span class="note">The original IBM Research prototype that motivated the theory.</span>
+    </li>
+    <li>
+      <span class="authors">Gutwin, C., &amp; Greenberg, S.</span> (2002).
+      <span class="title">A Descriptive Framework of Workspace Awareness for Real-Time Groupware.</span>
+      <span class="venue">Computer Supported Cooperative Work.</span>
+      <a href="https://doi.org/10.1023/a:1021271517844" target="_blank" rel="noopener">DOI</a>
+    </li>
+    <li>
+      <span class="authors">Schnaubert, L., &amp; Bodemer, D.</span> (2022).
+      Decomposes group awareness into six dimensions.
+      <span class="venue">International Journal of Computer-Supported Collaborative Learning.</span>
+      <a href="https://doi.org/10.1007/s11412-022-09361-1" target="_blank" rel="noopener">DOI</a>
+    </li>
+  </ul>
+
+  <h2>10 &mdash; Distributed Cognition <span class="cat-tag cognition">Cognition</span></h2>
+  <ul class="ref-list">
+    <li>
+      <span class="authors">Hutchins, E.</span> (1995).
+      <span class="title">Cognition in the Wild.</span>
+      <span class="venue">MIT Press.</span>
+      <a href="https://scholar.google.com/scholar?q=Hutchins+%22Cognition+in+the+Wild%22+1995" target="_blank" rel="noopener">Google Scholar</a>
+      <span class="note">Cognition distributed across people, artifacts, and environment &mdash; the unit of analysis is the whole system.</span>
+    </li>
+    <li>
+      <span class="authors">Hollan, J., Hutchins, E., &amp; Kirsh, D.</span> (2000).
+      <span class="title">Distributed cognition: Toward a new foundation for human-computer interaction research.</span>
+      <span class="venue">ACM Transactions on Computer-Human Interaction.</span>
+      <a href="https://doi.org/10.1145/353485.353487" target="_blank" rel="noopener">DOI</a>
+    </li>
+  </ul>
+
+  <!-- EMOTION & SAFETY -->
+  <h2>11 &mdash; Psychological Safety <span class="cat-tag emotion">Emotion</span></h2>
+  <ul class="ref-list">
+    <li>
+      <span class="authors">Edmondson, A.</span> (1999).
+      <span class="title">Psychological safety and learning behavior in work teams.</span>
+      <span class="venue">Administrative Science Quarterly.</span>
+      <a href="https://doi.org/10.2307/2666999" target="_blank" rel="noopener">DOI</a>
+    </li>
+  </ul>
+
+  <h2>12 &mdash; Emotional Contagion <span class="cat-tag emotion">Emotion</span></h2>
+  <ul class="ref-list">
+    <li>
+      <span class="authors">Hatfield, E., Cacioppo, J. T., &amp; Rapson, R. L.</span> (1993).
+      <span class="title">Emotional contagion.</span>
+      <span class="venue">Current Directions in Psychological Science.</span>
+      <a href="https://doi.org/10.1111/1467-8721.ep10770953" target="_blank" rel="noopener">DOI</a>
+    </li>
+  </ul>
+
+  <h2>13 &mdash; MIRA <span class="cat-tag emotion">Emotion</span></h2>
+  <ul class="ref-list">
+    <li>
+      <span class="authors">Boyd, R. L., &amp; Markowitz, D. M.</span> (2026).
+      <span class="title">Artificial intelligence and the psychology of human connection.</span>
+      <span class="venue">Perspectives on Psychological Science, 21(2), 192&ndash;220.</span>
+      <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12960742/" target="_blank" rel="noopener">PMC</a>
+    </li>
+  </ul>
+
+  <!-- ADDITIONAL RELATED WORK -->
+  <hr class="section-divider">
+  <h2>Additional related work</h2>
+  <ul class="ref-list">
+    <li>
+      <span class="authors">Woolley, A. W., Chabris, C. F., Pentland, A., Hashmi, N., &amp; Malone, T. W.</span> (2010).
+      <span class="title">Evidence for a Collective Intelligence Factor in the Performance of Human Groups.</span>
+      <span class="venue">Science.</span>
+      <a href="https://doi.org/10.1126/science.1193147" target="_blank" rel="noopener">DOI</a>
+      <span class="note">Collective intelligence is driven by social sensitivity and turn-taking equality, not average individual intelligence.</span>
+    </li>
+    <li>
+      <span class="authors">Tajfel, H., &amp; Turner, J. C.</span> (1979).
+      <span class="title">An integrative theory of intergroup conflict.</span>
+      <span class="venue">In W. G. Austin &amp; S. Worchel (Eds.), The Social Psychology of Intergroup Relations.</span>
+      <a href="https://scholar.google.com/scholar?q=Tajfel+Turner+1979+%22An+integrative+theory+of+intergroup+conflict%22" target="_blank" rel="noopener">Google Scholar</a>
+      <span class="note">Social Identity Theory &mdash; do agents become an out-group that increases human in-group cohesion?</span>
+    </li>
+    <li>
+      <span class="authors">Ren, Y., Kraut, R., &amp; Kiesler, S.</span> (2007).
+      <span class="title">Applying common identity and bond theory to design of online communities.</span>
+      <span class="venue">Organization Studies.</span>
+      <a href="https://doi.org/10.2307/41703483" target="_blank" rel="noopener">DOI</a>
+      <span class="note">Does an agent read as part of a channel's identity or compete with bond-based attachment?</span>
+    </li>
+    <li>
+      <span class="authors">Clark, H. H., &amp; Brennan, S. E.</span> (1991).
+      <span class="title">Grounding in communication.</span>
+      <span class="venue">In L. B. Resnick et al. (Eds.), Perspectives on Socially Shared Cognition.</span>
+      <a href="https://doi.org/10.1037/10096-006" target="_blank" rel="noopener">DOI</a>
+    </li>
+    <li>
+      <span class="authors">Roberts, T. L., Lowry, P. B., et al.</span> (2006).
+      <span class="title">Impact of social presence through group size and collaborative software on group member voice.</span>
+      <span class="venue">IEEE Transactions on Professional Communication.</span>
+      <a href="https://doi.org/10.1109/tpc.2006.870460" target="_blank" rel="noopener">DOI</a>
+      <span class="note">As group size grows, participation becomes more unequal.</span>
+    </li>
+    <li>
+      <span class="authors">Song, T., Tan, Y., Zhu, Z., Feng, Y., &amp; Lee, Y.-C.</span> (2025).
+      <span class="title">Multi-Agents are Social Groups.</span>
+      <span class="venue">Proc. ACM Hum.-Comput. Interact.</span>
+      <a href="https://doi.org/10.1145/3757633" target="_blank" rel="noopener">DOI</a>
+      <span class="note">Agent count alone changes social influence &mdash; multiple agents increased felt social pressure.</span>
+    </li>
+    <li>
+      <span class="authors">Wang, Y., Lei, K., Chiu, S.-Y., Isbister, K., Lee, D. T., et al.</span> (2026).
+      <span class="title">SeeSawBot: An LLM-Driven Chatbot Mediating Across Private and Shared Slack Channels.</span>
+      <span class="venue">CHI.</span>
+      <a href="https://doi.org/10.1145/3772318.3791880" target="_blank" rel="noopener">DOI</a>
+      <span class="note">Slack-specific deployment; the closest existing artifact to this exact design space.</span>
+    </li>
+    <li>
+      <span class="authors">Yeo, S. Y., Zhang, T., Bateman, S., Hsieh, G., et al.</span> (2026).
+      <span class="title">Group Conversational Agents: A Review.</span>
+      <span class="venue">ACM DIS.</span>
+      <a href="https://doi.org/10.1145/3800645.3812934" target="_blank" rel="noopener">DOI</a>
+      <span class="note">Review of 53 studies; names three design tensions: visibility vs. discretion, proactivity vs. group autonomy, agent authority vs. group ownership.</span>
+    </li>
+    <li>
+      <span class="authors">Houde, S., Brimijoin, K., Muller, M., Ross, S. I., et al.</span> (2025).
+      <span class="title">Controlling AI Agent Participation in Group Conversations.</span>
+      <span class="venue">ACM IUI.</span>
+      <a href="https://doi.org/10.1145/3708359.3712089" target="_blank" rel="noopener">DOI</a>
+      <span class="note">Groups wanted explicit controls over when, what, and where an agent speaks.</span>
+    </li>
+    <li>
+      <span class="authors">Yan, L., Han, X., Zhang, Y., Greiff, S., Molenaar, I., et al.</span> (2025).
+      <span class="title">The Social Blindspot in Human-AI Collaboration.</span>
+      <span class="venue">arXiv.</span>
+      <a href="https://arxiv.org/abs/2512.18234" target="_blank" rel="noopener">arXiv</a>
+      <span class="note">An AI presence reshapes coordination among the human teammates, even when undetected.</span>
+    </li>
+    <li>
+      <span class="authors">Emich, K. J., Bell, B. S., &amp; Hollenbeck, J. R., et al.</span> (2026).
+      40 Questions for team science.
+      <span class="venue">Personnel Psychology.</span>
+      <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/peps.70033" target="_blank" rel="noopener">DOI</a>
+      <span class="note">Names faultlines and transactive memory as still-open questions in team science.</span>
+    </li>
+    <li>
+      <span class="authors">Postmes, T., Spears, R., &amp; Lea, M.</span> (1998).
+      <span class="title">Breaching or building social boundaries? SIDE-effects of computer-mediated communication.</span>
+      <span class="venue">Communication Research.</span>
+      <a href="https://doi.org/10.1177/009365098025006006" target="_blank" rel="noopener">DOI</a>
+      <span class="note">Foundational SIDE model paper; low-cue environments amplify group identity effects.</span>
+    </li>
+    <li>
+      <span class="authors">Seering, J., Ng, F., Yao, Z., &amp; Kaufman, G.</span> (2018).
+      <span class="title">Applications of social identity theory to research and design in CSCW.</span>
+      <span class="venue">CHI.</span>
+      <a href="https://doi.org/10.1145/3274771" target="_blank" rel="noopener">DOI</a>
+      <span class="note">The closest precedent for applying SIT/SIDE to CSCW product design.</span>
+    </li>
+  </ul>
+</main>
+
+<footer>
+  <p class="footer-author">Michael Massimi &middot; November 2026</p>
+  <p><a href="index.html">&larr; Back to The Psychology of Multiplayer</a></p>
+</footer>
+
+</body>
+</html>

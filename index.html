@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Psychology of Multiplayer</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #f5f5f7;
+    --surface-hover: #ededf0;
+    --border: #e0e0e4;
+    --text: #1a1a1e;
+    --text-secondary: #5c5c66;
+    --accent: #6d28d9;
+    --accent-light: #7c3aed;
+    --accent-glow: rgba(109, 40, 217, 0.08);
+    --danger: #dc2626;
+    --warning: #b45309;
+    --success: #059669;
+
+    --cat-teamwork: #7c3aed;
+    --cat-effort: #d97706;
+    --cat-structure: #0891b2;
+    --cat-cognition: #059669;
+    --cat-emotion: #db2777;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* --- NAV --- */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: transform 0.3s ease;
+  }
+
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+
+  .nav-progress {
+    height: 2px;
+    background: var(--accent);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    transition: width 0.1s linear;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  /* --- LEFT SIDEBAR --- */
+  .sidebar {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    width: 240px;
+    height: calc(100vh - 64px);
+    padding: 2rem 1.25rem 2rem 1.5rem;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 50;
+  }
+
+  .sidebar-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.25s;
+    border-left: 2px solid transparent;
+    margin-left: -2px;
+  }
+
+  .sidebar-item:hover {
+    color: var(--text);
+    background: var(--surface);
+  }
+
+  .sidebar-item .sb-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    opacity: 0.4;
+    transition: all 0.25s;
+  }
+
+  .sidebar-item.active {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .sidebar-item.active .sb-dot {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+
+  .sidebar-item.active.teamwork { border-left-color: var(--cat-teamwork); }
+  .sidebar-item.active.effort { border-left-color: var(--cat-effort); }
+  .sidebar-item.active.structure { border-left-color: var(--cat-structure); }
+  .sidebar-item.active.cognition { border-left-color: var(--cat-cognition); }
+  .sidebar-item.active.emotion { border-left-color: var(--cat-emotion); }
+
+  .sb-dot.teamwork { background: var(--cat-teamwork); }
+  .sb-dot.effort { background: var(--cat-effort); }
+  .sb-dot.structure { background: var(--cat-structure); }
+  .sb-dot.cognition { background: var(--cat-cognition); }
+  .sb-dot.emotion { background: var(--cat-emotion); }
+  .sb-dot.general { background: var(--text-secondary); }
+
+  .sidebar-item.active.general { border-left-color: var(--text-secondary); }
+
+  .sidebar-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0.5rem 0.75rem;
+    list-style: none;
+  }
+
+  /* --- HERO --- */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 50% 50%, var(--accent-glow) 0%, transparent 60%);
+    animation: pulse 8s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.05); }
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 span {
+    background: linear-gradient(135deg, var(--accent-light), var(--accent), #059669);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p {
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin-bottom: 3rem;
+  }
+
+  .scroll-cue {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    animation: bob 2s ease-in-out infinite;
+    opacity: 0.6;
+  }
+
+  @keyframes bob {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* --- SECTIONS --- */
+  section {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  section h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .section-lead {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+    max-width: 700px;
+  }
+
+  /* --- WHY SECTION --- */
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  .why-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem 1.75rem;
+    transition: all 0.3s;
+  }
+
+  .why-card:hover {
+    border-color: var(--accent);
+    background: var(--surface-hover);
+    transform: translateY(-2px);
+  }
+
+  .why-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+
+  /* --- FRAMEWORK INDEX --- */
+  .framework-index {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .cat-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .cat-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .cat-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .cat-label.teamwork { color: var(--cat-teamwork); }
+  .cat-label.effort { color: var(--cat-effort); }
+  .cat-label.structure { color: var(--cat-structure); }
+  .cat-label.cognition { color: var(--cat-cognition); }
+  .cat-label.emotion { color: var(--cat-emotion); }
+
+  .cat-chips {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .framework-chip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    border-left: 3px solid transparent;
+  }
+
+  .framework-chip:hover {
+    background: var(--surface-hover);
+    transform: translateY(-2px);
+  }
+
+  .framework-chip.teamwork { border-left-color: var(--cat-teamwork); }
+  .framework-chip.teamwork:hover { border-color: var(--cat-teamwork); }
+  .framework-chip.effort { border-left-color: var(--cat-effort); }
+  .framework-chip.effort:hover { border-color: var(--cat-effort); }
+  .framework-chip.structure { border-left-color: var(--cat-structure); }
+  .framework-chip.structure:hover { border-color: var(--cat-structure); }
+  .framework-chip.cognition { border-left-color: var(--cat-cognition); }
+  .framework-chip.cognition:hover { border-color: var(--cat-cognition); }
+  .framework-chip.emotion { border-left-color: var(--cat-emotion); }
+  .framework-chip.emotion:hover { border-color: var(--cat-emotion); }
+
+  .framework-chip .num {
+    font-size: 0.75rem;
+    font-weight: 700;
+    min-width: 1.5rem;
+  }
+
+  .framework-chip.teamwork .num { color: var(--cat-teamwork); }
+  .framework-chip.effort .num { color: var(--cat-effort); }
+  .framework-chip.structure .num { color: var(--cat-structure); }
+  .framework-chip.cognition .num { color: var(--cat-cognition); }
+  .framework-chip.emotion .num { color: var(--cat-emotion); }
+
+  .framework-chip .label {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .framework-chip .hook {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+  }
+
+  /* --- CATEGORY SECTION & STICKY HEADER --- */
+  .category-section {
+    position: relative;
+  }
+
+  .category-header {
+    max-width: 100%;
+    padding: 2rem 0 0;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .category-header.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .category-header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+    border-bottom: 3px solid var(--border);
+    border-radius: 12px 12px 0 0;
+  }
+
+  .category-header h3 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+
+  .category-header.teamwork .category-header-inner { background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(124,58,237,0.02)); border-bottom-color: var(--cat-teamwork); }
+  .category-header.teamwork h3 { color: var(--cat-teamwork); }
+  .category-header.effort .category-header-inner { background: linear-gradient(135deg, rgba(217,119,6,0.08), rgba(217,119,6,0.02)); border-bottom-color: var(--cat-effort); }
+  .category-header.effort h3 { color: var(--cat-effort); }
+  .category-header.structure .category-header-inner { background: linear-gradient(135deg, rgba(8,145,178,0.08), rgba(8,145,178,0.02)); border-bottom-color: var(--cat-structure); }
+  .category-header.structure h3 { color: var(--cat-structure); }
+  .category-header.cognition .category-header-inner { background: linear-gradient(135deg, rgba(5,150,105,0.08), rgba(5,150,105,0.02)); border-bottom-color: var(--cat-cognition); }
+  .category-header.cognition h3 { color: var(--cat-cognition); }
+  .category-header.emotion .category-header-inner { background: linear-gradient(135deg, rgba(219,39,119,0.08), rgba(219,39,119,0.02)); border-bottom-color: var(--cat-emotion); }
+  .category-header.emotion h3 { color: var(--cat-emotion); }
+
+  .category-header .cat-desc {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin-top: 0.35rem;
+  }
+
+  /* --- THEORY GRID & CARDS --- */
+  .category-theories {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .theory {
+    padding: 3rem 0;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .theory.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .theory-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .theory-num {
+    font-size: 1.25rem;
+    font-weight: 800;
+    flex-shrink: 0;
+    letter-spacing: 0.02em;
+    opacity: 0.7;
+  }
+
+  .theory-num.teamwork { color: var(--cat-teamwork); }
+  .theory-num.effort { color: var(--cat-effort); }
+  .theory-num.structure { color: var(--cat-structure); }
+  .theory-num.cognition { color: var(--cat-cognition); }
+  .theory-num.emotion { color: var(--cat-emotion); }
+
+  .theory h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .theory-attribution {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+  }
+
+  .theory-attribution a {
+    color: var(--text-secondary);
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+    text-underline-offset: 2px;
+    transition: all 0.2s;
+  }
+
+  .theory-attribution a:hover {
+    color: var(--text);
+    text-decoration-color: var(--text-secondary);
+  }
+
+  .theory-blocks {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .theory-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem 1.75rem;
+    border-left: 3px solid transparent;
+  }
+
+  .theory-block.idea { border-left-color: #8b5cf6; }
+  .theory-block.risk { border-left-color: #dc2626; }
+  .theory-block.lever { border-left-color: #2563eb; }
+
+  .block-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .theory-block.idea .block-label { color: #8b5cf6; }
+  .theory-block.risk .block-label { color: #dc2626; }
+  .theory-block.lever .block-label { color: #2563eb; }
+
+  .theory-block p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  /* --- DIVIDER --- */
+  .divider {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .divider span {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+
+  /* --- BREADTH TABLE --- */
+  /* --- PRINCIPLES --- */
+  .principles-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+    counter-reset: principle;
+  }
+
+  .principle {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem 1.75rem;
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    transition: all 0.3s;
+    counter-increment: principle;
+  }
+
+  .principle:hover {
+    border-color: var(--accent);
+    transform: translateX(4px);
+  }
+
+  .principle-num {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--accent);
+    opacity: 0.5;
+    min-width: 2rem;
+    line-height: 1;
+    padding-top: 0.15rem;
+  }
+
+  .principle-num::before { content: counter(principle); }
+
+  .principle h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+  }
+
+  .principle p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+
+  .principle .from-cat {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    background: rgba(0,0,0,0.05);
+  }
+
+  .from-cat.effort { color: var(--cat-effort); }
+  .from-cat.structure { color: var(--cat-structure); }
+  .from-cat.cognition { color: var(--cat-cognition); }
+  .from-cat.emotion { color: var(--cat-emotion); }
+  .from-cat.teamwork { color: var(--cat-teamwork); }
+
+  /* --- FOOTER --- */
+  footer {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 4rem 2rem 6rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .footer-author {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  footer p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  footer a {
+    color: var(--accent-light);
+    text-decoration: none;
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 1024px) {
+    .sidebar { display: none !important; }
+    .cat-chips { grid-template-columns: 1fr; }
+    section, .category-header-inner, .category-theories { padding-left: 1.25rem; padding-right: 1.25rem; }
+  }
+
+  @media (min-width: 769px) {
+    .why-grid { grid-template-columns: 1fr 1fr 1fr; }
+  }
+
+  @media (min-width: 1025px) {
+    .sidebar { display: flex; }
+    section { margin-left: 280px; margin-right: 3rem; max-width: none; }
+    .category-theories { margin-left: 280px; margin-right: 3rem; max-width: none; }
+    .category-header-inner { margin-left: 280px; margin-right: 3rem; max-width: none; }
+    .divider { margin-left: 280px; margin-right: 3rem; max-width: none; }
+    footer { margin-left: 280px; margin-right: 3rem; max-width: none; }
+  }
+
+  @media (min-width: 1200px) {
+    .category-theories {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0 2.5rem;
+    }
+    .category-theories .theory { padding: 2.5rem 0; }
+  }
+
+  @media (min-width: 1800px) {
+    .category-theories {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <div class="nav-title">Psychology of Multiplayer</div>
+    <ul class="nav-links">
+      <li><a href="#premise">Premise</a></li>
+      <li><a href="#cat-teamwork">Teamwork</a></li>
+      <li><a href="#cat-effort">Effort</a></li>
+      <li><a href="#cat-structure">Structure</a></li>
+      <li><a href="#cat-cognition">Cognition</a></li>
+      <li><a href="#cat-emotion">Emotion</a></li>
+      <li><a href="#principles">Principles</a></li>
+    </ul>
+  </div>
+  <div class="nav-progress" id="progress"></div>
+</nav>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <ul class="sidebar-list">
+    <li><a href="#premise" class="sidebar-item general" data-section="premise"><span class="sb-dot general"></span>Premise</a></li>
+    <li><a href="#frameworks" class="sidebar-item general" data-section="frameworks"><span class="sb-dot general"></span>13 Frameworks</a></li>
+    <li class="sidebar-divider"></li>
+    <li><a href="#cat-teamwork" class="sidebar-item teamwork"><span class="sb-dot teamwork"></span>Teamwork Frameworks</a></li>
+    <li><a href="#cat-effort" class="sidebar-item effort"><span class="sb-dot effort"></span>Effort & Responsibility</a></li>
+    <li><a href="#cat-structure" class="sidebar-item structure"><span class="sb-dot structure"></span>Group Structure</a></li>
+    <li><a href="#cat-cognition" class="sidebar-item cognition"><span class="sb-dot cognition"></span>Cognition & Awareness</a></li>
+    <li><a href="#cat-emotion" class="sidebar-item emotion"><span class="sb-dot emotion"></span>Emotion & Safety</a></li>
+    <li class="sidebar-divider"></li>
+    <li><a href="#principles" class="sidebar-item general" data-section="principles"><span class="sb-dot general"></span>Design Principles</a></li>
+  </ul>
+</aside>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-content">
+    <h1>The Psychology of<br><span>Multiplayer</span></h1>
+    <p>What happens when agents join the group &mdash; and what decades of psychology research predicts about designing channels where multiple humans and multiple agents co-exist.</p>
+  </div>
+  <div class="scroll-cue">
+    Scroll to explore
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 4v12m0 0l-4-4m4 4l4-4"/></svg>
+  </div>
+</div>
+
+<!-- WHY -->
+<section id="why">
+  <span class="section-label">The premise</span>
+  <h2>Why this matters now</h2>
+  <p class="section-lead">We're adding agents to Slack channels &mdash; spaces already governed by well-studied group psychology. These aren't new problems. They're predictable human behaviors.</p>
+  <div class="why-grid">
+    <div class="why-card">
+      <p><strong>Not new problems.</strong> Every theory here was established before AI agents existed &mdash; the behaviors they describe will activate whether we design for them or not.</p>
+    </div>
+    <div class="why-card">
+      <p><strong>Not just technical.</strong> The hardest design questions aren't about what agents <em>can</em> do &mdash; they're about what humans <em>will</em> do in response.</p>
+    </div>
+    <div class="why-card">
+      <p><strong>Testable predictions.</strong> Each framework generates specific, measurable hypotheses about channel behavior &mdash; not just intuitions.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PREMISE: CASA -->
+<section id="premise">
+  <span class="section-label">The foundational assumption</span>
+  <h2>Computers Are Social Actors (CASA)</h2>
+  <div class="theory-attribution"><a href="https://scholar.google.com/scholar?q=Reeves+Nass+The+Media+Equation+1996" target="_blank" rel="noopener">Reeves & Nass, 1996</a></div>
+  <p class="section-lead">Humans reflexively apply social rules &mdash; politeness, reciprocity, in-group favoritism &mdash; to computers, even when they know the computer isn't a person.</p>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">Why everything else follows</div>
+      <p>If CASA is right, channel members will apply real group dynamics to agents &mdash; loafing toward them, forming identity boundaries around them, faultlining against them &mdash; rather than treating them as neutral tools. Every theory that follows is worth designing for precisely because of this.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span>13 Frameworks &middot; 5 Categories</span></div>
+
+<!-- FRAMEWORK INDEX -->
+<section id="frameworks">
+  <span class="section-label">Overview</span>
+  <h2>13 frameworks, one design problem</h2>
+  <p class="section-lead">Organized by what each framework explains about the group &mdash; from teamwork dynamics to the emotional climate.</p>
+
+  <div class="framework-index">
+
+    <div class="cat-group">
+      <div class="cat-label teamwork">Teamwork Frameworks</div>
+      <div class="cat-chips">
+        <a href="#t1" class="framework-chip teamwork"><span class="num">01</span><div><div class="label">Process Gains & Losses</div><div class="hook">The master equation</div></div></a>
+        <a href="#t2" class="framework-chip teamwork"><span class="num">02</span><div><div class="label">Human-Autonomy Teaming</div><div class="hook">Tool or teammate?</div></div></a>
+      </div>
+    </div>
+
+    <div class="cat-group">
+      <div class="cat-label effort">Effort & Responsibility</div>
+      <div class="cat-chips">
+        <a href="#t3" class="framework-chip effort"><span class="num">03</span><div><div class="label">Social Loafing</div><div class="hook">"The bot will handle it"</div></div></a>
+        <a href="#t4" class="framework-chip effort"><span class="num">04</span><div><div class="label">Bystander Effect</div><div class="hook">Diffusion of responsibility</div></div></a>
+      </div>
+    </div>
+
+    <div class="cat-group">
+      <div class="cat-label structure">Group Structure</div>
+      <div class="cat-chips">
+        <a href="#t5" class="framework-chip structure"><span class="num">05</span><div><div class="label">Faultline Theory</div><div class="hook">A new identity line</div></div></a>
+        <a href="#t6" class="framework-chip structure"><span class="num">06</span><div><div class="label">Transactive Memory</div><div class="hook">"Ask the bot for that"</div></div></a>
+        <a href="#t7" class="framework-chip structure"><span class="num">07</span><div><div class="label">Social Learning Theory</div><div class="hook">Agents as behavioral models</div></div></a>
+      </div>
+    </div>
+
+    <div class="cat-group">
+      <div class="cat-label cognition">Cognition & Awareness</div>
+      <div class="cat-chips">
+        <a href="#t8" class="framework-chip cognition"><span class="num">08</span><div><div class="label">Cognitive Load</div><div class="hook">Cost or relief?</div></div></a>
+        <a href="#t9" class="framework-chip cognition"><span class="num">09</span><div><div class="label">Social Translucence</div><div class="hook">Visibility & accountability</div></div></a>
+        <a href="#t10" class="framework-chip cognition"><span class="num">10</span><div><div class="label">Distributed Cognition</div><div class="hook">Thinking as a system</div></div></a>
+      </div>
+    </div>
+
+    <div class="cat-group">
+      <div class="cat-label emotion">Emotion & Safety</div>
+      <div class="cat-chips">
+        <a href="#t11" class="framework-chip emotion"><span class="num">11</span><div><div class="label">Psychological Safety</div><div class="hook">The highest-stakes theory</div></div></a>
+        <a href="#t12" class="framework-chip emotion"><span class="num">12</span><div><div class="label">Emotional Contagion</div><div class="hook">Tone as climate lever</div></div></a>
+        <a href="#t13" class="framework-chip emotion"><span class="num">13</span><div><div class="label">MIRA</div><div class="hook">Relational adaptation</div></div></a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ===================== -->
+<!-- CATEGORY 1: TEAMWORK FRAMEWORKS -->
+<!-- ===================== -->
+<div class="category-section">
+<div class="category-header teamwork" id="cat-teamwork">
+  <div class="category-header-inner">
+    <h3>Teamwork Frameworks</h3>
+    <p class="cat-desc">The cost-benefit math and the threshold that activates everything else.</p>
+  </div>
+</div>
+
+<div class="category-theories">
+<div class="theory" id="t1">
+  <div class="theory-header">
+    <span class="theory-num teamwork">01</span>
+    <h2>Process Gains & Losses</h2>
+  </div>
+  <div class="theory-attribution"><a href="https://openlibrary.org/works/OL16277283W" target="_blank" rel="noopener">Steiner, 1972</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>A group's actual output = best-case output − coordination losses − motivation losses + synergy gains. This is the master model for "does adding more X to a group help or hurt."</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">The multiplayer risk</div>
+      <p>Every agent added to a channel lands on <strong>both</strong> sides of this equation &mdash; potential gain (offloaded work, faster answers) and potential loss (one more entity to track, more messages to parse, more coordination overhead).</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design lever</div>
+      <p>The question of which side wins is answerable empirically, not by intuition. Instrument channels to measure whether agents are net-positive on actual group output, not just individual task completion.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t2">
+  <div class="theory-header">
+    <span class="theory-num teamwork">02</span>
+    <h2>Human-Autonomy Teaming</h2>
+  </div>
+  <div class="theory-attribution"><a href="https://doi.org/10.3389/fpsyg.2021.589585" target="_blank" rel="noopener">Lyons, Sycara, Lewis & Capiola, 2021</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>There's a meaningful psychological difference between AI as a tool you <strong>use</strong> and AI as a partner you <strong>team with</strong>. That shift changes trust, communication style, and expectations.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">The threshold question</div>
+      <p>At what point does a Slack agent stop being perceived as a tool-in-the-channel and start being perceived as a teammate-in-the-channel? Crossing that threshold turns on <strong>all</strong> the group theories that follow &mdash; loafing, faultlines, identity &mdash; that only apply to teammates, not tools.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design lever</div>
+      <p>Where do we want to be on the tool&ndash;teammate continuum, and for which agents? This may not be one answer &mdash; different agents at different points.</p>
+    </div>
+  </div>
+</div>
+
+
+</div><!-- /category-theories -->
+</div><!-- /category-section teamwork -->
+
+<!-- ===================== -->
+<!-- CATEGORY 2: EFFORT & RESPONSIBILITY -->
+<!-- ===================== -->
+<div class="category-section">
+<div class="category-header effort" id="cat-effort">
+  <div class="category-header-inner">
+    <h3>Effort & Responsibility</h3>
+    <p class="cat-desc">Who does the work when agents are present &mdash; and who stops doing it.</p>
+  </div>
+</div>
+
+<div class="category-theories">
+<div class="theory" id="t3">
+  <div class="theory-header">
+    <span class="theory-num effort">03</span>
+    <h2>Social Loafing</h2>
+  </div>
+  <div class="theory-attribution"><a href="https://doi.org/10.1037/0022-3514.37.6.822" target="_blank" rel="noopener">Latané, Williams & Harkins, 1979</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>People exert less individual effort as group size grows, because individual contribution becomes harder to identify and evaluate.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">The multiplayer risk</div>
+      <p>When an agent is visibly capable in a channel, human members may quietly reduce their own effort or responsiveness &mdash; assuming "the bot will handle it." Direct evidence: employees cede responsibility and loaf when paired with a virtual assistant. This is a <strong>human</strong> behavior change, not an AI behavior.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design lever</div>
+      <p>Make individual human contribution visible and identifiable, even when agents are present. Counter-intuitively, the best agent might be one that highlights what humans did, not what it did.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t4">
+  <div class="theory-header">
+    <span class="theory-num effort">04</span>
+    <h2>The Bystander Effect</h2>
+  </div>
+  <div class="theory-attribution"><a href="https://openlibrary.org/works/OL6601434W" target="_blank" rel="noopener">Latané & Darley, 1970</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>The more people present, the less any one person feels personally responsible to act &mdash; each assumes someone else will. Distinct from loafing: this is about felt <strong>responsibility</strong>, not effort.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">The multiplayer risk</div>
+      <p>If agents are perceived as capable responders, they increase the diffusion effect among humans &mdash; "the bot's on it" &mdash; rather than simply adding a helpful voice. This predicts who goes silent, not just who tries less hard.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design lever</div>
+      <p>Agents that explicitly route responsibility back to specific humans rather than absorbing it. "This seems like a question for @Priya" rather than answering directly.</p>
+    </div>
+  </div>
+</div>
+
+
+</div><!-- /category-theories -->
+</div><!-- /category-section effort -->
+
+<!-- ===================== -->
+<!-- CATEGORY 3: GROUP STRUCTURE -->
+<!-- ===================== -->
+<div class="category-section">
+<div class="category-header structure" id="cat-structure">
+  <div class="category-header-inner">
+    <h3>Group Structure</h3>
+    <p class="cat-desc">How the group reorganizes itself once agents are in the mix.</p>
+  </div>
+</div>
+
+<div class="category-theories">
+<div class="theory" id="t5">
+  <div class="theory-header">
+    <span class="theory-num structure">05</span>
+    <h2>Faultline Theory</h2>
+  </div>
+  <div class="theory-attribution"><a href="https://doi.org/10.2307/259377" target="_blank" rel="noopener">Lau & Murnighan, 1998</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>Subgroups form within a team along lines where multiple attributes align. Strong faultlines predict conflict and fragmented collaboration; weak, crosscutting faultlines predict cohesion.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">The multiplayer risk</div>
+      <p>The most directly testable theory with agents as a new variable. Does "human vs. agent" become a faultline that <strong>cuts across</strong> existing subgroup lines &mdash; giving people a shared "us" (humans) framing that's actually cohesion-building? Or does it add a new fracture?</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design lever</div>
+      <p>Test whether agent presence changes existing human subgroup dynamics. The answer determines whether agents should blend in or be visibly distinct.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t6">
+  <div class="theory-header">
+    <span class="theory-num structure">06</span>
+    <h2>Transactive Memory</h2>
+  </div>
+  <div class="theory-attribution"><a href="https://dtg.sites.fas.harvard.edu/DANWEGNER/pub/Wegner%20Transactive%20Memory.pdf" target="_blank" rel="noopener">Wegner, 1987</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>Teams develop a shared, distributed system of "who knows what." You don't need to remember everything, just who to ask. Well-developed transactive memory improves coordination as a team matures.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">The multiplayer risk</div>
+      <p>Slack's own <a href="https://docs.google.com/presentation/d/1CeEOYm40hNpSCE1kKM2QL6BYjHg4pv6-8ThIMm8B7OQ/edit" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-decoration-color:var(--border)">knowledge management research</a> showed this system in action: Slack is not a knowledge repository &mdash; it's a way to get ahold of <strong>people who have answers</strong>. Users find clues and contact "knowledge magnets" who can reheat cold information through conversation. Every team had someone everyone knew to ask &mdash; textbook transactive memory.</p>
+      <p style="margin-top:0.75rem">Now agents threaten to short-circuit that system. An agent that's always available and always has answers becomes the default knowledge magnet &mdash; and "ask the bot" replaces "ask Priya." The team's shared map of <strong>each other's</strong> expertise atrophies. If the agent goes away, nobody remembers that Priya knows billing, because nobody has asked her in months.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design lever</div>
+      <p>Agents that act as a knowledge switchboard &mdash; routing to the right human expert rather than always answering directly. Preserve Slack's role as the place where people find people, not the place where a bot replaces them. Strengthen the team's memory of itself, don't replace it.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="theory" id="t7">
+  <div class="theory-header">
+    <span class="theory-num structure">07</span>
+    <h2>Social Learning Theory</h2>
+  </div>
+  <div class="theory-attribution"><a href="https://scholar.google.com/scholar?q=Bandura+%22Social+Learning+Theory%22+1977" target="_blank" rel="noopener">Bandura, 1977</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>People learn new behaviors by observing others. Rather than discovering everything through direct experience, we watch what others do, see the consequences, and model our behavior accordingly. For this to work, the observed behavior must be <strong>observable</strong>, <strong>comprehensible</strong>, <strong>perceived as valuable</strong>, and <strong>easy to replicate</strong>.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">The multiplayer risk</div>
+      <p>Slack's own <a href="https://docs.google.com/presentation/d/1vqPmX8GEkK5zc5axc-XWFa9vxt0zpI_Aae-VD-UB-rI/edit" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-decoration-color:var(--border)">Team-based Habit Building</a> research showed this directly: new users learn Slack by observing and mimicking teammates' behavior, and teams with no existing behaviors to mimic face a cold-start problem. Agents now become behavioral models too &mdash; if an agent threads replies, @mentions people, or uses emoji reactions, humans will treat those as norms to follow. If agents model behaviors that are opaque or inimitable, they set norms humans can't replicate, widening the gap between what agents do and what humans can do in the same channel.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design lever</div>
+      <p>Make agent behaviors mimicable: observable (visible in-channel, not behind the scenes), comprehensible (clear why the agent did it), valuable (visibly useful to the group), and easy to replicate (a human could do the same thing). Agents that model good channel practices &mdash; threading, summarizing, routing &mdash; can accelerate norm adoption rather than undermining it.</p>
+    </div>
+  </div>
+</div>
+
+
+</div><!-- /category-theories -->
+</div><!-- /category-section structure -->
+
+<!-- ===================== -->
+<!-- CATEGORY 4: COGNITION & AWARENESS -->
+<!-- ===================== -->
+<div class="category-section">
+<div class="category-header cognition" id="cat-cognition">
+  <div class="category-header-inner">
+    <h3>Cognition & Awareness</h3>
+    <p class="cat-desc">What people can process, perceive, and make sense of when agents are active.</p>
+  </div>
+</div>
+
+<div class="category-theories">
+<div class="theory" id="t8">
+  <div class="theory-header">
+    <span class="theory-num cognition">08</span>
+    <h2>Cognitive Load</h2>
+  </div>
+  <div class="theory-attribution"><a href="https://doi.org/10.1207/s15516709cog1202_4" target="_blank" rel="noopener">Sweller, 1988</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>Working memory is limited. Every additional stream of information competes for the same resource. A channel with several agents posting alongside several humans is a cognitive-load problem before it's anything else.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">The multiplayer risk</div>
+      <p>If agents don't reduce the number of things a human has to track, they add load even when each individual response is useful. N helpful agents producing N independent streams is still N streams.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design lever</div>
+      <p>Batch and summarize agent output rather than adding N more independent streams. Agents should absorb complexity, not broadcast it.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t9">
+  <div class="theory-header">
+    <span class="theory-num cognition">09</span>
+    <h2>Visibility & Accountability</h2>
+  </div>
+  <div class="theory-attribution"><a href="https://doi.org/10.1145/344949.345004" target="_blank" rel="noopener">Erickson & Kellogg, 2000</a> · <a href="https://doi.org/10.1023/a:1021271517844" target="_blank" rel="noopener">Gutwin & Greenberg, 2002</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p><strong>Social Translucence:</strong> systems need visibility (I can see what others are doing), awareness (I understand what I see), and accountability (others know I can see them). <strong>Workspace Awareness:</strong> effective collaboration requires ongoing awareness of who's doing what, where, and when.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">The multiplayer risk</div>
+      <p>A fully opaque agent (invisible reasoning, silent actions) can't be held to channel norms the way a human can. A fully transparent agent (dumping chain-of-thought) overwhelms and reads as noise.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design lever</div>
+      <p>The translucent middle &mdash; enough visible signal that humans can calibrate trust and expectations, without drowning the channel. Think: conference room window, not surveillance camera or brick wall.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t10">
+  <div class="theory-header">
+    <span class="theory-num cognition">10</span>
+    <h2>Distributed Cognition</h2>
+  </div>
+  <div class="theory-attribution"><a href="https://scholar.google.com/scholar?q=Hutchins+%22Cognition+in+the+Wild%22+1995" target="_blank" rel="noopener">Hutchins, 1995</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>Cognition doesn't happen only inside individual heads &mdash; it's <strong>distributed</strong> across people, artifacts, and the environment. A ship's navigation team thinks as a system: charts, instruments, verbal callouts, and crew members each hold part of the computation. The unit of analysis is the whole system, not any one brain.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">The multiplayer risk</div>
+      <p>Agents become new nodes in a channel's distributed cognitive system. But unlike a chart or a spreadsheet, they actively generate and transform information. If the team can't see how an agent arrived at a conclusion, the cognitive system has a black box in the middle of it &mdash; the team is reasoning <strong>with</strong> an artifact it can't inspect.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design lever</div>
+      <p>Design agents as legible nodes in the team's distributed cognition: make their inputs, reasoning traces, and confidence visible enough that the team can integrate agent output the way they integrate a shared document &mdash; as a resource they can inspect, question, and build on.</p>
+    </div>
+  </div>
+</div>
+
+
+</div><!-- /category-theories -->
+</div><!-- /category-section cognition -->
+
+<!-- ===================== -->
+<!-- CATEGORY 5: EMOTION & SAFETY -->
+<!-- ===================== -->
+<div class="category-section">
+<div class="category-header emotion" id="cat-emotion">
+  <div class="category-header-inner">
+    <h3>Emotion & Safety</h3>
+    <p class="cat-desc">How agents shape the emotional climate and whether people feel safe enough to contribute.</p>
+  </div>
+</div>
+
+<div class="category-theories">
+<div class="theory" id="t11">
+  <div class="theory-header">
+    <span class="theory-num emotion">11</span>
+    <h2>Psychological Safety</h2>
+  </div>
+  <div class="theory-attribution"><a href="https://doi.org/10.2307/2666999" target="_blank" rel="noopener">Edmondson, 1999</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>Teams perform and learn better when members believe it's safe to take interpersonal risks &mdash; asking questions, admitting mistakes, floating half-formed ideas &mdash; without fear of punishment or embarrassment.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">The multiplayer risk &mdash; highest stakes</div>
+      <p>Agents are witnesses. And sometimes broadcasters. If an agent surfaces, logs, or draws attention to something a human said in a moment of low confidence, it can quietly erode psychological safety for the <strong>whole channel</strong>. Safety is a shared team belief, not an individual one. Get this wrong and it suppresses exactly the behavior that good performance depends on.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design lever</div>
+      <p>Agents that protect tentative contributions rather than amplifying them. Treat uncertainty as signal to protect, not surface.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t12">
+  <div class="theory-header">
+    <span class="theory-num emotion">12</span>
+    <h2>Emotional Contagion</h2>
+  </div>
+  <div class="theory-attribution"><a href="https://doi.org/10.1111/1467-8721.ep10770953" target="_blank" rel="noopener">Hatfield, Cacioppo & Rapson, 1993</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>Emotions spread between people largely automatically, through mimicry of tone and behavior. Groups tend to converge toward a shared emotional state over time.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">The multiplayer risk</div>
+      <p>Agent tone design is an emotional-climate lever for the <strong>whole group</strong>, not just the individual it's replying to. Multiple agents with inconsistent tones could fragment a channel's emotional convergence. The same output reads as tone-deaf or perfectly calibrated depending on the ambient mood.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design lever</div>
+      <p>Agents that read channel-level affective signal, not just message-level content. Match the room before speaking into it.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t13">
+  <div class="theory-header">
+    <span class="theory-num emotion">13</span>
+    <h2>MIRA &mdash; Machine-Integrated Relational Adaptation</h2>
+  </div>
+  <div class="theory-attribution"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12960742/" target="_blank" rel="noopener">Boyd & Markowitz, 2026</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>AI becomes psychologically meaningful through four mechanisms: linguistic reciprocity (tone matching), psychological proximity (simulated closeness), interpersonal trust (inferred from fluency), and relational substitution vs. enhancement (displaces or scaffolds human bonds).</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">The multiplayer risk</div>
+      <p>MIRA is a dyadic model (one person, one AI) &mdash; but its "relational mediator" role is the piece worth stealing: AI changing how humans relate to <strong>each other</strong>. That's our whole thesis, just not yet extended to N humans + N agents.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design lever</div>
+      <p>Design agents as relational mediators &mdash; shaping human-to-human connection &mdash; not just relational partners competing for individual attention.</p>
+    </div>
+  </div>
+</div>
+
+
+</div><!-- /category-theories -->
+</div><!-- /category-section emotion -->
+
+<div class="divider"><span>The Bigger Picture</span></div>
+
+<!-- DESIGN PRINCIPLES -->
+<section id="principles">
+  <span class="section-label">Synthesis</span>
+  <h2>Design principles</h2>
+  <p class="section-lead">What the research says to build &mdash; seven principles drawn from across the categories.</p>
+  <div class="principles-grid">
+    <div class="principle">
+      <div class="principle-num"></div>
+      <div>
+        <h3>Make human contribution visible</h3>
+        <p>Counter loafing and bystander effects by keeping individual human input identifiable, even when agents are present.</p>
+        <span class="from-cat effort">Effort & Responsibility</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="principle-num"></div>
+      <div>
+        <h3>Route responsibility, don't absorb it</h3>
+        <p>Agents should direct questions to the right human, not always answer themselves. Strengthen the team's memory of itself.</p>
+        <span class="from-cat structure">Group Structure</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="principle-num"></div>
+      <div>
+        <h3>Design for the translucent middle</h3>
+        <p>Enough agent visibility to build trust and accountability, not so much it overwhelms. Conference room window, not surveillance camera.</p>
+        <span class="from-cat cognition">Cognition & Awareness</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="principle-num"></div>
+      <div>
+        <h3>Absorb complexity, don't broadcast it</h3>
+        <p>Batch, summarize, and consolidate rather than adding N more independent streams.</p>
+        <span class="from-cat cognition">Cognition & Awareness</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="principle-num"></div>
+      <div>
+        <h3>Protect psychological safety</h3>
+        <p>Never amplify tentative contributions. Treat uncertainty as signal to protect, not surface.</p>
+        <span class="from-cat emotion">Emotion & Safety</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="principle-num"></div>
+      <div>
+        <h3>Match tone to context</h3>
+        <p>Agent tone shapes the whole channel's emotional climate. Read the room before speaking into it.</p>
+        <span class="from-cat emotion">Emotion & Safety</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="principle-num"></div>
+      <div>
+        <h3>Define the role</h3>
+        <p>Role ambiguity between human and agent predicts the same stress as human role conflict. Agent role should be as legible as a new teammate's.</p>
+        <span class="from-cat teamwork">Teamwork Frameworks</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="footer-author">Michael Massimi &middot; November 2026</p>
+  <p><a href="references.html">References &amp; Related Work</a> &middot; <a href="appendix.html">Appendix: The Breadth Check</a></p>
+</footer>
+
+<script>
+  // Scroll-driven reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('section, .theory, .category-header').forEach(el => observer.observe(el));
+
+  // Progress bar + sidebar visibility + active section
+  const progress = document.getElementById('progress');
+  const sidebarItems = document.querySelectorAll('.sidebar-item');
+  const allSections = ['premise', 'frameworks', 'cat-teamwork', 'cat-effort', 'cat-structure', 'cat-cognition', 'cat-emotion', 'principles'];
+
+  window.addEventListener('scroll', () => {
+    const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+    progress.style.width = pct + '%';
+
+    let current = '';
+    allSections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top < 300) current = id;
+    });
+    sidebarItems.forEach(a => {
+      const href = a.getAttribute('href');
+      const dataSection = a.getAttribute('data-section');
+      a.classList.toggle('active', href === '#' + current || dataSection === current);
+    });
+  });
+</script>
+</body>
+</html>

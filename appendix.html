@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Appendix: The Breadth Check — Psychology of Multiplayer</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #f5f5f7;
+    --surface-hover: #ededf0;
+    --border: #e0e0e4;
+    --text: #1a1a1e;
+    --text-secondary: #5c5c66;
+    --accent: #6d28d9;
+    --accent-light: #7c3aed;
+
+    --cat-teamwork: #7c3aed;
+    --cat-effort: #d97706;
+    --cat-structure: #0891b2;
+    --cat-cognition: #059669;
+    --cat-emotion: #db2777;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .nav-back {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .nav-back:hover { text-decoration: underline; }
+
+  .nav-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 4rem 2rem 6rem;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  h1 {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .lead {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+    max-width: 700px;
+  }
+
+  .breadth-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+  }
+
+  .breadth-table th {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    border-bottom: 2px solid var(--border);
+  }
+
+  .breadth-table td {
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  .breadth-table tr {
+    transition: background 0.2s;
+  }
+
+  .breadth-table tbody tr:hover {
+    background: var(--surface);
+  }
+
+  .breadth-table td:first-child {
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .breadth-table td:last-child {
+    color: var(--text-secondary);
+  }
+
+  .breadth-table .dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    position: relative;
+    top: -1px;
+  }
+
+  footer {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 4rem 2rem 6rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .footer-author {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  footer p {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+  }
+
+  footer a {
+    color: var(--accent-light);
+    text-decoration: none;
+  }
+
+  footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-back">&larr; Back</a>
+    <div class="nav-title">Appendix</div>
+  </div>
+</nav>
+
+<main>
+  <span class="section-label">Beyond social psychology</span>
+  <h1>The breadth check</h1>
+  <p class="lead">We looked across the whole discipline, not just the CSCW-adjacent corner. Each subfield of psychology has something to say about multiplayer AI.</p>
+
+  <table class="breadth-table">
+    <thead>
+      <tr><th>Subfield</th><th>Core mechanism</th><th>Multiplayer-AI implication</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="dot" style="background:var(--cat-cognition)"></span>Cognitive</td><td>Working memory, joint attention</td><td>Agents can add or absorb cognitive load depending on design</td></tr>
+      <tr><td><span class="dot" style="background:var(--cat-effort)"></span>Social</td><td>Loafing, bystander, identity, faultlines</td><td>The deepest-covered subfield &mdash; see the 13 frameworks</td></tr>
+      <tr><td><span class="dot" style="background:var(--cat-emotion)"></span>Developmental</td><td>Attachment, parasocial bonds, scaffolding</td><td>Uneven human-agent bonding creates within-channel faultlines</td></tr>
+      <tr><td><span class="dot" style="background:var(--cat-emotion)"></span>Emotional</td><td>Emotional contagion, affect-as-information</td><td>Agent tone is a channel-wide emotional-climate lever</td></tr>
+      <tr><td><span class="dot" style="background:var(--cat-emotion)"></span>Organizational</td><td>Psychological safety, role clarity</td><td>Agents can silently erode safety to ask, admit, and try</td></tr>
+      <tr><td><span class="dot" style="background:var(--cat-teamwork)"></span>Evolutionary</td><td>Dunbar's number, coalition tracking</td><td>Agent-dense channels may exceed cognitive group-size limits</td></tr>
+      <tr><td><span class="dot" style="background:var(--cat-structure)"></span>Personality</td><td>Individual differences in engagement</td><td>Expect and design for variance, not an averaged "the user"</td></tr>
+      <tr><td><span class="dot" style="background:var(--cat-structure)"></span>Cross-cultural</td><td>Individualism/collectivism, power distance</td><td>Trust and deference to agents likely varies by region</td></tr>
+      <tr><td><span class="dot" style="background:var(--cat-cognition)"></span>Clinical</td><td>Technostress</td><td>Gives a measurable wellbeing cost metric, not just productivity</td></tr>
+    </tbody>
+  </table>
+</main>
+
+<footer>
+  <p class="footer-author">Michael Massimi &middot; November 2026</p>
+  <p><a href="index.html">&larr; Back to The Psychology of Multiplayer</a></p>
+</footer>
+
+</body>
+</html>
