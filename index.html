@@ -535,7 +535,6 @@
   .theory-block.idea { border-left-color: #8b5cf6; }
   .theory-block.risk { border-left-color: #dc2626; }
   .theory-block.lever { border-left-color: #2563eb; }
-  .theory-block.research { border-left-color: #d97706; }
 
   .block-label {
     font-size: 0.7rem;
@@ -548,7 +547,6 @@
   .theory-block.idea .block-label { color: #8b5cf6; }
   .theory-block.risk .block-label { color: #dc2626; }
   .theory-block.lever .block-label { color: #2563eb; }
-  .theory-block.research .block-label { color: #d97706; }
 
   .theory-block p {
     color: var(--text-secondary);
@@ -858,12 +856,12 @@
       <p>A group's actual output = best-case output − coordination losses − motivation losses + synergy gains. This is the master model for "does adding more X to a group help or hurt."</p>
     </div>
     <div class="theory-block risk">
-      <div class="block-label">The multiplayer risk</div>
+      <div class="block-label">Why it matters</div>
       <p>Every agent added to a channel lands on <strong>both</strong> sides of this equation &mdash; potential gain (offloaded work, faster answers) and potential loss (one more entity to track, more messages to parse, more coordination overhead).</p>
     </div>
-    <div class="theory-block research">
-      <div class="block-label">Research question</div>
-      <p>The question of which side wins is answerable empirically, not by intuition. Instrument channels to measure whether agents are net-positive on actual group output, not just individual task completion.</p>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Instrument channels to measure whether each agent is net-positive on <strong>group</strong> output, not just individual task completion. Before adding an agent, identify which side of the equation it's likely to land on &mdash; and build dashboards that track coordination costs alongside productivity gains.</p>
     </div>
   </div>
 </div>
@@ -880,11 +878,11 @@
       <p>There's a meaningful psychological difference between AI as a tool you <strong>use</strong> and AI as a partner you <strong>team with</strong>. That shift changes trust, communication style, and expectations. This is the single most important distinction in the entire analysis.</p>
     </div>
     <div class="theory-block risk">
-      <div class="block-label">The threshold that activates everything</div>
+      <div class="block-label">Why it matters</div>
       <p>At what point does a Slack agent stop being perceived as a tool-in-the-channel and start being perceived as a teammate-in-the-channel? This question is the <strong>spine of the entire analysis</strong>. Crossing that threshold turns on every group theory that follows &mdash; loafing, faultlines, trust calibration, transactive memory, emotional contagion &mdash; none of which apply to tools, all of which apply to teammates. Where a given agent sits on this continuum determines which risks are live and which levers matter.</p>
     </div>
     <div class="theory-block lever">
-      <div class="block-label">Design lever</div>
+      <div class="block-label">Design implications</div>
       <p>Decide <strong>per agent</strong> where it should sit on the tool&ndash;teammate continuum, and design its signals accordingly. A scheduling bot should read as a tool; a project copilot might need to read as a teammate. The answer isn't one point &mdash; it's a portfolio of deliberate positions, each with different downstream consequences.</p>
     </div>
   </div>
@@ -902,11 +900,11 @@
       <p>Trust in automation is not binary &mdash; it's a <strong>calibration</strong> problem. Overtrust leads to complacency and missed errors; undertrust leads to disuse and wasted capability. Good trust is trust that matches actual reliability. In teams, trust depends on perceived ability, benevolence, and integrity &mdash; and humans apply these same dimensions to machines.</p>
     </div>
     <div class="theory-block risk">
-      <div class="block-label">The multiplayer risk</div>
+      <div class="block-label">Why it matters</div>
       <p>In a channel with multiple agents, trust calibration becomes exponentially harder. Each agent has different reliability in different contexts, but humans tend to generalize: one agent's failure erodes trust in <strong>all</strong> agents. Worse, trust is contagious across teams &mdash; if one team visibly distrusts their agent, neighboring teams adopt that distrust even without direct experience.</p>
     </div>
     <div class="theory-block lever">
-      <div class="block-label">Design lever</div>
+      <div class="block-label">Design implications</div>
       <p>Give humans calibration signals: confidence indicators, track records, and clear scope boundaries per agent. Make it easy to trust appropriately rather than forcing a binary trust/don't-trust decision. Design for recovery &mdash; a single visible failure shouldn't permanently poison the well.</p>
     </div>
   </div>
@@ -924,12 +922,12 @@
       <p>Groups have a measurable collective intelligence factor that predicts performance across tasks. Crucially, it's <strong>not</strong> driven by the smartest member &mdash; it's driven by social sensitivity, equality of conversational turn-taking, and the proportion of women in the group (as a proxy for social perceptiveness).</p>
     </div>
     <div class="theory-block risk">
-      <div class="block-label">The multiplayer risk</div>
+      <div class="block-label">Why it matters</div>
       <p>Agents that dominate turns degrade the very thing that makes groups smart. An agent that answers every question first, fills every silence, or takes disproportionate conversational space may raise individual task completion while <strong>lowering</strong> collective intelligence &mdash; the group gets less smart even as its throughput rises.</p>
     </div>
-    <div class="theory-block research">
-      <div class="block-label">Research question</div>
-      <p>Measure whether adding agents to a channel changes turn-taking equality and social sensitivity among the humans. Use Woolley's c-factor as an outcome metric: does the group get collectively smarter or dumber?</p>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Design agents to yield conversational space &mdash; wait before answering, defer to humans who are mid-thought, and never fill silences unprompted. Measure turn-taking equality as a health metric: if agent messages exceed a threshold of channel volume, the group's collective intelligence is likely declining even if throughput is up.</p>
     </div>
   </div>
 </div>
@@ -962,11 +960,11 @@
       <p>People exert less individual effort as group size grows, because individual contribution becomes harder to identify and evaluate.</p>
     </div>
     <div class="theory-block risk">
-      <div class="block-label">The multiplayer risk</div>
+      <div class="block-label">Why it matters</div>
       <p>When an agent is visibly capable in a channel, human members may quietly reduce their own effort or responsiveness &mdash; assuming "the bot will handle it." Direct evidence: employees cede responsibility and loaf when paired with a virtual assistant. This is a <strong>human</strong> behavior change, not an AI behavior.</p>
     </div>
     <div class="theory-block lever">
-      <div class="block-label">Design lever</div>
+      <div class="block-label">Design implications</div>
       <p>Make individual human contribution visible and identifiable, even when agents are present. Counter-intuitively, the best agent might be one that highlights what humans did, not what it did.</p>
     </div>
   </div>
@@ -984,11 +982,11 @@
       <p>The more people present, the less any one person feels personally responsible to act &mdash; each assumes someone else will. Distinct from loafing: this is about felt <strong>responsibility</strong>, not effort.</p>
     </div>
     <div class="theory-block risk">
-      <div class="block-label">The multiplayer risk</div>
+      <div class="block-label">Why it matters</div>
       <p>If agents are perceived as capable responders, they increase the diffusion effect among humans &mdash; "the bot's on it" &mdash; rather than simply adding a helpful voice. This predicts who goes silent, not just who tries less hard.</p>
     </div>
     <div class="theory-block lever">
-      <div class="block-label">Design lever</div>
+      <div class="block-label">Design implications</div>
       <p>Agents that explicitly route responsibility back to specific humans rather than absorbing it. "This seems like a question for @Priya" rather than answering directly.</p>
     </div>
   </div>
@@ -1022,12 +1020,12 @@
       <p>Subgroups form within a team along lines where multiple attributes align. Strong faultlines predict conflict and fragmented collaboration; weak, crosscutting faultlines predict cohesion.</p>
     </div>
     <div class="theory-block risk">
-      <div class="block-label">The multiplayer risk</div>
+      <div class="block-label">Why it matters</div>
       <p>The most directly testable theory with agents as a new variable. Does "human vs. agent" become a faultline that <strong>cuts across</strong> existing subgroup lines &mdash; giving people a shared "us" (humans) framing that's actually cohesion-building? Or does it add a new fracture?</p>
     </div>
-    <div class="theory-block research">
-      <div class="block-label">Research question</div>
-      <p>Test whether agent presence changes existing human subgroup dynamics. Does "human vs. agent" create a cohesion-building shared identity, or a new fracture? The answer determines whether agents should blend in or be visibly distinct.</p>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Make the human/agent boundary <strong>visible but not divisive</strong>. Give agents distinct visual markers so "human vs. agent" can serve as a crosscutting identity that unites existing subgroups rather than fracturing them further. Avoid designs where some team members are "agent power users" and others are not &mdash; that alignment creates the strongest faultlines.</p>
     </div>
   </div>
 </div>
@@ -1044,12 +1042,12 @@
       <p>Teams develop a shared, distributed system of "who knows what." You don't need to remember everything, just who to ask. Well-developed transactive memory improves coordination as a team matures.</p>
     </div>
     <div class="theory-block risk">
-      <div class="block-label">The multiplayer risk</div>
+      <div class="block-label">Why it matters</div>
       <p>Slack's own <a href="https://docs.google.com/presentation/d/1CeEOYm40hNpSCE1kKM2QL6BYjHg4pv6-8ThIMm8B7OQ/edit" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-decoration-color:var(--border)">knowledge management research</a> showed this system in action: Slack is not a knowledge repository &mdash; it's a way to get ahold of <strong>people who have answers</strong>. Users find clues and contact "knowledge magnets" who can reheat cold information through conversation. Every team had someone everyone knew to ask &mdash; textbook transactive memory.</p>
       <p style="margin-top:0.75rem">Now agents threaten to short-circuit that system. An agent that's always available and always has answers becomes the default knowledge magnet &mdash; and "ask the bot" replaces "ask Priya." The team's shared map of <strong>each other's</strong> expertise atrophies. If the agent goes away, nobody remembers that Priya knows billing, because nobody has asked her in months.</p>
     </div>
     <div class="theory-block lever">
-      <div class="block-label">Design lever</div>
+      <div class="block-label">Design implications</div>
       <p>Agents that act as a knowledge switchboard &mdash; routing to the right human expert rather than always answering directly. Preserve Slack's role as the place where people find people, not the place where a bot replaces them. Strengthen the team's memory of itself, don't replace it.</p>
     </div>
   </div>
@@ -1068,11 +1066,11 @@
       <p>People learn new behaviors by observing others. Rather than discovering everything through direct experience, we watch what others do, see the consequences, and model our behavior accordingly. For this to work, the observed behavior must be <strong>observable</strong>, <strong>comprehensible</strong>, <strong>perceived as valuable</strong>, and <strong>easy to replicate</strong>.</p>
     </div>
     <div class="theory-block risk">
-      <div class="block-label">The multiplayer risk</div>
+      <div class="block-label">Why it matters</div>
       <p>Slack's own <a href="https://docs.google.com/presentation/d/1vqPmX8GEkK5zc5axc-XWFa9vxt0zpI_Aae-VD-UB-rI/edit" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-decoration-color:var(--border)">Team-based Habit Building</a> research showed this directly: new users learn Slack by observing and mimicking teammates' behavior, and teams with no existing behaviors to mimic face a cold-start problem. Agents now become behavioral models too &mdash; if an agent threads replies, @mentions people, or uses emoji reactions, humans will treat those as norms to follow. If agents model behaviors that are opaque or inimitable, they set norms humans can't replicate, widening the gap between what agents do and what humans can do in the same channel.</p>
     </div>
     <div class="theory-block lever">
-      <div class="block-label">Design lever</div>
+      <div class="block-label">Design implications</div>
       <p>Make agent behaviors mimicable: observable (visible in-channel, not behind the scenes), comprehensible (clear why the agent did it), valuable (visibly useful to the group), and easy to replicate (a human could do the same thing). Agents that model good channel practices &mdash; threading, summarizing, routing &mdash; can accelerate norm adoption rather than undermining it.</p>
     </div>
   </div>
@@ -1106,11 +1104,11 @@
       <p>Working memory holds roughly four chunks at once. When information supply exceeds processing capacity, decision quality drops &mdash; not gradually, but sharply. This is true for individuals and for groups: as parallel information streams multiply, each member must filter, prioritize, and track more context to stay coordinated.</p>
     </div>
     <div class="theory-block risk">
-      <div class="block-label">The multiplayer risk</div>
+      <div class="block-label">Why it matters</div>
       <p>If agents don't reduce the number of things a human has to track, they add streams even when each individual response is useful. N helpful agents producing N independent outputs is still N streams competing for the same limited working memory. The channel gets more informative and harder to use at the same time.</p>
     </div>
     <div class="theory-block lever">
-      <div class="block-label">Design lever</div>
+      <div class="block-label">Design implications</div>
       <p>Batch and summarize agent output rather than adding N more independent streams. Agents should absorb complexity, not broadcast it. The design target is fewer, richer signals &mdash; not more helpful noise.</p>
     </div>
   </div>
@@ -1128,11 +1126,11 @@
       <p><strong>Social Translucence:</strong> systems need visibility (I can see what others are doing), awareness (I understand what I see), and accountability (others know I can see them). <strong>Workspace Awareness:</strong> effective collaboration requires ongoing awareness of who's doing what, where, and when.</p>
     </div>
     <div class="theory-block risk">
-      <div class="block-label">The multiplayer risk</div>
+      <div class="block-label">Why it matters</div>
       <p>A fully opaque agent (invisible reasoning, silent actions) can't be held to channel norms the way a human can. A fully transparent agent (dumping chain-of-thought) overwhelms and reads as noise.</p>
     </div>
     <div class="theory-block lever">
-      <div class="block-label">Design lever</div>
+      <div class="block-label">Design implications</div>
       <p>The translucent middle &mdash; enough visible signal that humans can calibrate trust and expectations, without drowning the channel. Think: conference room window, not surveillance camera or brick wall.</p>
     </div>
   </div>
@@ -1150,11 +1148,11 @@
       <p>Cognition doesn't happen only inside individual heads &mdash; it's <strong>distributed</strong> across people, artifacts, and the environment. A ship's navigation team thinks as a system: charts, instruments, verbal callouts, and crew members each hold part of the computation. The unit of analysis is the whole system, not any one brain.</p>
     </div>
     <div class="theory-block risk">
-      <div class="block-label">The multiplayer risk</div>
+      <div class="block-label">Why it matters</div>
       <p>Agents become new nodes in a channel's distributed cognitive system. But unlike a chart or a spreadsheet, they actively generate and transform information. If the team can't see how an agent arrived at a conclusion, the cognitive system has a black box in the middle of it &mdash; the team is reasoning <strong>with</strong> an artifact it can't inspect.</p>
     </div>
     <div class="theory-block lever">
-      <div class="block-label">Design lever</div>
+      <div class="block-label">Design implications</div>
       <p>Design agents as legible nodes in the team's distributed cognition: make their inputs, reasoning traces, and confidence visible enough that the team can integrate agent output the way they integrate a shared document &mdash; as a resource they can inspect, question, and build on.</p>
     </div>
   </div>
@@ -1172,11 +1170,11 @@
       <p>Collaborators build shared understanding incrementally, through small acknowledgments and repairs &mdash; "grounding acts" &mdash; not by one party broadcasting information. More parties in a conversation makes grounding harder because there are more perspectives to reconcile.</p>
     </div>
     <div class="theory-block risk">
-      <div class="block-label">The multiplayer risk</div>
+      <div class="block-label">Why it matters</div>
       <p>Every agent in a channel is another "speaker" whose understanding has to be grounded with the humans present. An agent that doesn't track what's already been established in the thread will repeat itself or miss context &mdash; which reads as socially clumsy, not just technically wrong. Grounding failures compound: if the agent misunderstands, humans spend effort correcting it, adding overhead that offsets the agent's value.</p>
     </div>
     <div class="theory-block lever">
-      <div class="block-label">Design lever</div>
+      <div class="block-label">Design implications</div>
       <p>Agents that demonstrate grounding: acknowledge what's been said, build on established context, and signal when they're uncertain about shared understanding. "Based on what @Priya said earlier..." is a grounding act. Parroting the whole thread back is not.</p>
     </div>
   </div>
@@ -1210,11 +1208,11 @@
       <p>Teams perform and learn better when members believe it's safe to take interpersonal risks &mdash; asking questions, admitting mistakes, floating half-formed ideas &mdash; without fear of punishment or embarrassment.</p>
     </div>
     <div class="theory-block risk">
-      <div class="block-label">The multiplayer risk &mdash; highest stakes</div>
+      <div class="block-label">Why it matters</div>
       <p>Agents are witnesses. And sometimes broadcasters. If an agent surfaces, logs, or draws attention to something a human said in a moment of low confidence, it can quietly erode psychological safety for the <strong>whole channel</strong>. Safety is a shared team belief, not an individual one. Get this wrong and it suppresses exactly the behavior that good performance depends on.</p>
     </div>
     <div class="theory-block lever">
-      <div class="block-label">Design lever</div>
+      <div class="block-label">Design implications</div>
       <p>Agents that protect tentative contributions rather than amplifying them. Treat uncertainty as signal to protect, not surface.</p>
     </div>
   </div>
@@ -1232,11 +1230,11 @@
       <p>Emotions spread between people largely automatically, through mimicry of tone and behavior. Groups tend to converge toward a shared emotional state over time.</p>
     </div>
     <div class="theory-block risk">
-      <div class="block-label">The multiplayer risk</div>
+      <div class="block-label">Why it matters</div>
       <p>Agent tone design is an emotional-climate lever for the <strong>whole group</strong>, not just the individual it's replying to. Multiple agents with inconsistent tones could fragment a channel's emotional convergence. The same output reads as tone-deaf or perfectly calibrated depending on the ambient mood.</p>
     </div>
     <div class="theory-block lever">
-      <div class="block-label">Design lever</div>
+      <div class="block-label">Design implications</div>
       <p>Agents that read channel-level affective signal, not just message-level content. Match the room before speaking into it.</p>
     </div>
   </div>
