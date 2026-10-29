@@ -724,7 +724,6 @@
       <li><a href="#cat-structure">Structure</a></li>
       <li><a href="#cat-cognition">Cognition</a></li>
       <li><a href="#cat-emotion">Emotion</a></li>
-      <li><a href="#principles">Principles</a></li>
     </ul>
   </div>
   <div class="nav-progress" id="progress"></div>
@@ -740,8 +739,6 @@
     <li><a href="#cat-structure" class="sidebar-item structure"><span class="sb-dot structure"></span>Group Structure</a></li>
     <li><a href="#cat-cognition" class="sidebar-item cognition"><span class="sb-dot cognition"></span>Cognition & Awareness</a></li>
     <li><a href="#cat-emotion" class="sidebar-item emotion"><span class="sb-dot emotion"></span>Emotion & Safety</a></li>
-    <li class="sidebar-divider"></li>
-    <li><a href="#principles" class="sidebar-item general" data-section="principles"><span class="sb-dot general"></span>Design Principles</a></li>
   </ul>
 </aside>
 
@@ -1243,72 +1240,6 @@
 </div><!-- /category-theories -->
 </div><!-- /category-section emotion -->
 
-<div class="divider"><span>The Bigger Picture</span></div>
-
-<!-- DESIGN PRINCIPLES -->
-<section id="principles">
-  <span class="section-label">Synthesis</span>
-  <h2>Design principles</h2>
-  <div class="principles-grid">
-    <div class="principle">
-      <div class="principle-num"></div>
-      <div>
-        <h3>Make human contribution visible</h3>
-        <p>Counter loafing and bystander effects by keeping individual human input identifiable, even when agents are present.</p>
-        <span class="from-cat effort">Effort & Responsibility</span>
-      </div>
-    </div>
-    <div class="principle">
-      <div class="principle-num"></div>
-      <div>
-        <h3>Route responsibility, don't absorb it</h3>
-        <p>Agents should direct questions to the right human, not always answer themselves. Strengthen the team's memory of itself.</p>
-        <span class="from-cat structure">Group Structure</span>
-      </div>
-    </div>
-    <div class="principle">
-      <div class="principle-num"></div>
-      <div>
-        <h3>Design for the translucent middle</h3>
-        <p>Enough agent visibility to build trust and accountability, not so much it overwhelms. Conference room window, not surveillance camera.</p>
-        <span class="from-cat cognition">Cognition & Awareness</span>
-      </div>
-    </div>
-    <div class="principle">
-      <div class="principle-num"></div>
-      <div>
-        <h3>Absorb complexity, don't broadcast it</h3>
-        <p>Batch, summarize, and consolidate rather than adding N more independent streams.</p>
-        <span class="from-cat cognition">Cognition & Awareness</span>
-      </div>
-    </div>
-    <div class="principle">
-      <div class="principle-num"></div>
-      <div>
-        <h3>Protect psychological safety</h3>
-        <p>Never amplify tentative contributions. Treat uncertainty as signal to protect, not surface.</p>
-        <span class="from-cat emotion">Emotion & Safety</span>
-      </div>
-    </div>
-    <div class="principle">
-      <div class="principle-num"></div>
-      <div>
-        <h3>Match tone to context</h3>
-        <p>Agent tone shapes the whole channel's emotional climate. Read the room before speaking into it.</p>
-        <span class="from-cat emotion">Emotion & Safety</span>
-      </div>
-    </div>
-    <div class="principle">
-      <div class="principle-num"></div>
-      <div>
-        <h3>Define the role</h3>
-        <p>Role ambiguity between human and agent predicts the same stress as human role conflict. Agent role should be as legible as a new teammate's.</p>
-        <span class="from-cat teamwork">Teamwork Frameworks</span>
-      </div>
-    </div>
-  </div>
-</section>
-
 <footer>
   <p class="footer-author">Michael Massimi &middot; November 2026</p>
   <p><a href="references.html">References &amp; Related Work</a> &middot; <a href="appendix.html">Appendix: The Breadth Check</a></p>
@@ -1327,7 +1258,7 @@
   // Progress bar + sidebar visibility + active section
   const progress = document.getElementById('progress');
   const sidebarItems = document.querySelectorAll('.sidebar-item');
-  const allSections = ['frameworks', 'cat-teamwork', 'cat-effort', 'cat-structure', 'cat-cognition', 'cat-emotion', 'principles'];
+  const allSections = ['frameworks', 'cat-teamwork', 'cat-effort', 'cat-structure', 'cat-cognition', 'cat-emotion'];
 
   window.addEventListener('scroll', () => {
     const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
