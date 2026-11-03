@@ -1191,7 +1191,7 @@
     </div>
     <div class="theory-block lever">
       <div class="block-label">Design implications</div>
-      <p>Batch and summarize agent output rather than adding N more independent streams. Agents should absorb complexity, not broadcast it. The design target is fewer, richer signals, not more helpful noise.</p>
+      <p>Batch multiple agent updates into a single daily or per-thread digest rather than posting each one separately. Default agent replies to threads, not the main channel. If two agents would both respond to the same message, coordinate so only one posts and the other contributes behind the scenes.</p>
     </div>
   </div>
 </div>
@@ -1216,7 +1216,7 @@
     </div>
     <div class="theory-block lever">
       <div class="block-label">Design implications</div>
-      <p>The translucent middle: enough visible signal that humans can calibrate trust and expectations, without drowning the channel. Think: conference room window, not surveillance camera or brick wall.</p>
+      <p>Show a one-line status when an agent is working ("reading 14 messages..."), collapse reasoning into an expandable block, and badge agent messages with what inputs they used. Users should be able to see <strong>that</strong> the agent acted and <strong>what it drew on</strong> without wading through a chain-of-thought dump.</p>
     </div>
   </div>
 </div>
@@ -1306,7 +1306,7 @@
     </div>
     <div class="theory-block lever">
       <div class="block-label">Design implications</div>
-      <p>Agents that protect tentative contributions rather than amplifying them. Treat uncertainty as signal to protect, not surface.</p>
+      <p>Never quote or highlight a message someone deleted or edited. Keep agent replies to tentative questions in-thread rather than broadcasting to the channel. When an agent detects hedging language ("I might be wrong, but..."), respond supportively rather than fact-checking in public. If the agent logs activity, let people see and redact their own entries.</p>
     </div>
   </div>
 </div>
@@ -1331,7 +1331,7 @@
     </div>
     <div class="theory-block lever">
       <div class="block-label">Design implications</div>
-      <p>Agents that read channel-level affective signal, not just message-level content. Match the room before speaking into it.</p>
+      <p>Before an agent posts, sample the last N messages for tone: if the channel is tense or frustrated, dial back cheerfulness and hedging. Coordinate tone across multiple agents in the same channel so they don't clash. Test agent voice with real channel transcripts across moods, not just neutral task prompts.</p>
     </div>
   </div>
 </div>
