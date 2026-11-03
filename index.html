@@ -459,16 +459,30 @@
 
   /* --- THEORY GRID & CARDS --- */
   .category-theories {
-    max-width: 800px;
+    max-width: none;
     margin: 0 auto;
     padding: 0 2rem;
   }
 
   .theory {
-    padding: 3rem 0;
+    padding: 2rem 0;
     opacity: 0;
     transform: translateY(40px);
     transition: opacity 0.6s ease, transform 0.6s ease;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 2rem;
+    align-items: start;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .theory:last-child {
+    border-bottom: none;
+  }
+
+  .theory-left {
+    position: sticky;
+    top: 80px;
   }
 
   .theory.visible {
@@ -479,12 +493,12 @@
   .theory-header {
     display: flex;
     align-items: baseline;
-    gap: 1rem;
+    gap: 0.75rem;
     margin-bottom: 0.25rem;
   }
 
   .theory-num {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 800;
     flex-shrink: 0;
     letter-spacing: 0.02em;
@@ -499,13 +513,14 @@
   .theory-num.consensus { color: var(--cat-consensus); }
 
   .theory h2 {
-    font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+    font-size: 1.35rem;
     font-weight: 700;
     letter-spacing: -0.02em;
+    line-height: 1.25;
   }
 
   .theory-hook {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     color: var(--text-secondary);
     font-style: italic;
     margin-bottom: 0.25rem;
@@ -531,22 +546,23 @@
   }
 
   .theory-blocks {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
   }
 
   .theory-block {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 1.5rem 1.75rem;
-    border-left: 3px solid transparent;
+    padding: 1.25rem 1.5rem;
+    border-top: 3px solid transparent;
+    border-left: none;
   }
 
-  .theory-block.idea { border-left-color: #8b5cf6; }
-  .theory-block.risk { border-left-color: #dc2626; }
-  .theory-block.lever { border-left-color: #2563eb; }
+  .theory-block.idea { border-top-color: #8b5cf6; }
+  .theory-block.risk { border-top-color: #dc2626; }
+  .theory-block.lever { border-top-color: #2563eb; }
 
   .block-label {
     font-size: 0.7rem;
@@ -707,19 +723,24 @@
     footer { margin-left: 280px; margin-right: 3rem; max-width: none; }
   }
 
-  @media (min-width: 1200px) {
-    .category-theories {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0 2.5rem;
+  @media (max-width: 900px) {
+    .theory {
+      grid-template-columns: 1fr;
+      gap: 1rem;
     }
-    .category-theories .theory { padding: 2.5rem 0; }
-  }
-
-  @media (min-width: 1800px) {
-    .category-theories {
-      grid-template-columns: repeat(3, 1fr);
+    .theory-left {
+      position: static;
     }
+    .theory-blocks {
+      grid-template-columns: 1fr;
+    }
+    .theory-block {
+      border-top: none;
+      border-left: 3px solid transparent;
+    }
+    .theory-block.idea { border-left-color: #8b5cf6; border-top-color: transparent; }
+    .theory-block.risk { border-left-color: #dc2626; border-top-color: transparent; }
+    .theory-block.lever { border-left-color: #2563eb; border-top-color: transparent; }
   }
 </style>
 </head>
@@ -854,12 +875,14 @@
 
 <div class="category-theories">
 <div class="theory" id="t1">
+  <div class="theory-left">
   <div class="theory-header">
     <span class="theory-num teamwork">01</span>
     <h2>Process Gains & Losses</h2>
   </div>
   <div class="theory-hook">"Are we actually better with three bots in here?"</div>
   <div class="theory-attribution"><a href="https://openlibrary.org/works/OL16277283W" target="_blank" rel="noopener">Steiner, 1972</a></div>
+  </div>
   <div class="theory-blocks">
     <div class="theory-block idea">
       <div class="block-label">The idea</div>
@@ -877,12 +900,14 @@
 </div>
 
 <div class="theory" id="t2">
+  <div class="theory-left">
   <div class="theory-header">
     <span class="theory-num teamwork">02</span>
     <h2>Human-Autonomy Teaming</h2>
   </div>
   <div class="theory-hook">"Wait, is it on the team or not?"</div>
   <div class="theory-attribution"><a href="https://doi.org/10.3389/fpsyg.2021.589585" target="_blank" rel="noopener">Lyons, Sycara, Lewis & Capiola, 2021</a></div>
+  </div>
   <div class="theory-blocks">
     <div class="theory-block idea">
       <div class="block-label">The idea</div>
@@ -900,12 +925,14 @@
 </div>
 
 <div class="theory" id="t3">
+  <div class="theory-left">
   <div class="theory-header">
     <span class="theory-num teamwork">03</span>
     <h2>Trust Calibration</h2>
   </div>
   <div class="theory-hook">"I just trust whatever it says"</div>
   <div class="theory-attribution"><a href="https://doi.org/10.1177/0018720804045547" target="_blank" rel="noopener">Lee & See, 2004</a> · <a href="https://doi.org/10.2307/258792" target="_blank" rel="noopener">Mayer, Davis & Schoorman, 1995</a></div>
+  </div>
   <div class="theory-blocks">
     <div class="theory-block idea">
       <div class="block-label">The idea</div>
@@ -923,12 +950,14 @@
 </div>
 
 <div class="theory" id="t4">
+  <div class="theory-left">
   <div class="theory-header">
     <span class="theory-num teamwork">04</span>
     <h2>Collective Intelligence</h2>
   </div>
   <div class="theory-hook">"We're smarter together... right?"</div>
   <div class="theory-attribution"><a href="https://doi.org/10.1126/science.1193147" target="_blank" rel="noopener">Woolley, Chabris, Pentland, Hashmi & Malone, 2010</a></div>
+  </div>
   <div class="theory-blocks">
     <div class="theory-block idea">
       <div class="block-label">The idea</div>
@@ -961,12 +990,14 @@
 
 <div class="category-theories">
 <div class="theory" id="t5">
+  <div class="theory-left">
   <div class="theory-header">
     <span class="theory-num effort">05</span>
     <h2>Social Loafing</h2>
   </div>
   <div class="theory-hook">"The bot will handle it"</div>
   <div class="theory-attribution"><a href="https://doi.org/10.1037/0022-3514.37.6.822" target="_blank" rel="noopener">Latané, Williams & Harkins, 1979</a></div>
+  </div>
   <div class="theory-blocks">
     <div class="theory-block idea">
       <div class="block-label">The idea</div>
@@ -984,12 +1015,14 @@
 </div>
 
 <div class="theory" id="t6">
+  <div class="theory-left">
   <div class="theory-header">
     <span class="theory-num effort">06</span>
     <h2>The Bystander Effect</h2>
   </div>
   <div class="theory-hook">"I thought someone else would catch that"</div>
   <div class="theory-attribution"><a href="https://openlibrary.org/works/OL6601434W" target="_blank" rel="noopener">Latané & Darley, 1970</a></div>
+  </div>
   <div class="theory-blocks">
     <div class="theory-block idea">
       <div class="block-label">The idea</div>
@@ -1008,12 +1041,14 @@
 
 
 <div class="theory" id="t16">
+  <div class="theory-left">
   <div class="theory-header">
     <span class="theory-num effort">16</span>
     <h2>Social Compensation</h2>
   </div>
   <div class="theory-hook">"I'll cover what the bot missed"</div>
   <div class="theory-attribution"><a href="https://doi.org/10.1037/0022-3514.61.4.570" target="_blank" rel="noopener">Williams & Karau, 1991</a></div>
+  </div>
   <div class="theory-blocks">
     <div class="theory-block idea">
       <div class="block-label">The idea</div>
@@ -1046,12 +1081,14 @@
 
 <div class="category-theories">
 <div class="theory" id="t7">
+  <div class="theory-left">
   <div class="theory-header">
     <span class="theory-num structure">07</span>
     <h2>Faultline Theory</h2>
   </div>
   <div class="theory-hook">"It's the bot people vs. the rest of us"</div>
   <div class="theory-attribution"><a href="https://doi.org/10.2307/259377" target="_blank" rel="noopener">Lau & Murnighan, 1998</a></div>
+  </div>
   <div class="theory-blocks">
     <div class="theory-block idea">
       <div class="block-label">The idea</div>
@@ -1069,12 +1106,14 @@
 </div>
 
 <div class="theory" id="t8">
+  <div class="theory-left">
   <div class="theory-header">
     <span class="theory-num structure">08</span>
     <h2>Transactive Memory</h2>
   </div>
   <div class="theory-hook">"Ask the bot for that"</div>
   <div class="theory-attribution"><a href="https://dtg.sites.fas.harvard.edu/DANWEGNER/pub/Wegner%20Transactive%20Memory.pdf" target="_blank" rel="noopener">Wegner, 1987</a></div>
+  </div>
   <div class="theory-blocks">
     <div class="theory-block idea">
       <div class="block-label">The idea</div>
@@ -1094,12 +1133,14 @@
 
 
 <div class="theory" id="t9">
+  <div class="theory-left">
   <div class="theory-header">
     <span class="theory-num structure">09</span>
     <h2>Social Learning Theory</h2>
   </div>
   <div class="theory-hook">"I just do it the way the bot does"</div>
   <div class="theory-attribution"><a href="https://scholar.google.com/scholar?q=Bandura+%22Social+Learning+Theory%22+1977" target="_blank" rel="noopener">Bandura, 1977</a></div>
+  </div>
   <div class="theory-blocks">
     <div class="theory-block idea">
       <div class="block-label">The idea</div>
@@ -1132,12 +1173,14 @@
 
 <div class="category-theories">
 <div class="theory" id="t10">
+  <div class="theory-left">
   <div class="theory-header">
     <span class="theory-num cognition">10</span>
     <h2>Information Overload</h2>
   </div>
   <div class="theory-hook">"There's too much happening in here"</div>
   <div class="theory-attribution"><a href="https://doi.org/10.1177/2515245920986862" target="_blank" rel="noopener">Cowan, 2001</a> · <a href="https://doi.org/10.1177/0266242604047827" target="_blank" rel="noopener">Eppler & Mengis, 2004</a></div>
+  </div>
   <div class="theory-blocks">
     <div class="theory-block idea">
       <div class="block-label">The idea</div>
@@ -1155,12 +1198,14 @@
 </div>
 
 <div class="theory" id="t11">
+  <div class="theory-left">
   <div class="theory-header">
     <span class="theory-num cognition">11</span>
     <h2>Visibility & Accountability</h2>
   </div>
   <div class="theory-hook">"Who actually did the work?"</div>
   <div class="theory-attribution"><a href="https://doi.org/10.1145/344949.345004" target="_blank" rel="noopener">Erickson & Kellogg, 2000</a> · <a href="https://doi.org/10.1023/a:1021271517844" target="_blank" rel="noopener">Gutwin & Greenberg, 2002</a></div>
+  </div>
   <div class="theory-blocks">
     <div class="theory-block idea">
       <div class="block-label">The idea</div>
@@ -1178,12 +1223,14 @@
 </div>
 
 <div class="theory" id="t12">
+  <div class="theory-left">
   <div class="theory-header">
     <span class="theory-num cognition">12</span>
     <h2>Distributed Cognition</h2>
   </div>
   <div class="theory-hook">"The answer's in the channel somewhere"</div>
   <div class="theory-attribution"><a href="https://scholar.google.com/scholar?q=Hutchins+%22Cognition+in+the+Wild%22+1995" target="_blank" rel="noopener">Hutchins, 1995</a></div>
+  </div>
   <div class="theory-blocks">
     <div class="theory-block idea">
       <div class="block-label">The idea</div>
@@ -1201,12 +1248,14 @@
 </div>
 
 <div class="theory" id="t13">
+  <div class="theory-left">
   <div class="theory-header">
     <span class="theory-num cognition">13</span>
     <h2>Common Ground</h2>
   </div>
   <div class="theory-hook">"Does the bot even know what we agreed on?"</div>
   <div class="theory-attribution"><a href="https://doi.org/10.1037/10096-006" target="_blank" rel="noopener">Clark & Brennan, 1991</a></div>
+  </div>
   <div class="theory-blocks">
     <div class="theory-block idea">
       <div class="block-label">The idea</div>
@@ -1239,12 +1288,14 @@
 
 <div class="category-theories">
 <div class="theory" id="t14">
+  <div class="theory-left">
   <div class="theory-header">
     <span class="theory-num emotion">14</span>
     <h2>Psychological Safety</h2>
   </div>
   <div class="theory-hook">"I don't want to look dumb next to the bot"</div>
   <div class="theory-attribution"><a href="https://doi.org/10.2307/2666999" target="_blank" rel="noopener">Edmondson, 1999</a></div>
+  </div>
   <div class="theory-blocks">
     <div class="theory-block idea">
       <div class="block-label">The idea</div>
@@ -1262,12 +1313,14 @@
 </div>
 
 <div class="theory" id="t15">
+  <div class="theory-left">
   <div class="theory-header">
     <span class="theory-num emotion">15</span>
     <h2>Emotional Contagion</h2>
   </div>
   <div class="theory-hook">"Why is everything so cheerful in here?"</div>
   <div class="theory-attribution"><a href="https://doi.org/10.1111/1467-8721.ep10770953" target="_blank" rel="noopener">Hatfield, Cacioppo & Rapson, 1993</a></div>
+  </div>
   <div class="theory-blocks">
     <div class="theory-block idea">
       <div class="block-label">The idea</div>
@@ -1299,12 +1352,14 @@
 
 <div class="category-theories">
 <div class="theory" id="t17">
+  <div class="theory-left">
   <div class="theory-header">
     <span class="theory-num consensus">17</span>
     <h2>Conformity</h2>
   </div>
   <div class="theory-hook">"If the bot says so, I guess that's right"</div>
   <div class="theory-attribution"><a href="https://doi.org/10.1037/h0040525" target="_blank" rel="noopener">Asch, 1951</a></div>
+  </div>
   <div class="theory-blocks">
     <div class="theory-block idea">
       <div class="block-label">The idea</div>
@@ -1322,12 +1377,14 @@
 </div>
 
 <div class="theory" id="t18">
+  <div class="theory-left">
   <div class="theory-header">
     <span class="theory-num consensus">18</span>
     <h2>Groupthink & Group Polarization</h2>
   </div>
   <div class="theory-hook">"We all agreed, so it must be right"</div>
   <div class="theory-attribution"><a href="https://scholar.google.com/scholar?q=Janis+%22Victims+of+Groupthink%22+1972" target="_blank" rel="noopener">Janis, 1972</a> · <a href="https://doi.org/10.1016/0022-1031(69)90003-1" target="_blank" rel="noopener">Moscovici & Zavalloni, 1969</a></div>
+  </div>
   <div class="theory-blocks">
     <div class="theory-block idea">
       <div class="block-label">The idea</div>
@@ -1345,12 +1402,14 @@
 </div>
 
 <div class="theory" id="t19">
+  <div class="theory-left">
   <div class="theory-header">
     <span class="theory-num consensus">19</span>
     <h2>Pluralistic Ignorance</h2>
   </div>
   <div class="theory-hook">"Am I the only one who thinks this is wrong?"</div>
   <div class="theory-attribution"><a href="https://scholar.google.com/scholar?q=Allport+%22Social+Psychology%22+1924" target="_blank" rel="noopener">Allport, 1924</a> · <a href="https://doi.org/10.1016/S0065-2601(08)60238-5" target="_blank" rel="noopener">Prentice & Miller, 1993</a></div>
+  </div>
   <div class="theory-blocks">
     <div class="theory-block idea">
       <div class="block-label">The idea</div>
@@ -1368,12 +1427,14 @@
 </div>
 
 <div class="theory" id="t20">
+  <div class="theory-left">
   <div class="theory-header">
     <span class="theory-num consensus">20</span>
     <h2>False Consensus Effect</h2>
   </div>
   <div class="theory-hook">"Everyone agrees with me on this, right?"</div>
   <div class="theory-attribution"><a href="https://doi.org/10.1016/0022-1031(77)90049-X" target="_blank" rel="noopener">Ross, Greene & House, 1977</a></div>
+  </div>
   <div class="theory-blocks">
     <div class="theory-block idea">
       <div class="block-label">The idea</div>

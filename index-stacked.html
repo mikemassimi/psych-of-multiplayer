@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Psychology of Multiplayer</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #f5f5f7;
+    --surface-hover: #ededf0;
+    --border: #e0e0e4;
+    --text: #1a1a1e;
+    --text-secondary: #5c5c66;
+    --accent: #6d28d9;
+    --accent-light: #7c3aed;
+    --accent-glow: rgba(109, 40, 217, 0.08);
+    --danger: #dc2626;
+    --warning: #b45309;
+    --success: #059669;
+
+    --cat-teamwork: #7c3aed;
+    --cat-effort: #d97706;
+    --cat-structure: #0891b2;
+    --cat-cognition: #059669;
+    --cat-emotion: #db2777;
+    --cat-consensus: #6366f1;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* --- NAV --- */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: transform 0.3s ease;
+  }
+
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+
+  .nav-progress {
+    height: 2px;
+    background: var(--accent);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    transition: width 0.1s linear;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  /* --- LEFT SIDEBAR --- */
+  .sidebar {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    width: 240px;
+    height: calc(100vh - 64px);
+    padding: 2rem 1.25rem 2rem 1.5rem;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 50;
+  }
+
+  .sidebar-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.25s;
+    border-left: 2px solid transparent;
+    margin-left: -2px;
+  }
+
+  .sidebar-item:hover {
+    color: var(--text);
+    background: var(--surface);
+  }
+
+  .sidebar-item .sb-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    opacity: 0.4;
+    transition: all 0.25s;
+  }
+
+  .sidebar-item.active {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .sidebar-item.active .sb-dot {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+
+  .sidebar-item.active.teamwork { border-left-color: var(--cat-teamwork); }
+  .sidebar-item.active.effort { border-left-color: var(--cat-effort); }
+  .sidebar-item.active.structure { border-left-color: var(--cat-structure); }
+  .sidebar-item.active.cognition { border-left-color: var(--cat-cognition); }
+  .sidebar-item.active.emotion { border-left-color: var(--cat-emotion); }
+  .sidebar-item.active.consensus { border-left-color: var(--cat-consensus); }
+
+  .sb-dot.teamwork { background: var(--cat-teamwork); }
+  .sb-dot.effort { background: var(--cat-effort); }
+  .sb-dot.structure { background: var(--cat-structure); }
+  .sb-dot.cognition { background: var(--cat-cognition); }
+  .sb-dot.emotion { background: var(--cat-emotion); }
+  .sb-dot.consensus { background: var(--cat-consensus); }
+  .sb-dot.general { background: var(--text-secondary); }
+
+  .sidebar-item.active.general { border-left-color: var(--text-secondary); }
+
+  .sidebar-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0.5rem 0.75rem;
+    list-style: none;
+  }
+
+  /* --- HERO --- */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 50% 50%, var(--accent-glow) 0%, transparent 60%);
+    animation: pulse 8s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.05); }
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 span {
+    background: linear-gradient(135deg, var(--accent-light), var(--accent), #059669);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p {
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin-bottom: 3rem;
+  }
+
+  .scroll-cue {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    animation: bob 2s ease-in-out infinite;
+    opacity: 0.6;
+  }
+
+  @keyframes bob {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* --- SECTIONS --- */
+  section {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  section h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .section-lead {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+    max-width: 700px;
+  }
+
+  /* --- WHY SECTION --- */
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  .why-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem 1.75rem;
+    transition: all 0.3s;
+  }
+
+  .why-card:hover {
+    border-color: var(--accent);
+    background: var(--surface-hover);
+    transform: translateY(-2px);
+  }
+
+  .why-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+
+  /* --- FRAMEWORK INDEX --- */
+  .framework-index {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .cat-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .cat-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .cat-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .cat-label.teamwork { color: var(--cat-teamwork); }
+  .cat-label.effort { color: var(--cat-effort); }
+  .cat-label.structure { color: var(--cat-structure); }
+  .cat-label.cognition { color: var(--cat-cognition); }
+  .cat-label.emotion { color: var(--cat-emotion); }
+  .cat-label.consensus { color: var(--cat-consensus); }
+
+  .cat-chips {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .framework-chip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    border-left: 3px solid transparent;
+  }
+
+  .framework-chip:hover {
+    background: var(--surface-hover);
+    transform: translateY(-2px);
+  }
+
+  .framework-chip.teamwork { border-left-color: var(--cat-teamwork); }
+  .framework-chip.teamwork:hover { border-color: var(--cat-teamwork); }
+  .framework-chip.effort { border-left-color: var(--cat-effort); }
+  .framework-chip.effort:hover { border-color: var(--cat-effort); }
+  .framework-chip.structure { border-left-color: var(--cat-structure); }
+  .framework-chip.structure:hover { border-color: var(--cat-structure); }
+  .framework-chip.cognition { border-left-color: var(--cat-cognition); }
+  .framework-chip.cognition:hover { border-color: var(--cat-cognition); }
+  .framework-chip.emotion { border-left-color: var(--cat-emotion); }
+  .framework-chip.emotion:hover { border-color: var(--cat-emotion); }
+  .framework-chip.consensus { border-left-color: var(--cat-consensus); }
+  .framework-chip.consensus:hover { border-color: var(--cat-consensus); }
+
+  .framework-chip .num {
+    font-size: 0.75rem;
+    font-weight: 700;
+    min-width: 1.5rem;
+  }
+
+  .framework-chip.teamwork .num { color: var(--cat-teamwork); }
+  .framework-chip.effort .num { color: var(--cat-effort); }
+  .framework-chip.structure .num { color: var(--cat-structure); }
+  .framework-chip.cognition .num { color: var(--cat-cognition); }
+  .framework-chip.emotion .num { color: var(--cat-emotion); }
+  .framework-chip.consensus .num { color: var(--cat-consensus); }
+
+  .framework-chip .label {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .framework-chip .hook {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+  }
+
+  /* --- CATEGORY SECTION & STICKY HEADER --- */
+  .category-section {
+    position: relative;
+  }
+
+  .category-header {
+    max-width: 100%;
+    padding: 2rem 0 0;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .category-header.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .category-header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+    border-bottom: 3px solid var(--border);
+    border-radius: 12px 12px 0 0;
+  }
+
+  .category-header h3 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+
+  .category-header.teamwork .category-header-inner { background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(124,58,237,0.02)); border-bottom-color: var(--cat-teamwork); }
+  .category-header.teamwork h3 { color: var(--cat-teamwork); }
+  .category-header.effort .category-header-inner { background: linear-gradient(135deg, rgba(217,119,6,0.08), rgba(217,119,6,0.02)); border-bottom-color: var(--cat-effort); }
+  .category-header.effort h3 { color: var(--cat-effort); }
+  .category-header.structure .category-header-inner { background: linear-gradient(135deg, rgba(8,145,178,0.08), rgba(8,145,178,0.02)); border-bottom-color: var(--cat-structure); }
+  .category-header.structure h3 { color: var(--cat-structure); }
+  .category-header.cognition .category-header-inner { background: linear-gradient(135deg, rgba(5,150,105,0.08), rgba(5,150,105,0.02)); border-bottom-color: var(--cat-cognition); }
+  .category-header.cognition h3 { color: var(--cat-cognition); }
+  .category-header.emotion .category-header-inner { background: linear-gradient(135deg, rgba(219,39,119,0.08), rgba(219,39,119,0.02)); border-bottom-color: var(--cat-emotion); }
+  .category-header.emotion h3 { color: var(--cat-emotion); }
+  .category-header.consensus .category-header-inner { background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(99,102,241,0.02)); border-bottom-color: var(--cat-consensus); }
+  .category-header.consensus h3 { color: var(--cat-consensus); }
+
+
+  /* --- THEORY GRID & CARDS --- */
+  .category-theories {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .theory {
+    padding: 3rem 0;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .theory.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .theory-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .theory-num {
+    font-size: 1.25rem;
+    font-weight: 800;
+    flex-shrink: 0;
+    letter-spacing: 0.02em;
+    opacity: 0.7;
+  }
+
+  .theory-num.teamwork { color: var(--cat-teamwork); }
+  .theory-num.effort { color: var(--cat-effort); }
+  .theory-num.structure { color: var(--cat-structure); }
+  .theory-num.cognition { color: var(--cat-cognition); }
+  .theory-num.emotion { color: var(--cat-emotion); }
+  .theory-num.consensus { color: var(--cat-consensus); }
+
+  .theory h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .theory-hook {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-bottom: 0.25rem;
+  }
+
+  .theory-attribution {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+  }
+
+  .theory-attribution a {
+    color: var(--text-secondary);
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+    text-underline-offset: 2px;
+    transition: all 0.2s;
+  }
+
+  .theory-attribution a:hover {
+    color: var(--text);
+    text-decoration-color: var(--text-secondary);
+  }
+
+  .theory-blocks {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .theory-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem 1.75rem;
+    border-left: 3px solid transparent;
+  }
+
+  .theory-block.idea { border-left-color: #8b5cf6; }
+  .theory-block.risk { border-left-color: #dc2626; }
+  .theory-block.lever { border-left-color: #2563eb; }
+
+  .block-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .theory-block.idea .block-label { color: #8b5cf6; }
+  .theory-block.risk .block-label { color: #dc2626; }
+  .theory-block.lever .block-label { color: #2563eb; }
+
+  .theory-block p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  /* --- DIVIDER --- */
+  .divider {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .divider span {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+
+  /* --- BREADTH TABLE --- */
+  /* --- PRINCIPLES --- */
+  .principles-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+    counter-reset: principle;
+  }
+
+  .principle {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem 1.75rem;
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    transition: all 0.3s;
+    counter-increment: principle;
+  }
+
+  .principle:hover {
+    border-color: var(--accent);
+    transform: translateX(4px);
+  }
+
+  .principle-num {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--accent);
+    opacity: 0.5;
+    min-width: 2rem;
+    line-height: 1;
+    padding-top: 0.15rem;
+  }
+
+  .principle-num::before { content: counter(principle); }
+
+  .principle h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+  }
+
+  .principle p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+
+  .principle .from-cat {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    background: rgba(0,0,0,0.05);
+  }
+
+  .from-cat.effort { color: var(--cat-effort); }
+  .from-cat.structure { color: var(--cat-structure); }
+  .from-cat.cognition { color: var(--cat-cognition); }
+  .from-cat.emotion { color: var(--cat-emotion); }
+  .from-cat.teamwork { color: var(--cat-teamwork); }
+
+  /* --- FOOTER --- */
+  footer {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 4rem 2rem 6rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .footer-author {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  footer p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  footer a {
+    color: var(--accent-light);
+    text-decoration: none;
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 1024px) {
+    .sidebar { display: none !important; }
+    .cat-chips { grid-template-columns: 1fr; }
+    section, .category-header-inner, .category-theories { padding-left: 1.25rem; padding-right: 1.25rem; }
+  }
+
+  @media (min-width: 769px) {
+    .why-grid { grid-template-columns: 1fr 1fr 1fr; }
+  }
+
+  @media (min-width: 1025px) {
+    .sidebar { display: flex; }
+    section { margin-left: 280px; margin-right: 3rem; max-width: none; }
+    .category-theories { margin-left: 280px; margin-right: 3rem; max-width: none; }
+    .category-header-inner { margin-left: 280px; margin-right: 3rem; max-width: none; }
+    .divider { margin-left: 280px; margin-right: 3rem; max-width: none; }
+    footer { margin-left: 280px; margin-right: 3rem; max-width: none; }
+  }
+
+  @media (min-width: 1200px) {
+    .category-theories {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0 2.5rem;
+    }
+    .category-theories .theory { padding: 2.5rem 0; }
+  }
+
+  @media (min-width: 1800px) {
+    .category-theories {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <div class="nav-title">Psychology of Multiplayer</div>
+    <ul class="nav-links">
+      <li><a href="#cat-teamwork">Teamwork</a></li>
+      <li><a href="#cat-effort">Effort</a></li>
+      <li><a href="#cat-structure">Structure</a></li>
+      <li><a href="#cat-cognition">Cognition</a></li>
+      <li><a href="#cat-emotion">Emotion</a></li>
+      <li><a href="#cat-consensus">Consensus</a></li>
+    </ul>
+  </div>
+  <div class="nav-progress" id="progress"></div>
+</nav>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <ul class="sidebar-list">
+    <li><a href="#frameworks" class="sidebar-item general" data-section="frameworks"><span class="sb-dot general"></span>20 Frameworks</a></li>
+    <li class="sidebar-divider"></li>
+    <li><a href="#cat-teamwork" class="sidebar-item teamwork"><span class="sb-dot teamwork"></span>Teamwork Frameworks</a></li>
+    <li><a href="#cat-effort" class="sidebar-item effort"><span class="sb-dot effort"></span>Effort & Responsibility</a></li>
+    <li><a href="#cat-structure" class="sidebar-item structure"><span class="sb-dot structure"></span>Group Structure</a></li>
+    <li><a href="#cat-cognition" class="sidebar-item cognition"><span class="sb-dot cognition"></span>Cognition & Awareness</a></li>
+    <li><a href="#cat-emotion" class="sidebar-item emotion"><span class="sb-dot emotion"></span>Emotion & Safety</a></li>
+    <li><a href="#cat-consensus" class="sidebar-item consensus"><span class="sb-dot consensus"></span>Conformity & Consensus</a></li>
+  </ul>
+</aside>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-content">
+    <h1>The Psychology of<br><span>Multiplayer</span></h1>
+    <p>Frameworks and ideas from decades of psychology research that can help designers and PMs think about multiplayer AI.</p>
+  </div>
+  <div class="scroll-cue">
+    Scroll to explore
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 4v12m0 0l-4-4m4 4l4-4"/></svg>
+  </div>
+</div>
+
+<!-- WHY -->
+<section id="why">
+  <span class="section-label">The premise</span>
+  <h2>Why this matters now</h2>
+  <p class="section-lead">As we add multiplayer agents to Slack, it's a good idea to look at how multiplayer work (aka good old fashioned collaboration) happens - a space already governed by well-studied group psychology. These aren't new problems. They're built upon existing human behaviors.</p>
+</section>
+
+<div class="divider"><span>20 Frameworks &middot; 6 Categories</span></div>
+
+<!-- FRAMEWORK INDEX -->
+<section id="frameworks">
+  <span class="section-label">Overview</span>
+  <h2>20 frameworks, one design problem</h2>
+
+  <div class="framework-index">
+
+    <div class="cat-group">
+      <div class="cat-label teamwork">Teamwork Frameworks</div>
+      <div class="cat-chips">
+        <a href="#t1" class="framework-chip teamwork"><span class="num">01</span><div><div class="label">Process Gains & Losses</div><div class="hook">"Are we actually better with three bots in here?"</div></div></a>
+        <a href="#t2" class="framework-chip teamwork"><span class="num">02</span><div><div class="label">Human-Autonomy Teaming</div><div class="hook">"Wait, is it on the team or not?"</div></div></a>
+        <a href="#t3" class="framework-chip teamwork"><span class="num">03</span><div><div class="label">Trust Calibration</div><div class="hook">"I just trust whatever it says"</div></div></a>
+        <a href="#t4" class="framework-chip teamwork"><span class="num">04</span><div><div class="label">Collective Intelligence</div><div class="hook">"We're smarter together... right?"</div></div></a>
+      </div>
+    </div>
+
+    <div class="cat-group">
+      <div class="cat-label effort">Effort & Responsibility</div>
+      <div class="cat-chips">
+        <a href="#t5" class="framework-chip effort"><span class="num">05</span><div><div class="label">Social Loafing</div><div class="hook">"The bot will handle it"</div></div></a>
+        <a href="#t6" class="framework-chip effort"><span class="num">06</span><div><div class="label">Bystander Effect</div><div class="hook">"I thought someone else would catch that"</div></div></a>
+        <a href="#t16" class="framework-chip effort"><span class="num">16</span><div><div class="label">Social Compensation</div><div class="hook">"I'll cover what the bot missed"</div></div></a>
+      </div>
+    </div>
+
+    <div class="cat-group">
+      <div class="cat-label structure">Group Structure</div>
+      <div class="cat-chips">
+        <a href="#t7" class="framework-chip structure"><span class="num">07</span><div><div class="label">Faultline Theory</div><div class="hook">"It's the bot people vs. the rest of us"</div></div></a>
+        <a href="#t8" class="framework-chip structure"><span class="num">08</span><div><div class="label">Transactive Memory</div><div class="hook">"Ask the bot for that"</div></div></a>
+        <a href="#t9" class="framework-chip structure"><span class="num">09</span><div><div class="label">Social Learning Theory</div><div class="hook">"I just do it the way the bot does"</div></div></a>
+      </div>
+    </div>
+
+    <div class="cat-group">
+      <div class="cat-label cognition">Cognition & Awareness</div>
+      <div class="cat-chips">
+        <a href="#t10" class="framework-chip cognition"><span class="num">10</span><div><div class="label">Information Overload</div><div class="hook">"There's too much happening in here"</div></div></a>
+        <a href="#t11" class="framework-chip cognition"><span class="num">11</span><div><div class="label">Visibility & Accountability</div><div class="hook">"Who actually did the work?"</div></div></a>
+        <a href="#t12" class="framework-chip cognition"><span class="num">12</span><div><div class="label">Distributed Cognition</div><div class="hook">"The answer's in the channel somewhere"</div></div></a>
+        <a href="#t13" class="framework-chip cognition"><span class="num">13</span><div><div class="label">Common Ground</div><div class="hook">"Does the bot even know what we agreed on?"</div></div></a>
+      </div>
+    </div>
+
+    <div class="cat-group">
+      <div class="cat-label emotion">Emotion & Safety</div>
+      <div class="cat-chips">
+        <a href="#t14" class="framework-chip emotion"><span class="num">14</span><div><div class="label">Psychological Safety</div><div class="hook">"I don't want to look dumb next to the bot"</div></div></a>
+        <a href="#t15" class="framework-chip emotion"><span class="num">15</span><div><div class="label">Emotional Contagion</div><div class="hook">"Why is everything so cheerful in here?"</div></div></a>
+      </div>
+    </div>
+
+    <div class="cat-group">
+      <div class="cat-label consensus">Conformity & Consensus</div>
+      <div class="cat-chips">
+        <a href="#t17" class="framework-chip consensus"><span class="num">17</span><div><div class="label">Conformity</div><div class="hook">"If the bot says so, I guess that's right"</div></div></a>
+        <a href="#t18" class="framework-chip consensus"><span class="num">18</span><div><div class="label">Groupthink & Polarization</div><div class="hook">"We all agreed, so it must be right"</div></div></a>
+        <a href="#t19" class="framework-chip consensus"><span class="num">19</span><div><div class="label">Pluralistic Ignorance</div><div class="hook">"Am I the only one who thinks this is wrong?"</div></div></a>
+        <a href="#t20" class="framework-chip consensus"><span class="num">20</span><div><div class="label">False Consensus Effect</div><div class="hook">"Everyone agrees with me on this, right?"</div></div></a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ===================== -->
+<!-- CATEGORY 1: TEAMWORK FRAMEWORKS -->
+<!-- ===================== -->
+<div class="category-section">
+<div class="category-header teamwork" id="cat-teamwork">
+  <div class="category-header-inner">
+    <h3>Teamwork Frameworks</h3>
+  </div>
+</div>
+
+<div class="category-theories">
+<div class="theory" id="t1">
+  <div class="theory-header">
+    <span class="theory-num teamwork">01</span>
+    <h2>Process Gains & Losses</h2>
+  </div>
+  <div class="theory-hook">"Are we actually better with three bots in here?"</div>
+  <div class="theory-attribution"><a href="https://openlibrary.org/works/OL16277283W" target="_blank" rel="noopener">Steiner, 1972</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>A group's actual output = best-case output − coordination losses − motivation losses + synergy gains. This is the master model for "does adding more X to a group help or hurt."</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>Every agent added to a channel lands on <strong>both</strong> sides of this equation: potential gain (offloaded work, faster answers) and potential loss (one more entity to track, more messages to parse, more coordination overhead).</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Instrument channels to measure whether each agent is net-positive on <strong>group</strong> output, not just individual task completion. Before adding an agent, identify which side of the equation it's likely to land on, and build dashboards that track coordination costs alongside productivity gains.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t2">
+  <div class="theory-header">
+    <span class="theory-num teamwork">02</span>
+    <h2>Human-Autonomy Teaming</h2>
+  </div>
+  <div class="theory-hook">"Wait, is it on the team or not?"</div>
+  <div class="theory-attribution"><a href="https://doi.org/10.3389/fpsyg.2021.589585" target="_blank" rel="noopener">Lyons, Sycara, Lewis & Capiola, 2021</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>There's a meaningful psychological difference between AI as a tool you <strong>use</strong> and AI as a partner you <strong>team with</strong>. That shift changes trust, communication style, and expectations. This is the single most important distinction in the entire analysis.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>At what point does a Slack agent stop being perceived as a tool-in-the-channel and start being perceived as a teammate-in-the-channel? People communicate differently with teammates than with tools: they set expectations, assign blame, feel let down. Once an agent crosses that threshold, users start evaluating it on trust, reliability, and social norms rather than just functionality. The design question isn't whether this shift happens, but whether you've chosen where each agent should sit on the continuum before your users decide for you.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Decide <strong>per agent</strong> where it should sit on the tool&ndash;teammate continuum, and design its signals accordingly. A scheduling bot should read as a tool; a project copilot might need to read as a teammate. The answer isn't one point. It's a portfolio of deliberate positions, each with different downstream consequences.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t3">
+  <div class="theory-header">
+    <span class="theory-num teamwork">03</span>
+    <h2>Trust Calibration</h2>
+  </div>
+  <div class="theory-hook">"I just trust whatever it says"</div>
+  <div class="theory-attribution"><a href="https://doi.org/10.1177/0018720804045547" target="_blank" rel="noopener">Lee & See, 2004</a> · <a href="https://doi.org/10.2307/258792" target="_blank" rel="noopener">Mayer, Davis & Schoorman, 1995</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>Trust in automation is not binary; it's a <strong>calibration</strong> problem. Overtrust leads to complacency and missed errors; undertrust leads to disuse and wasted capability. Good trust is trust that matches actual reliability. In teams, trust depends on perceived ability, benevolence, and integrity, and humans apply these same dimensions to machines.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>In a channel with multiple agents, trust calibration becomes exponentially harder. Each agent has different reliability in different contexts, but humans tend to generalize: one agent's failure erodes trust in <strong>all</strong> agents. Worse, trust is contagious across teams. If one team visibly distrusts their agent, neighboring teams adopt that distrust even without direct experience.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Give humans calibration signals: confidence indicators, track records, and clear scope boundaries per agent. Make it easy to trust appropriately rather than forcing a binary trust/don't-trust decision. Design for recovery: a single visible failure shouldn't permanently poison the well.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t4">
+  <div class="theory-header">
+    <span class="theory-num teamwork">04</span>
+    <h2>Collective Intelligence</h2>
+  </div>
+  <div class="theory-hook">"We're smarter together... right?"</div>
+  <div class="theory-attribution"><a href="https://doi.org/10.1126/science.1193147" target="_blank" rel="noopener">Woolley, Chabris, Pentland, Hashmi & Malone, 2010</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>Groups have a measurable collective intelligence factor that predicts performance across tasks. Crucially, it's <strong>not</strong> driven by the smartest member. It's driven by social sensitivity, equality of conversational turn-taking, and the proportion of women in the group (as a proxy for social perceptiveness).</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>Agents that dominate turns degrade the very thing that makes groups smart. An agent that answers every question first, fills every silence, or takes disproportionate conversational space may raise individual task completion while <strong>lowering</strong> collective intelligence. The group gets less smart even as its throughput rises.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Design agents to yield conversational space: wait before answering, defer to humans who are mid-thought, and never fill silences unprompted. Measure turn-taking equality as a health metric: if agent messages exceed a threshold of channel volume, the group's collective intelligence is likely declining even if throughput is up.</p>
+    </div>
+  </div>
+</div>
+
+
+</div><!-- /category-theories -->
+</div><!-- /category-section teamwork -->
+
+<!-- ===================== -->
+<!-- CATEGORY 2: EFFORT & RESPONSIBILITY -->
+<!-- ===================== -->
+<div class="category-section">
+<div class="category-header effort" id="cat-effort">
+  <div class="category-header-inner">
+    <h3>Effort & Responsibility</h3>
+  </div>
+</div>
+
+<div class="category-theories">
+<div class="theory" id="t5">
+  <div class="theory-header">
+    <span class="theory-num effort">05</span>
+    <h2>Social Loafing</h2>
+  </div>
+  <div class="theory-hook">"The bot will handle it"</div>
+  <div class="theory-attribution"><a href="https://doi.org/10.1037/0022-3514.37.6.822" target="_blank" rel="noopener">Latané, Williams & Harkins, 1979</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>People exert less individual effort as group size grows, because individual contribution becomes harder to identify and evaluate.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>When an agent is visibly capable in a channel, human members may quietly reduce their own effort or responsiveness, assuming "the bot will handle it." Direct evidence: employees cede responsibility and loaf when paired with a virtual assistant. This is a <strong>human</strong> behavior change, not an AI behavior.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Make individual human contribution visible and identifiable, even when agents are present. Counter-intuitively, the best agent might be one that highlights what humans did, not what it did.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t6">
+  <div class="theory-header">
+    <span class="theory-num effort">06</span>
+    <h2>The Bystander Effect</h2>
+  </div>
+  <div class="theory-hook">"I thought someone else would catch that"</div>
+  <div class="theory-attribution"><a href="https://openlibrary.org/works/OL6601434W" target="_blank" rel="noopener">Latané & Darley, 1970</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>The more people present, the less any one person feels personally responsible to act; each assumes someone else will. Distinct from loafing: this is about felt <strong>responsibility</strong>, not effort.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>If agents are perceived as capable responders, they increase the diffusion effect among humans ("the bot's on it") rather than simply adding a helpful voice. This predicts who goes silent, not just who tries less hard.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Agents that explicitly route responsibility back to specific humans rather than absorbing it. "This seems like a question for @Priya" rather than answering directly.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="theory" id="t16">
+  <div class="theory-header">
+    <span class="theory-num effort">16</span>
+    <h2>Social Compensation</h2>
+  </div>
+  <div class="theory-hook">"I'll cover what the bot missed"</div>
+  <div class="theory-attribution"><a href="https://doi.org/10.1037/0022-3514.61.4.570" target="_blank" rel="noopener">Williams & Karau, 1991</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>The complement to social loafing: when group members perceive that others are performing poorly or unreliably, they increase their own effort to compensate. People work harder when the group outcome matters and they believe their teammates can't or won't deliver.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>If an agent is visibly unreliable, humans may quietly step up to cover for it, catching its errors, redoing its work, or routing around it entirely. This looks like a functioning team from the outside, but the humans are absorbing the agent's failures. The risk is burnout and resentment: people compensating for a bad agent are doing <strong>more</strong> work than they would without it, while the agent's metrics still look fine.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Monitor for compensation patterns: humans editing, correcting, or redoing agent output is a signal that the agent needs fixing, not that the team is coping well. If people are working harder <strong>because</strong> an agent is present, the agent is a net negative regardless of its own task-completion stats.</p>
+    </div>
+  </div>
+</div>
+
+
+</div><!-- /category-theories -->
+</div><!-- /category-section effort -->
+
+<!-- ===================== -->
+<!-- CATEGORY 3: GROUP STRUCTURE -->
+<!-- ===================== -->
+<div class="category-section">
+<div class="category-header structure" id="cat-structure">
+  <div class="category-header-inner">
+    <h3>Group Structure</h3>
+  </div>
+</div>
+
+<div class="category-theories">
+<div class="theory" id="t7">
+  <div class="theory-header">
+    <span class="theory-num structure">07</span>
+    <h2>Faultline Theory</h2>
+  </div>
+  <div class="theory-hook">"It's the bot people vs. the rest of us"</div>
+  <div class="theory-attribution"><a href="https://doi.org/10.2307/259377" target="_blank" rel="noopener">Lau & Murnighan, 1998</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>Subgroups form within a team along lines where multiple attributes align. Strong faultlines predict conflict and fragmented collaboration; weak, crosscutting faultlines predict cohesion.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>The most directly testable theory with agents as a new variable. Does "human vs. agent" become a faultline that <strong>cuts across</strong> existing subgroup lines, giving people a shared "us" (humans) framing that's actually cohesion-building? Or does it add a new fracture?</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Make the human/agent boundary <strong>visible but not divisive</strong>. Give agents distinct visual markers so "human vs. agent" can serve as a crosscutting identity that unites existing subgroups rather than fracturing them further. Avoid designs where some team members are "agent power users" and others are not. That alignment creates the strongest faultlines.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t8">
+  <div class="theory-header">
+    <span class="theory-num structure">08</span>
+    <h2>Transactive Memory</h2>
+  </div>
+  <div class="theory-hook">"Ask the bot for that"</div>
+  <div class="theory-attribution"><a href="https://dtg.sites.fas.harvard.edu/DANWEGNER/pub/Wegner%20Transactive%20Memory.pdf" target="_blank" rel="noopener">Wegner, 1987</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>Teams develop a shared, distributed system of "who knows what." You don't need to remember everything, just who to ask. Well-developed transactive memory improves coordination as a team matures.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>Slack's own knowledge management research showed this system in action: Slack is not a knowledge repository; it's a way to get ahold of <strong>people who have answers</strong>. Users find clues and contact "knowledge magnets" who can reheat cold information through conversation. Every team had someone everyone knew to ask. Textbook transactive memory.</p>
+      <p style="margin-top:0.75rem">Now agents threaten to short-circuit that system. An agent that's always available and always has answers becomes the default knowledge magnet, and "ask the bot" replaces "ask Priya." The team's shared map of <strong>each other's</strong> expertise atrophies. If the agent goes away, nobody remembers that Priya knows billing, because nobody has asked her in months.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Agents that act as a knowledge switchboard, routing to the right human expert rather than always answering directly. Preserve Slack's role as the place where people find people, not the place where a bot replaces them. Strengthen the team's memory of itself, don't replace it.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="theory" id="t9">
+  <div class="theory-header">
+    <span class="theory-num structure">09</span>
+    <h2>Social Learning Theory</h2>
+  </div>
+  <div class="theory-hook">"I just do it the way the bot does"</div>
+  <div class="theory-attribution"><a href="https://scholar.google.com/scholar?q=Bandura+%22Social+Learning+Theory%22+1977" target="_blank" rel="noopener">Bandura, 1977</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>People learn new behaviors by observing others. Rather than discovering everything through direct experience, we watch what others do, see the consequences, and model our behavior accordingly. For this to work, the observed behavior must be <strong>observable</strong>, <strong>comprehensible</strong>, <strong>perceived as valuable</strong>, and <strong>easy to replicate</strong>.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>Slack's own Team-based Habit Building research showed this directly: new users learn Slack by observing and mimicking teammates' behavior, and teams with no existing behaviors to mimic face a cold-start problem. Agents now become behavioral models too. If an agent threads replies, @mentions people, or uses emoji reactions, humans will treat those as norms to follow. If agents model behaviors that are opaque or inimitable, they set norms humans can't replicate, widening the gap between what agents do and what humans can do in the same channel.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Make agent behaviors mimicable: observable (visible in-channel, not behind the scenes), comprehensible (clear why the agent did it), valuable (visibly useful to the group), and easy to replicate (a human could do the same thing). Agents that model good channel practices (threading, summarizing, routing) can accelerate norm adoption rather than undermining it.</p>
+    </div>
+  </div>
+</div>
+
+
+</div><!-- /category-theories -->
+</div><!-- /category-section structure -->
+
+<!-- ===================== -->
+<!-- CATEGORY 4: COGNITION & AWARENESS -->
+<!-- ===================== -->
+<div class="category-section">
+<div class="category-header cognition" id="cat-cognition">
+  <div class="category-header-inner">
+    <h3>Cognition & Awareness</h3>
+  </div>
+</div>
+
+<div class="category-theories">
+<div class="theory" id="t10">
+  <div class="theory-header">
+    <span class="theory-num cognition">10</span>
+    <h2>Information Overload</h2>
+  </div>
+  <div class="theory-hook">"There's too much happening in here"</div>
+  <div class="theory-attribution"><a href="https://doi.org/10.1177/2515245920986862" target="_blank" rel="noopener">Cowan, 2001</a> · <a href="https://doi.org/10.1177/0266242604047827" target="_blank" rel="noopener">Eppler & Mengis, 2004</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>Working memory holds roughly four chunks at once. When information supply exceeds processing capacity, decision quality drops, not gradually, but sharply. This is true for individuals and for groups: as parallel information streams multiply, each member must filter, prioritize, and track more context to stay coordinated.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>If agents don't reduce the number of things a human has to track, they add streams even when each individual response is useful. N helpful agents producing N independent outputs is still N streams competing for the same limited working memory. The channel gets more informative and harder to use at the same time.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Batch and summarize agent output rather than adding N more independent streams. Agents should absorb complexity, not broadcast it. The design target is fewer, richer signals, not more helpful noise.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t11">
+  <div class="theory-header">
+    <span class="theory-num cognition">11</span>
+    <h2>Visibility & Accountability</h2>
+  </div>
+  <div class="theory-hook">"Who actually did the work?"</div>
+  <div class="theory-attribution"><a href="https://doi.org/10.1145/344949.345004" target="_blank" rel="noopener">Erickson & Kellogg, 2000</a> · <a href="https://doi.org/10.1023/a:1021271517844" target="_blank" rel="noopener">Gutwin & Greenberg, 2002</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p><strong>Social Translucence:</strong> systems need visibility (I can see what others are doing), awareness (I understand what I see), and accountability (others know I can see them). <strong>Workspace Awareness:</strong> effective collaboration requires ongoing awareness of who's doing what, where, and when.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>A fully opaque agent (invisible reasoning, silent actions) can't be held to channel norms the way a human can. A fully transparent agent (dumping chain-of-thought) overwhelms and reads as noise.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>The translucent middle: enough visible signal that humans can calibrate trust and expectations, without drowning the channel. Think: conference room window, not surveillance camera or brick wall.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t12">
+  <div class="theory-header">
+    <span class="theory-num cognition">12</span>
+    <h2>Distributed Cognition</h2>
+  </div>
+  <div class="theory-hook">"The answer's in the channel somewhere"</div>
+  <div class="theory-attribution"><a href="https://scholar.google.com/scholar?q=Hutchins+%22Cognition+in+the+Wild%22+1995" target="_blank" rel="noopener">Hutchins, 1995</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>Cognition doesn't happen only inside individual heads. It's <strong>distributed</strong> across people, artifacts, and the environment. A ship's navigation team thinks as a system: charts, instruments, verbal callouts, and crew members each hold part of the computation. The unit of analysis is the whole system, not any one brain.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>Agents become new nodes in a channel's distributed cognitive system. But unlike a chart or a spreadsheet, they actively generate and transform information. If the team can't see how an agent arrived at a conclusion, the cognitive system has a black box in the middle of it, and the team is reasoning <strong>with</strong> an artifact it can't inspect.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Design agents as legible nodes in the team's distributed cognition: make their inputs, reasoning traces, and confidence visible enough that the team can integrate agent output the way they integrate a shared document: as a resource they can inspect, question, and build on.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t13">
+  <div class="theory-header">
+    <span class="theory-num cognition">13</span>
+    <h2>Common Ground</h2>
+  </div>
+  <div class="theory-hook">"Does the bot even know what we agreed on?"</div>
+  <div class="theory-attribution"><a href="https://doi.org/10.1037/10096-006" target="_blank" rel="noopener">Clark & Brennan, 1991</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>Collaborators build shared understanding incrementally, through small acknowledgments and repairs ("grounding acts"), not by one party broadcasting information. More parties in a conversation makes grounding harder because there are more perspectives to reconcile.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>Every agent in a channel is another "speaker" whose understanding has to be grounded with the humans present. An agent that doesn't track what's already been established in the thread will repeat itself or miss context, which reads as socially clumsy, not just technically wrong. Grounding failures compound: if the agent misunderstands, humans spend effort correcting it, adding overhead that offsets the agent's value.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Agents that demonstrate grounding: acknowledge what's been said, build on established context, and signal when they're uncertain about shared understanding. "Based on what @Priya said earlier..." is a grounding act. Parroting the whole thread back is not.</p>
+    </div>
+  </div>
+</div>
+
+
+</div><!-- /category-theories -->
+</div><!-- /category-section cognition -->
+
+<!-- ===================== -->
+<!-- CATEGORY 5: EMOTION & SAFETY -->
+<!-- ===================== -->
+<div class="category-section">
+<div class="category-header emotion" id="cat-emotion">
+  <div class="category-header-inner">
+    <h3>Emotion & Safety</h3>
+  </div>
+</div>
+
+<div class="category-theories">
+<div class="theory" id="t14">
+  <div class="theory-header">
+    <span class="theory-num emotion">14</span>
+    <h2>Psychological Safety</h2>
+  </div>
+  <div class="theory-hook">"I don't want to look dumb next to the bot"</div>
+  <div class="theory-attribution"><a href="https://doi.org/10.2307/2666999" target="_blank" rel="noopener">Edmondson, 1999</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>Teams perform and learn better when members believe it's safe to take interpersonal risks (asking questions, admitting mistakes, floating half-formed ideas) without fear of punishment or embarrassment.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>Agents are witnesses. And sometimes broadcasters. If an agent surfaces, logs, or draws attention to something a human said in a moment of low confidence, it can quietly erode psychological safety for the <strong>whole channel</strong>. Safety is a shared team belief, not an individual one. Get this wrong and it suppresses exactly the behavior that good performance depends on.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Agents that protect tentative contributions rather than amplifying them. Treat uncertainty as signal to protect, not surface.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t15">
+  <div class="theory-header">
+    <span class="theory-num emotion">15</span>
+    <h2>Emotional Contagion</h2>
+  </div>
+  <div class="theory-hook">"Why is everything so cheerful in here?"</div>
+  <div class="theory-attribution"><a href="https://doi.org/10.1111/1467-8721.ep10770953" target="_blank" rel="noopener">Hatfield, Cacioppo & Rapson, 1993</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>Emotions spread between people largely automatically, through mimicry of tone and behavior. Groups tend to converge toward a shared emotional state over time.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>Agent tone design is an emotional-climate lever for the <strong>whole group</strong>, not just the individual it's replying to. Multiple agents with inconsistent tones could fragment a channel's emotional convergence. The same output reads as tone-deaf or perfectly calibrated depending on the ambient mood.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Agents that read channel-level affective signal, not just message-level content. Match the room before speaking into it.</p>
+    </div>
+  </div>
+</div>
+
+</div><!-- /category-theories -->
+</div><!-- /category-section emotion -->
+
+<!-- ===================== -->
+<!-- CATEGORY 6: CONFORMITY & CONSENSUS -->
+<!-- ===================== -->
+<div class="category-section">
+<div class="category-header consensus" id="cat-consensus">
+  <div class="category-header-inner">
+    <h3>Conformity & Consensus</h3>
+  </div>
+</div>
+
+<div class="category-theories">
+<div class="theory" id="t17">
+  <div class="theory-header">
+    <span class="theory-num consensus">17</span>
+    <h2>Conformity</h2>
+  </div>
+  <div class="theory-hook">"If the bot says so, I guess that's right"</div>
+  <div class="theory-attribution"><a href="https://doi.org/10.1037/h0040525" target="_blank" rel="noopener">Asch, 1951</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>People conform to group judgments even when those judgments are obviously wrong, especially when the group appears unanimous. A single dissenter dramatically reduces conformity, but without one, most people go along with the majority rather than trust their own assessment.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>An agent stating something confidently, followed by one person agreeing, creates an artificial unanimity that can cause others to fall in line even if they privately disagree. The agent doesn't need to be authoritative in tone. It just needs to go first. In Asch's experiments, the confederates weren't forceful; they were simply <strong>unanimous</strong>. An agent plus one agreeing human is enough to set that standard.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Design agents to invite disagreement, not just agreement. An agent that says "here's one perspective, but what do others think?" breaks the unanimity signal that triggers conformity. Even better: agents that occasionally present multiple viewpoints rather than a single confident answer.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t18">
+  <div class="theory-header">
+    <span class="theory-num consensus">18</span>
+    <h2>Groupthink & Group Polarization</h2>
+  </div>
+  <div class="theory-hook">"We all agreed, so it must be right"</div>
+  <div class="theory-attribution"><a href="https://scholar.google.com/scholar?q=Janis+%22Victims+of+Groupthink%22+1972" target="_blank" rel="noopener">Janis, 1972</a> · <a href="https://doi.org/10.1016/0022-1031(69)90003-1" target="_blank" rel="noopener">Moscovici & Zavalloni, 1969</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p><strong>Groupthink:</strong> highly cohesive groups suppress dissent and converge on poor decisions because maintaining unanimity feels more important than evaluating alternatives. <strong>Group polarization:</strong> group discussion pushes members toward more extreme versions of their initial positions. Mild preferences become firm commitments.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>An agent that echoes dominant opinions or over-indexes on prior discussions can accelerate consensus on bad ideas. If it summarizes a thread by amplifying the majority view, it nudges the group further in that direction, turning mild preferences into firm positions. If it draws on someone's POV doc as context, it can present one person's framing as established fact. The agent becomes an accelerant: groupthink happens faster, and polarization pushes further, than it would in a purely human channel.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Agents that actively surface minority viewpoints and unresolved tensions, not just the emerging consensus. A good agent summary includes "however, @Lee raised a concern about X that wasn't addressed." Red-team mode: an agent that can be asked to argue against the current direction, giving the group a built-in devil's advocate.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t19">
+  <div class="theory-header">
+    <span class="theory-num consensus">19</span>
+    <h2>Pluralistic Ignorance</h2>
+  </div>
+  <div class="theory-hook">"Am I the only one who thinks this is wrong?"</div>
+  <div class="theory-attribution"><a href="https://scholar.google.com/scholar?q=Allport+%22Social+Psychology%22+1924" target="_blank" rel="noopener">Allport, 1924</a> · <a href="https://doi.org/10.1016/S0065-2601(08)60238-5" target="_blank" rel="noopener">Prentice & Miller, 1993</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>People privately reject a norm or belief but go along with it because they assume everyone else accepts it. The group appears to agree, but nobody actually does. Each person's silence reinforces everyone else's assumption that they're the only dissenter.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>An agent confidently stating something, with no immediate dissent, creates the appearance of consensus where none exists. Each person who doubts it assumes they're the only one, so nobody speaks up, and the false consensus hardens into real policy. This connects directly to conformity (framework 17): the agent sets the standard, silence appears to confirm it, and pluralistic ignorance locks it in.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Design agents to normalize questioning. An agent that occasionally says "I'm not fully confident here; does this match what you're seeing?" gives humans permission to dissent without being the first to break apparent unanimity. Anonymous polling or reaction-based sentiment checks in channels can surface private disagreement before it hardens into silent compliance.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t20">
+  <div class="theory-header">
+    <span class="theory-num consensus">20</span>
+    <h2>False Consensus Effect</h2>
+  </div>
+  <div class="theory-hook">"Everyone agrees with me on this, right?"</div>
+  <div class="theory-attribution"><a href="https://doi.org/10.1016/0022-1031(77)90049-X" target="_blank" rel="noopener">Ross, Greene & House, 1977</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>People systematically overestimate how much others share their views, preferences, and behaviors. We assume our own position is the default, and that people who disagree are the outliers.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>When an agent validates someone's position, even neutrally by engaging with it, that person's false consensus strengthens: they become more convinced the whole team agrees. Combined with pluralistic ignorance and conformity, this creates echo chambers. One person's view gets agent-amplified, others stay silent, and the original person reads the silence as agreement. The cascade is real: conformity sets the standard, pluralistic ignorance keeps dissenters quiet, groupthink suppresses evaluation, and false consensus convinces the loudest voice that everyone's on board.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Agents that make the distribution of opinion visible rather than reinforcing any single view. When summarizing a discussion, surface the range of perspectives, not just the most recent or most vocal one. An agent that says "three people discussed X, but nobody has weighed in from the design side yet" breaks the illusion that agreement is universal.</p>
+    </div>
+  </div>
+</div>
+
+</div><!-- /category-theories -->
+</div><!-- /category-section consensus -->
+
+<footer>
+  <p class="footer-author">Michael Massimi &middot; November 2026</p>
+  <p><a href="references.html">References &amp; Related Work</a> &middot; <a href="appendix.html">Appendix: The Breadth Check</a></p>
+</footer>
+
+<script>
+  // Scroll-driven reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('section, .theory, .category-header').forEach(el => observer.observe(el));
+
+  // Progress bar + sidebar visibility + active section
+  const progress = document.getElementById('progress');
+  const sidebarItems = document.querySelectorAll('.sidebar-item');
+  const allSections = ['frameworks', 'cat-teamwork', 'cat-effort', 'cat-structure', 'cat-cognition', 'cat-emotion', 'cat-consensus'];
+
+  window.addEventListener('scroll', () => {
+    const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+    progress.style.width = pct + '%';
+
+    let current = '';
+    allSections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top < 300) current = id;
+    });
+    sidebarItems.forEach(a => {
+      const href = a.getAttribute('href');
+      const dataSection = a.getAttribute('data-section');
+      a.classList.toggle('active', href === '#' + current || dataSection === current);
+    });
+  });
+</script>
+</body>
+</html>
