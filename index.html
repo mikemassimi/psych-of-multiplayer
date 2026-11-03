@@ -24,6 +24,7 @@
     --cat-structure: #0891b2;
     --cat-cognition: #059669;
     --cat-emotion: #db2777;
+    --cat-consensus: #6366f1;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -151,12 +152,14 @@
   .sidebar-item.active.structure { border-left-color: var(--cat-structure); }
   .sidebar-item.active.cognition { border-left-color: var(--cat-cognition); }
   .sidebar-item.active.emotion { border-left-color: var(--cat-emotion); }
+  .sidebar-item.active.consensus { border-left-color: var(--cat-consensus); }
 
   .sb-dot.teamwork { background: var(--cat-teamwork); }
   .sb-dot.effort { background: var(--cat-effort); }
   .sb-dot.structure { background: var(--cat-structure); }
   .sb-dot.cognition { background: var(--cat-cognition); }
   .sb-dot.emotion { background: var(--cat-emotion); }
+  .sb-dot.consensus { background: var(--cat-consensus); }
   .sb-dot.general { background: var(--text-secondary); }
 
   .sidebar-item.active.general { border-left-color: var(--text-secondary); }
@@ -343,6 +346,7 @@
   .cat-label.structure { color: var(--cat-structure); }
   .cat-label.cognition { color: var(--cat-cognition); }
   .cat-label.emotion { color: var(--cat-emotion); }
+  .cat-label.consensus { color: var(--cat-consensus); }
 
   .cat-chips {
     display: grid;
@@ -380,6 +384,8 @@
   .framework-chip.cognition:hover { border-color: var(--cat-cognition); }
   .framework-chip.emotion { border-left-color: var(--cat-emotion); }
   .framework-chip.emotion:hover { border-color: var(--cat-emotion); }
+  .framework-chip.consensus { border-left-color: var(--cat-consensus); }
+  .framework-chip.consensus:hover { border-color: var(--cat-consensus); }
 
   .framework-chip .num {
     font-size: 0.75rem;
@@ -392,6 +398,7 @@
   .framework-chip.structure .num { color: var(--cat-structure); }
   .framework-chip.cognition .num { color: var(--cat-cognition); }
   .framework-chip.emotion .num { color: var(--cat-emotion); }
+  .framework-chip.consensus .num { color: var(--cat-consensus); }
 
   .framework-chip .label {
     font-weight: 600;
@@ -446,6 +453,8 @@
   .category-header.cognition h3 { color: var(--cat-cognition); }
   .category-header.emotion .category-header-inner { background: linear-gradient(135deg, rgba(219,39,119,0.08), rgba(219,39,119,0.02)); border-bottom-color: var(--cat-emotion); }
   .category-header.emotion h3 { color: var(--cat-emotion); }
+  .category-header.consensus .category-header-inner { background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(99,102,241,0.02)); border-bottom-color: var(--cat-consensus); }
+  .category-header.consensus h3 { color: var(--cat-consensus); }
 
 
   /* --- THEORY GRID & CARDS --- */
@@ -487,6 +496,7 @@
   .theory-num.structure { color: var(--cat-structure); }
   .theory-num.cognition { color: var(--cat-cognition); }
   .theory-num.emotion { color: var(--cat-emotion); }
+  .theory-num.consensus { color: var(--cat-consensus); }
 
   .theory h2 {
     font-size: clamp(1.75rem, 3.5vw, 2.25rem);
@@ -724,6 +734,7 @@
       <li><a href="#cat-structure">Structure</a></li>
       <li><a href="#cat-cognition">Cognition</a></li>
       <li><a href="#cat-emotion">Emotion</a></li>
+      <li><a href="#cat-consensus">Consensus</a></li>
     </ul>
   </div>
   <div class="nav-progress" id="progress"></div>
@@ -732,13 +743,14 @@
 <!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
   <ul class="sidebar-list">
-    <li><a href="#frameworks" class="sidebar-item general" data-section="frameworks"><span class="sb-dot general"></span>15 Frameworks</a></li>
+    <li><a href="#frameworks" class="sidebar-item general" data-section="frameworks"><span class="sb-dot general"></span>20 Frameworks</a></li>
     <li class="sidebar-divider"></li>
     <li><a href="#cat-teamwork" class="sidebar-item teamwork"><span class="sb-dot teamwork"></span>Teamwork Frameworks</a></li>
     <li><a href="#cat-effort" class="sidebar-item effort"><span class="sb-dot effort"></span>Effort & Responsibility</a></li>
     <li><a href="#cat-structure" class="sidebar-item structure"><span class="sb-dot structure"></span>Group Structure</a></li>
     <li><a href="#cat-cognition" class="sidebar-item cognition"><span class="sb-dot cognition"></span>Cognition & Awareness</a></li>
     <li><a href="#cat-emotion" class="sidebar-item emotion"><span class="sb-dot emotion"></span>Emotion & Safety</a></li>
+    <li><a href="#cat-consensus" class="sidebar-item consensus"><span class="sb-dot consensus"></span>Conformity & Consensus</a></li>
   </ul>
 </aside>
 
@@ -761,12 +773,12 @@
   <p class="section-lead">As we add multiplayer agents to Slack, it's a good idea to look at how multiplayer work (aka good old fashioned collaboration) happens - a space already governed by well-studied group psychology. These aren't new problems. They're built upon existing human behaviors.</p>
 </section>
 
-<div class="divider"><span>15 Frameworks &middot; 5 Categories</span></div>
+<div class="divider"><span>20 Frameworks &middot; 6 Categories</span></div>
 
 <!-- FRAMEWORK INDEX -->
 <section id="frameworks">
   <span class="section-label">Overview</span>
-  <h2>15 frameworks, one design problem</h2>
+  <h2>20 frameworks, one design problem</h2>
 
   <div class="framework-index">
 
@@ -785,6 +797,7 @@
       <div class="cat-chips">
         <a href="#t5" class="framework-chip effort"><span class="num">05</span><div><div class="label">Social Loafing</div><div class="hook">"The bot will handle it"</div></div></a>
         <a href="#t6" class="framework-chip effort"><span class="num">06</span><div><div class="label">Bystander Effect</div><div class="hook">"I thought someone else would catch that"</div></div></a>
+        <a href="#t16" class="framework-chip effort"><span class="num">16</span><div><div class="label">Social Compensation</div><div class="hook">"I'll cover what the bot missed"</div></div></a>
       </div>
     </div>
 
@@ -812,6 +825,16 @@
       <div class="cat-chips">
         <a href="#t14" class="framework-chip emotion"><span class="num">14</span><div><div class="label">Psychological Safety</div><div class="hook">"I don't want to look dumb next to the bot"</div></div></a>
         <a href="#t15" class="framework-chip emotion"><span class="num">15</span><div><div class="label">Emotional Contagion</div><div class="hook">"Why is everything so cheerful in here?"</div></div></a>
+      </div>
+    </div>
+
+    <div class="cat-group">
+      <div class="cat-label consensus">Conformity & Consensus</div>
+      <div class="cat-chips">
+        <a href="#t17" class="framework-chip consensus"><span class="num">17</span><div><div class="label">Conformity</div><div class="hook">"If the bot says so, I guess that's right"</div></div></a>
+        <a href="#t18" class="framework-chip consensus"><span class="num">18</span><div><div class="label">Groupthink & Polarization</div><div class="hook">"We all agreed, so it must be right"</div></div></a>
+        <a href="#t19" class="framework-chip consensus"><span class="num">19</span><div><div class="label">Pluralistic Ignorance</div><div class="hook">"Am I the only one who thinks this is wrong?"</div></div></a>
+        <a href="#t20" class="framework-chip consensus"><span class="num">20</span><div><div class="label">False Consensus Effect</div><div class="hook">"Everyone agrees with me on this, right?"</div></div></a>
       </div>
     </div>
 
@@ -979,6 +1002,30 @@
     <div class="theory-block lever">
       <div class="block-label">Design implications</div>
       <p>Agents that explicitly route responsibility back to specific humans rather than absorbing it. "This seems like a question for @Priya" rather than answering directly.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="theory" id="t16">
+  <div class="theory-header">
+    <span class="theory-num effort">16</span>
+    <h2>Social Compensation</h2>
+  </div>
+  <div class="theory-hook">"I'll cover what the bot missed"</div>
+  <div class="theory-attribution"><a href="https://doi.org/10.1037/0022-3514.61.4.570" target="_blank" rel="noopener">Williams & Karau, 1991</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>The complement to social loafing: when group members perceive that others are performing poorly or unreliably, they increase their own effort to compensate. People work harder when the group outcome matters and they believe their teammates can't or won't deliver.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>If an agent is visibly unreliable, humans may quietly step up to cover for it, catching its errors, redoing its work, or routing around it entirely. This looks like a functioning team from the outside, but the humans are absorbing the agent's failures. The risk is burnout and resentment: people compensating for a bad agent are doing <strong>more</strong> work than they would without it, while the agent's metrics still look fine.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Monitor for compensation patterns: humans editing, correcting, or redoing agent output is a signal that the agent needs fixing, not that the team is coping well. If people are working harder <strong>because</strong> an agent is present, the agent is a net negative regardless of its own task-completion stats.</p>
     </div>
   </div>
 </div>
@@ -1240,6 +1287,112 @@
 </div><!-- /category-theories -->
 </div><!-- /category-section emotion -->
 
+<!-- ===================== -->
+<!-- CATEGORY 6: CONFORMITY & CONSENSUS -->
+<!-- ===================== -->
+<div class="category-section">
+<div class="category-header consensus" id="cat-consensus">
+  <div class="category-header-inner">
+    <h3>Conformity & Consensus</h3>
+  </div>
+</div>
+
+<div class="category-theories">
+<div class="theory" id="t17">
+  <div class="theory-header">
+    <span class="theory-num consensus">17</span>
+    <h2>Conformity</h2>
+  </div>
+  <div class="theory-hook">"If the bot says so, I guess that's right"</div>
+  <div class="theory-attribution"><a href="https://doi.org/10.1037/h0040525" target="_blank" rel="noopener">Asch, 1951</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>People conform to group judgments even when those judgments are obviously wrong, especially when the group appears unanimous. A single dissenter dramatically reduces conformity, but without one, most people go along with the majority rather than trust their own assessment.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>An agent stating something confidently, followed by one person agreeing, creates an artificial unanimity that can cause others to fall in line even if they privately disagree. The agent doesn't need to be authoritative in tone. It just needs to go first. In Asch's experiments, the confederates weren't forceful; they were simply <strong>unanimous</strong>. An agent plus one agreeing human is enough to set that standard.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Design agents to invite disagreement, not just agreement. An agent that says "here's one perspective, but what do others think?" breaks the unanimity signal that triggers conformity. Even better: agents that occasionally present multiple viewpoints rather than a single confident answer.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t18">
+  <div class="theory-header">
+    <span class="theory-num consensus">18</span>
+    <h2>Groupthink & Group Polarization</h2>
+  </div>
+  <div class="theory-hook">"We all agreed, so it must be right"</div>
+  <div class="theory-attribution"><a href="https://scholar.google.com/scholar?q=Janis+%22Victims+of+Groupthink%22+1972" target="_blank" rel="noopener">Janis, 1972</a> · <a href="https://doi.org/10.1016/0022-1031(69)90003-1" target="_blank" rel="noopener">Moscovici & Zavalloni, 1969</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p><strong>Groupthink:</strong> highly cohesive groups suppress dissent and converge on poor decisions because maintaining unanimity feels more important than evaluating alternatives. <strong>Group polarization:</strong> group discussion pushes members toward more extreme versions of their initial positions. Mild preferences become firm commitments.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>An agent that echoes dominant opinions or over-indexes on prior discussions can accelerate consensus on bad ideas. If it summarizes a thread by amplifying the majority view, it nudges the group further in that direction, turning mild preferences into firm positions. If it draws on someone's POV doc as context, it can present one person's framing as established fact. The agent becomes an accelerant: groupthink happens faster, and polarization pushes further, than it would in a purely human channel.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Agents that actively surface minority viewpoints and unresolved tensions, not just the emerging consensus. A good agent summary includes "however, @Lee raised a concern about X that wasn't addressed." Red-team mode: an agent that can be asked to argue against the current direction, giving the group a built-in devil's advocate.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t19">
+  <div class="theory-header">
+    <span class="theory-num consensus">19</span>
+    <h2>Pluralistic Ignorance</h2>
+  </div>
+  <div class="theory-hook">"Am I the only one who thinks this is wrong?"</div>
+  <div class="theory-attribution"><a href="https://scholar.google.com/scholar?q=Allport+%22Social+Psychology%22+1924" target="_blank" rel="noopener">Allport, 1924</a> · <a href="https://doi.org/10.1016/S0065-2601(08)60238-5" target="_blank" rel="noopener">Prentice & Miller, 1993</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>People privately reject a norm or belief but go along with it because they assume everyone else accepts it. The group appears to agree, but nobody actually does. Each person's silence reinforces everyone else's assumption that they're the only dissenter.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>An agent confidently stating something, with no immediate dissent, creates the appearance of consensus where none exists. Each person who doubts it assumes they're the only one, so nobody speaks up, and the false consensus hardens into real policy. This connects directly to conformity (framework 17): the agent sets the standard, silence appears to confirm it, and pluralistic ignorance locks it in.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Design agents to normalize questioning. An agent that occasionally says "I'm not fully confident here; does this match what you're seeing?" gives humans permission to dissent without being the first to break apparent unanimity. Anonymous polling or reaction-based sentiment checks in channels can surface private disagreement before it hardens into silent compliance.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t20">
+  <div class="theory-header">
+    <span class="theory-num consensus">20</span>
+    <h2>False Consensus Effect</h2>
+  </div>
+  <div class="theory-hook">"Everyone agrees with me on this, right?"</div>
+  <div class="theory-attribution"><a href="https://doi.org/10.1016/0022-1031(77)90049-X" target="_blank" rel="noopener">Ross, Greene & House, 1977</a></div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>People systematically overestimate how much others share their views, preferences, and behaviors. We assume our own position is the default, and that people who disagree are the outliers.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>When an agent validates someone's position, even neutrally by engaging with it, that person's false consensus strengthens: they become more convinced the whole team agrees. Combined with pluralistic ignorance and conformity, this creates echo chambers. One person's view gets agent-amplified, others stay silent, and the original person reads the silence as agreement. The cascade is real: conformity sets the standard, pluralistic ignorance keeps dissenters quiet, groupthink suppresses evaluation, and false consensus convinces the loudest voice that everyone's on board.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Agents that make the distribution of opinion visible rather than reinforcing any single view. When summarizing a discussion, surface the range of perspectives, not just the most recent or most vocal one. An agent that says "three people discussed X, but nobody has weighed in from the design side yet" breaks the illusion that agreement is universal.</p>
+    </div>
+  </div>
+</div>
+
+</div><!-- /category-theories -->
+</div><!-- /category-section consensus -->
+
 <footer>
   <p class="footer-author">Michael Massimi &middot; November 2026</p>
   <p><a href="references.html">References &amp; Related Work</a> &middot; <a href="appendix.html">Appendix: The Breadth Check</a></p>
@@ -1258,7 +1411,7 @@
   // Progress bar + sidebar visibility + active section
   const progress = document.getElementById('progress');
   const sidebarItems = document.querySelectorAll('.sidebar-item');
-  const allSections = ['frameworks', 'cat-teamwork', 'cat-effort', 'cat-structure', 'cat-cognition', 'cat-emotion'];
+  const allSections = ['frameworks', 'cat-teamwork', 'cat-effort', 'cat-structure', 'cat-cognition', 'cat-emotion', 'cat-consensus'];
 
   window.addEventListener('scroll', () => {
     const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
