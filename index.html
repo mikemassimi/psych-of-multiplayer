@@ -25,6 +25,7 @@
     --cat-cognition: #059669;
     --cat-emotion: #db2777;
     --cat-consensus: #6366f1;
+    --cat-community: #ea580c;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -153,6 +154,7 @@
   .sidebar-item.active.cognition { border-left-color: var(--cat-cognition); }
   .sidebar-item.active.emotion { border-left-color: var(--cat-emotion); }
   .sidebar-item.active.consensus { border-left-color: var(--cat-consensus); }
+  .sidebar-item.active.community { border-left-color: var(--cat-community); }
 
   .sb-dot.teamwork { background: var(--cat-teamwork); }
   .sb-dot.effort { background: var(--cat-effort); }
@@ -160,6 +162,7 @@
   .sb-dot.cognition { background: var(--cat-cognition); }
   .sb-dot.emotion { background: var(--cat-emotion); }
   .sb-dot.consensus { background: var(--cat-consensus); }
+  .sb-dot.community { background: var(--cat-community); }
   .sb-dot.general { background: var(--text-secondary); }
 
   .sidebar-item.active.general { border-left-color: var(--text-secondary); }
@@ -347,6 +350,7 @@
   .cat-label.cognition { color: var(--cat-cognition); }
   .cat-label.emotion { color: var(--cat-emotion); }
   .cat-label.consensus { color: var(--cat-consensus); }
+  .cat-label.community { color: var(--cat-community); }
 
   .cat-chips {
     display: grid;
@@ -386,6 +390,8 @@
   .framework-chip.emotion:hover { border-color: var(--cat-emotion); }
   .framework-chip.consensus { border-left-color: var(--cat-consensus); }
   .framework-chip.consensus:hover { border-color: var(--cat-consensus); }
+  .framework-chip.community { border-left-color: var(--cat-community); }
+  .framework-chip.community:hover { border-color: var(--cat-community); }
 
   .framework-chip .num {
     font-size: 0.75rem;
@@ -399,6 +405,7 @@
   .framework-chip.cognition .num { color: var(--cat-cognition); }
   .framework-chip.emotion .num { color: var(--cat-emotion); }
   .framework-chip.consensus .num { color: var(--cat-consensus); }
+  .framework-chip.community .num { color: var(--cat-community); }
 
   .framework-chip .label {
     font-weight: 600;
@@ -455,6 +462,8 @@
   .category-header.emotion h3 { color: var(--cat-emotion); }
   .category-header.consensus .category-header-inner { background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(99,102,241,0.02)); border-bottom-color: var(--cat-consensus); }
   .category-header.consensus h3 { color: var(--cat-consensus); }
+  .category-header.community .category-header-inner { background: linear-gradient(135deg, rgba(234,88,12,0.08), rgba(234,88,12,0.02)); border-bottom-color: var(--cat-community); }
+  .category-header.community h3 { color: var(--cat-community); }
 
 
   /* --- THEORY GRID & CARDS --- */
@@ -511,6 +520,7 @@
   .theory-num.cognition { color: var(--cat-cognition); }
   .theory-num.emotion { color: var(--cat-emotion); }
   .theory-num.consensus { color: var(--cat-consensus); }
+  .theory-num.community { color: var(--cat-community); }
 
   .theory h2 {
     font-size: 1.35rem;
@@ -756,6 +766,7 @@
       <li><a href="#cat-cognition">Cognition</a></li>
       <li><a href="#cat-emotion">Emotion</a></li>
       <li><a href="#cat-consensus">Consensus</a></li>
+      <li><a href="#cat-community">Community</a></li>
     </ul>
   </div>
   <div class="nav-progress" id="progress"></div>
@@ -764,7 +775,7 @@
 <!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
   <ul class="sidebar-list">
-    <li><a href="#frameworks" class="sidebar-item general" data-section="frameworks"><span class="sb-dot general"></span>20 Frameworks</a></li>
+    <li><a href="#frameworks" class="sidebar-item general" data-section="frameworks"><span class="sb-dot general"></span>24 Frameworks</a></li>
     <li class="sidebar-divider"></li>
     <li><a href="#cat-teamwork" class="sidebar-item teamwork"><span class="sb-dot teamwork"></span>Teamwork Frameworks</a></li>
     <li><a href="#cat-effort" class="sidebar-item effort"><span class="sb-dot effort"></span>Effort & Responsibility</a></li>
@@ -772,6 +783,7 @@
     <li><a href="#cat-cognition" class="sidebar-item cognition"><span class="sb-dot cognition"></span>Cognition & Awareness</a></li>
     <li><a href="#cat-emotion" class="sidebar-item emotion"><span class="sb-dot emotion"></span>Emotion & Safety</a></li>
     <li><a href="#cat-consensus" class="sidebar-item consensus"><span class="sb-dot consensus"></span>Conformity & Consensus</a></li>
+    <li><a href="#cat-community" class="sidebar-item community"><span class="sb-dot community"></span>Community & Context</a></li>
   </ul>
 </aside>
 
@@ -794,12 +806,12 @@
   <p class="section-lead">As we add multiplayer agents to Slack, it's a good idea to look at how multiplayer work (aka good old fashioned collaboration) happens - a space already governed by well-studied group psychology. These aren't new problems. They're built upon existing human behaviors.</p>
 </section>
 
-<div class="divider"><span>20 Frameworks &middot; 6 Categories</span></div>
+<div class="divider"><span>24 Frameworks &middot; 7 Categories</span></div>
 
 <!-- FRAMEWORK INDEX -->
 <section id="frameworks">
   <span class="section-label">Overview</span>
-  <h2>20 frameworks, one design problem</h2>
+  <h2>24 frameworks, one design problem</h2>
 
   <div class="framework-index">
 
@@ -856,6 +868,16 @@
         <a href="#t18" class="framework-chip consensus"><span class="num">18</span><div><div class="label">Groupthink & Polarization</div><div class="hook">"We all agreed, so it must be right"</div></div></a>
         <a href="#t19" class="framework-chip consensus"><span class="num">19</span><div><div class="label">Pluralistic Ignorance</div><div class="hook">"Am I the only one who thinks this is wrong?"</div></div></a>
         <a href="#t20" class="framework-chip consensus"><span class="num">20</span><div><div class="label">False Consensus Effect</div><div class="hook">"Everyone agrees with me on this, right?"</div></div></a>
+      </div>
+    </div>
+
+    <div class="cat-group">
+      <div class="cat-label community">Community & Context</div>
+      <div class="cat-chips">
+        <a href="#t21" class="framework-chip community"><span class="num">21</span><div><div class="label">Communities of Practice</div><div class="hook">"That's not how we do things here"</div></div></a>
+        <a href="#t22" class="framework-chip community"><span class="num">22</span><div><div class="label">Sense of Community</div><div class="hook">"This channel used to feel like ours"</div></div></a>
+        <a href="#t23" class="framework-chip community"><span class="num">23</span><div><div class="label">Plans vs. Situated Actions</div><div class="hook">"The bot followed the playbook, but missed the moment"</div></div></a>
+        <a href="#t24" class="framework-chip community"><span class="num">24</span><div><div class="label">Activity Theory</div><div class="hook">"We changed the tool and everything else shifted"</div></div></a>
       </div>
     </div>
 
@@ -1453,6 +1475,120 @@
 </div><!-- /category-theories -->
 </div><!-- /category-section consensus -->
 
+<!-- ===================== -->
+<!-- CATEGORY 7: COMMUNITY & CONTEXT -->
+<!-- ===================== -->
+<div class="category-section">
+<div class="category-header community" id="cat-community">
+  <div class="category-header-inner">
+    <h3>Community & Context</h3>
+  </div>
+</div>
+
+<div class="category-theories">
+<div class="theory" id="t21">
+  <div class="theory-left">
+  <div class="theory-header">
+    <span class="theory-num community">21</span>
+    <h2>Communities of Practice</h2>
+  </div>
+  <div class="theory-hook">"That's not how we do things here"</div>
+  <div class="theory-attribution"><a href="https://scholar.google.com/scholar?q=Lave+Wenger+%22Situated+Learning%22+1991" target="_blank" rel="noopener">Lave & Wenger, 1991</a></div>
+  </div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>Knowledge lives in communities, not textbooks. Newcomers learn by participating at the edges — watching, imitating, gradually taking on more responsibility. Over time they absorb the community's shared repertoire: its jargon, rituals, unwritten rules, and shortcuts.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>An agent that enters a channel without absorbing its norms is a permanent newcomer. It uses the wrong tone, references the wrong conventions, and surfaces answers that are technically correct but culturally off. Worse, it never learns from the feedback — it stays on the periphery without ever moving inward.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Give agents a ramp-up period where they observe before contributing. Let them learn which topics this channel cares about, what language people use, and which norms are enforced. Surface a "channel context" that agents can reference before responding, built from actual conversation patterns rather than generic training data.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t22">
+  <div class="theory-left">
+  <div class="theory-header">
+    <span class="theory-num community">22</span>
+    <h2>Sense of Community</h2>
+  </div>
+  <div class="theory-hook">"This channel used to feel like ours"</div>
+  <div class="theory-attribution"><a href="https://doi.org/10.1002/1520-6629(198601)14:1%3C6::AID-JCOP2290140103%3E3.0.CO;2-I" target="_blank" rel="noopener">McMillan & Chavis, 1986</a></div>
+  </div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>Sense of community has four parts: membership (who belongs), influence (members matter to the group and vice versa), fulfillment of needs (being in the group is rewarding), and shared emotional connection (a common history and bond). All four have to hold for a community to feel real.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>An always-on agent can erode every dimension. It doesn't share history, so it dilutes emotional connection. It doesn't have needs the group fulfills, so the relationship feels one-directional. If it posts more than anyone else, the channel starts to feel like <strong>its</strong> space, weakening members' sense of ownership and influence.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Treat agent volume as a percentage of total channel activity, not an absolute number. Set guardrails so agents never dominate the conversation. Make it easy for teams to define the agent's role and boundaries — giving the group influence over the agent preserves the reciprocity that community requires.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t23">
+  <div class="theory-left">
+  <div class="theory-header">
+    <span class="theory-num community">23</span>
+    <h2>Plans vs. Situated Actions</h2>
+  </div>
+  <div class="theory-hook">"The bot followed the playbook, but missed the moment"</div>
+  <div class="theory-attribution"><a href="https://scholar.google.com/scholar?q=Suchman+%22Plans+and+Situated+Actions%22+1987" target="_blank" rel="noopener">Suchman, 1987</a></div>
+  </div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>Human action is fundamentally improvised in response to circumstances, not executed from a plan. Plans are resources people consult before and after acting, but in the moment, people read the situation and adapt. The gap between a plan and what actually happens is where skill lives.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>Agents are plan-followers by nature. They execute instructions, follow workflows, run playbooks. But channel conversations are situated — full of ambiguity, half-finished thoughts, and context that only makes sense if you were there. An agent that rigidly follows its script when the conversation has moved on feels tone-deaf.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Build agents that treat their instructions as a starting point, not a script. Give them access to conversational context — what just happened, what the mood is, what people seem to be working toward — so they can adapt their response to the moment rather than defaulting to generic behavior.</p>
+    </div>
+  </div>
+</div>
+
+<div class="theory" id="t24">
+  <div class="theory-left">
+  <div class="theory-header">
+    <span class="theory-num community">24</span>
+    <h2>Activity Theory</h2>
+  </div>
+  <div class="theory-hook">"We changed the tool and everything else shifted"</div>
+  <div class="theory-attribution"><a href="https://scholar.google.com/scholar?q=Engestr%C3%B6m+%22Learning+by+Expanding%22+1987" target="_blank" rel="noopener">Engeström, 1987</a></div>
+  </div>
+  <div class="theory-blocks">
+    <div class="theory-block idea">
+      <div class="block-label">The idea</div>
+      <p>Work is a system with interdependent parts: the people, the tools they use, the rules they follow, the division of labor, and the community they belong to. Change one element and the whole system adjusts. You can't swap in a new tool and expect everything else to stay the same.</p>
+    </div>
+    <div class="theory-block risk">
+      <div class="block-label">Why it matters</div>
+      <p>Adding an agent to a channel isn't just adding a tool — it reshapes who does what, which rules apply, and how the community relates to its own work. Teams that add an agent to handle summaries may find that the person who used to do summaries loses their role, shifting status and expertise in ways nobody planned for.</p>
+    </div>
+    <div class="theory-block lever">
+      <div class="block-label">Design implications</div>
+      <p>Before deploying an agent, map the activity system it's entering: who does what today, what informal roles exist, what rules govern the work. Monitor for second-order effects after deployment — not just "is the agent working" but "what else changed because the agent is here."</p>
+    </div>
+  </div>
+</div>
+
+</div><!-- /category-theories -->
+</div><!-- /category-section community -->
+
 <footer>
   <p class="footer-author">Michael Massimi &middot; November 2026</p>
   <p><a href="references.html">References &amp; Related Work</a> &middot; <a href="appendix.html">Appendix: The Breadth Check</a></p>
@@ -1471,7 +1607,7 @@
   // Progress bar + sidebar visibility + active section
   const progress = document.getElementById('progress');
   const sidebarItems = document.querySelectorAll('.sidebar-item');
-  const allSections = ['frameworks', 'cat-teamwork', 'cat-effort', 'cat-structure', 'cat-cognition', 'cat-emotion', 'cat-consensus'];
+  const allSections = ['frameworks', 'cat-teamwork', 'cat-effort', 'cat-structure', 'cat-cognition', 'cat-emotion', 'cat-consensus', 'cat-community'];
 
   window.addEventListener('scroll', () => {
     const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
